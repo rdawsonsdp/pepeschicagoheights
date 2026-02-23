@@ -21,6 +21,7 @@ export default function CateringProductCard({ product }: CateringProductCardProp
 
   // Variant state
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
+  const [activeSplitOption, setActiveSplitOption] = useState<string | null>(null);
   const [splitValues, setSplitValues] = useState<Record<string, number>>(() => {
     if (product.variants?.selectionMode === 'split') {
       return Object.fromEntries(product.variants.options.map(o => [o.id, 0]));
@@ -216,58 +217,85 @@ export default function CateringProductCard({ product }: CateringProductCardProp
           </div>
         )}
 
-        {/* Variant Selector - Split Mode (quantity cards) */}
+        {/* Variant Selector - Split Mode (collapsible quantity cards) */}
         {hasVariants && isSplitMode && !inCart && (
           <div className="mb-3">
             <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
               {product.variants!.label}
             </p>
-            <div className="space-y-3">
+
+            {/* Filling buttons */}
+            <div className="flex flex-wrap gap-1.5 mb-2">
               {product.variants!.options.map(option => {
                 const currentVal = splitValues[option.id] ?? 0;
-                const otherTotal = Object.entries(splitValues)
-                  .filter(([k]) => k !== option.id)
-                  .reduce((sum, [, v]) => sum + v, 0);
-                const maxForThis = splitTarget - otherTotal;
+                const isActive = activeSplitOption === option.id;
 
                 return (
-                  <div key={option.id}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-bold text-[#1C1C1C]">
-                        {option.label}
-                      </span>
-                      {currentVal > 0 && (
-                        <span className="text-xs font-bold text-[#C8102E]">{currentVal}</span>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {splitQuantityOptions.map(qty => {
-                        const isSelected = currentVal === qty;
-                        const isDisabled = qty > maxForThis;
-                        return (
-                          <button
-                            key={qty}
-                            onClick={() => handleSplitSet(option.id, qty)}
-                            disabled={isDisabled}
-                            className={`min-w-[2.5rem] px-2 py-2 rounded-lg text-xs font-bold transition-all ${
-                              isSelected
-                                ? 'bg-[#1C1C1C] text-white shadow-md scale-105'
-                                : isDisabled
-                                  ? 'bg-gray-100 text-gray-300 cursor-not-allowed'
-                                  : 'bg-white text-gray-700 border border-gray-300 hover:border-[#C8102E] hover:text-[#C8102E] active:scale-95'
-                            }`}
-                          >
-                            {qty}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <button
+                    key={option.id}
+                    onClick={() => setActiveSplitOption(isActive ? null : option.id)}
+                    className={`px-3 py-2 rounded-lg text-xs font-bold transition-all border ${
+                      isActive
+                        ? 'bg-[#1C1C1C] text-white border-[#1C1C1C]'
+                        : currentVal > 0
+                          ? 'bg-[#C8102E] text-white border-[#C8102E]'
+                          : 'bg-[#D4782F]/20 text-[#1C1C1C] border-[#D4782F]/40 hover:border-[#1C1C1C]'
+                    }`}
+                  >
+                    {option.label}{currentVal > 0 ? ` (${currentVal})` : ''}
+                  </button>
                 );
               })}
             </div>
-            <div className={`mt-3 text-xs font-semibold text-center py-1.5 rounded-lg ${
-              splitComplete ? 'bg-green-50 text-green-600' : 'bg-gray-50 text-gray-500'
+
+            {/* Quantity cards - only show for active filling */}
+            {activeSplitOption && (
+              <div className="animate-scale-in">
+                {(() => {
+                  const option = product.variants!.options.find(o => o.id === activeSplitOption)!;
+                  const currentVal = splitValues[option.id] ?? 0;
+                  const otherTotal = Object.entries(splitValues)
+                    .filter(([k]) => k !== option.id)
+                    .reduce((sum, [, v]) => sum + v, 0);
+                  const maxForThis = splitTarget - otherTotal;
+
+                  return (
+                    <div className="p-2 bg-[#1C1C1C]/5 rounded-lg">
+                      <p className="text-[10px] font-semibold text-gray-500 uppercase mb-1.5">
+                        How many {option.label}?
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {splitQuantityOptions.map(qty => {
+                          const isSelected = currentVal === qty;
+                          const isDisabled = qty > maxForThis;
+                          return (
+                            <button
+                              key={qty}
+                              onClick={() => {
+                                handleSplitSet(option.id, qty);
+                              }}
+                              disabled={isDisabled}
+                              className={`min-w-[2.5rem] px-2 py-2 rounded-lg text-xs font-bold transition-all ${
+                                isSelected
+                                  ? 'bg-[#1C1C1C] text-white shadow-md scale-105'
+                                  : isDisabled
+                                    ? 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                                    : 'bg-white text-gray-700 border border-gray-300 hover:border-[#C8102E] hover:text-[#C8102E] active:scale-95'
+                              }`}
+                            >
+                              {qty}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            <div className={`mt-2 text-xs font-semibold text-center py-1.5 rounded-lg ${
+              splitComplete ? 'bg-green-50 text-green-600' : 'bg-[#1C1C1C]/5 text-gray-500'
             }`}>
               Total: {splitTotal}/{splitTarget}
               {splitComplete ? ' \u2713' : ` (${splitRemaining} remaining)`}

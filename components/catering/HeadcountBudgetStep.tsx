@@ -35,7 +35,7 @@ export default function HeadcountBudgetStep() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-white py-12 sm:py-16 scroll-mt-4">
+    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
       <div className="container mx-auto px-4">
         {/* Headcount Section */}
         <div className="text-center mb-12">

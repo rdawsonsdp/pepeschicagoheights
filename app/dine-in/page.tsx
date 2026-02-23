@@ -6,13 +6,13 @@ import { DINE_IN_MENU, DINE_IN_PROMOS, FOOD_SECTIONS, DRINK_SECTIONS, DineInMenu
 
 function MenuItemRow({ name, description, price }: { name: string; description?: string; price?: string }) {
   return (
-    <div className="py-4 border-b border-gray-200 last:border-b-0">
+    <div className="py-4 border-b border-[#f7efd7]/20 last:border-b-0">
       <div className="flex justify-between items-start gap-4">
-        <h4 className="font-oswald text-lg sm:text-xl font-bold text-[#1C1C1C] tracking-wide">
+        <h4 className="font-oswald text-lg sm:text-xl font-bold text-[#f7efd7] tracking-wide">
           {name}
         </h4>
         {price && (
-          <span className="font-oswald text-lg sm:text-xl font-bold text-[#1C1C1C] whitespace-nowrap flex-shrink-0">
+          <span className="font-oswald text-lg sm:text-xl font-bold text-[#f7efd7] whitespace-nowrap flex-shrink-0">
             {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
               ? price
               : `${price}`}
@@ -20,7 +20,7 @@ function MenuItemRow({ name, description, price }: { name: string; description?:
         )}
       </div>
       {description && (
-        <p className="text-gray-600 text-sm sm:text-base mt-1 leading-relaxed">
+        <p className="text-[#f7efd7]/70 text-sm sm:text-base mt-1 leading-relaxed">
           {description}
         </p>
       )}
@@ -33,11 +33,11 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
     <div id={section.id} className="scroll-mt-28 mb-0">
       {/* Gradient Header */}
       <div className="bg-gradient-to-r from-[#8B2500] to-[#D4782F] px-5 sm:px-8 py-6 sm:py-8">
-        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wider">
+        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#f7efd7] tracking-wider">
           {section.title}
         </h3>
         {section.subtitle && (
-          <p className="text-white/90 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
+          <p className="text-[#f7efd7]/80 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
             {section.subtitle}
           </p>
         )}
@@ -57,7 +57,7 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
       )}
 
       {/* Menu Items */}
-      <div className="bg-white px-5 sm:px-8 py-4 sm:py-6">
+      <div className="bg-[#D4782F] px-5 sm:px-8 py-4 sm:py-6">
         {section.items.map((item, idx) => (
           <MenuItemRow key={idx} {...item} />
         ))}
@@ -102,7 +102,7 @@ export default function DineInMenuPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[#D4782F]">
       {/* Hero */}
       <div className="bg-gradient-to-b from-[#8B2500] to-[#5a1800] py-12 sm:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">

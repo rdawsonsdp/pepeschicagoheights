@@ -49,7 +49,7 @@ export default function PackageSelectionStep() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-white py-12 sm:py-16 scroll-mt-4">
+    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">

@@ -13,7 +13,7 @@ const USE_CASES = [
 
 export default function ClientLogos() {
   return (
-    <section className="bg-white py-8 border-b border-gray-100">
+    <section className="bg-[#D4782F] py-8 border-b border-[#c06a25]">
       <div className="container mx-auto px-4">
         <p className="text-center text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Trusted for
