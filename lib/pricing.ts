@@ -151,16 +151,14 @@ export function calculateProductOrder(
     }
 
     case 'per-each': {
-      const minOrder = pricing.minOrder || 1;
-      const quantity = Math.max(minOrder, headcount);
       return {
         product,
-        quantity,
+        quantity: 1,
         unitPrice: pricing.priceEach,
-        totalPrice: pricing.priceEach * quantity,
-        servesMin: quantity,
-        servesMax: quantity,
-        displayText: `${quantity} @ ${formatCurrency(pricing.priceEach)} each`,
+        totalPrice: pricing.priceEach,
+        servesMin: 1,
+        servesMax: 1,
+        displayText: `${formatCurrency(pricing.priceEach)} each`,
         itemQuantity: 1,
       };
     }

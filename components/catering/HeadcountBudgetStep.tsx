@@ -128,9 +128,9 @@ export default function HeadcountBudgetStep() {
           </button>
           <button
             onClick={handleSkipBudget}
-            className="text-gray-500 hover:text-[#1C1C1C] text-sm transition-colors"
+            className="bg-[#D4782F] text-[#1C1C1C] font-oswald font-bold px-10 py-4 rounded-lg hover:bg-[#E8A317] transition-colors text-lg tracking-wide shadow-md"
           >
-            Skip budget selection
+            SKIP BUDGET SELECTION
           </button>
           <button
             onClick={handleBack}

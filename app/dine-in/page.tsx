@@ -1,27 +1,28 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { DINE_IN_MENU, DINE_IN_PROMOS, FOOD_SECTIONS, DRINK_SECTIONS, DineInMenuSection } from '@/lib/dine-in-menu';
 
 function MenuItemRow({ name, description, price }: { name: string; description?: string; price?: string }) {
   return (
-    <div className="flex justify-between items-start gap-4 py-3 border-b border-gray-800/30 last:border-b-0">
-      <div className="flex-1 min-w-0">
-        <h4 className="font-oswald text-white text-base sm:text-lg tracking-wide">
+    <div className="py-4 border-b border-gray-200 last:border-b-0">
+      <div className="flex justify-between items-start gap-4">
+        <h4 className="font-oswald text-lg sm:text-xl font-bold text-[#1C1C1C] tracking-wide">
           {name}
         </h4>
-        {description && (
-          <p className="text-gray-400 text-sm mt-0.5 font-merriweather leading-relaxed">
-            {description}
-          </p>
+        {price && (
+          <span className="font-oswald text-lg sm:text-xl font-bold text-[#1C1C1C] whitespace-nowrap flex-shrink-0">
+            {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
+              ? price
+              : `${price}`}
+          </span>
         )}
       </div>
-      {price && (
-        <span className="font-oswald text-[#E8A317] text-base sm:text-lg whitespace-nowrap flex-shrink-0">
-          {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
-            ? price
-            : `$${price}`}
-        </span>
+      {description && (
+        <p className="text-gray-600 text-sm sm:text-base mt-1 leading-relaxed">
+          {description}
+        </p>
       )}
     </div>
   );
@@ -29,19 +30,34 @@ function MenuItemRow({ name, description, price }: { name: string; description?:
 
 function MenuSection({ section }: { section: DineInMenuSection }) {
   return (
-    <div id={section.id} className="scroll-mt-28 mb-12">
-      <div className="mb-4">
-        <h3 className="font-oswald text-2xl sm:text-3xl text-[#E8A317] tracking-wider">
+    <div id={section.id} className="scroll-mt-28 mb-0">
+      {/* Gradient Header */}
+      <div className="bg-gradient-to-r from-[#8B2500] to-[#D4782F] px-5 sm:px-8 py-6 sm:py-8">
+        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-wider">
           {section.title}
         </h3>
         {section.subtitle && (
-          <p className="text-[#C8102E] text-sm sm:text-base mt-1 font-merriweather italic">
+          <p className="text-white/90 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
             {section.subtitle}
           </p>
         )}
-        <div className="h-px bg-gradient-to-r from-[#E8A317] via-[#E8A317]/40 to-transparent mt-3" />
       </div>
-      <div>
+
+      {/* Section Image */}
+      {section.image && (
+        <div className="relative w-full h-48 sm:h-64 md:h-72">
+          <Image
+            src={section.image}
+            alt={section.title}
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      {/* Menu Items */}
+      <div className="bg-white px-5 sm:px-8 py-4 sm:py-6">
         {section.items.map((item, idx) => (
           <MenuItemRow key={idx} {...item} />
         ))}
@@ -86,9 +102,9 @@ export default function DineInMenuPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1C1C1C]">
+    <div className="min-h-screen bg-gray-100">
       {/* Hero */}
-      <div className="bg-gradient-to-b from-[#8B2500] to-[#1C1C1C] py-12 sm:py-16 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-[#8B2500] to-[#5a1800] py-12 sm:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-r from-[#C8102E] to-transparent" />
         </div>
@@ -97,7 +113,7 @@ export default function DineInMenuPage() {
             <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#E8A317] tracking-wider mb-4">
               DINE-IN MENU
             </h1>
-            <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto font-merriweather">
+            <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
               Authentic Mexican cuisine since 1967. All prices subject to sales tax and change without notice.
             </p>
           </div>
@@ -171,7 +187,7 @@ export default function DineInMenuPage() {
       </div>
 
       {/* Menu Content */}
-      <div className="container mx-auto px-4 py-8 sm:py-12 max-w-3xl">
+      <div className="max-w-3xl mx-auto">
         {currentSections.map((section) => (
           <MenuSection key={section.id} section={section} />
         ))}

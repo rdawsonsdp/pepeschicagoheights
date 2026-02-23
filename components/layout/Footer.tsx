@@ -106,6 +106,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
           <p>&copy; {currentYear} Pepe&apos;s Mexican Restaurant. All rights reserved. All prices subject to sales tax and change without notice.</p>
+          <p className="mt-4 text-xs text-gray-600">
+            Powered by{' '}
+            <a href="https://caterprosoftware.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+              CaterPro
+            </a>
+          </p>
         </div>
       </div>
     </footer>
