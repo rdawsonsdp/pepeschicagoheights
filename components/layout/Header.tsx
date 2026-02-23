@@ -9,6 +9,7 @@ export default function Header() {
 
   const navLinks = [
     { href: '/', label: 'HOME' },
+    { href: '/dine-in', label: 'DINE-IN MENU' },
     { href: '/menus', label: 'CATERING MENU' },
     { href: '/products', label: 'ORDER NOW' },
   ];
@@ -41,10 +42,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="tel:+17087553555"
+              href="tel:+17087482400"
               className="font-oswald text-sm xl:text-base tracking-wide text-[#E8A317] hover:text-white transition-colors"
             >
-              (708) 755-3555
+              (708) 748-2400
             </a>
           </nav>
 
@@ -94,10 +95,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="tel:+17087553555"
+              href="tel:+17087482400"
               className="block py-3 font-oswald tracking-wide text-[#E8A317] hover:text-white transition-colors"
             >
-              (708) 755-3555
+              (708) 748-2400
             </a>
           </nav>
         )}

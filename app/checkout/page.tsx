@@ -856,8 +856,8 @@ export default function CheckoutPage() {
               {/* Support */}
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Need Help?</p>
-                <a href="tel:3126008155" className="text-sm text-[#C8102E] hover:text-[#1C1C1C] transition-colors font-semibold">
-                  (312) 600-8155
+                <a href="tel:7087482400" className="text-sm text-[#C8102E] hover:text-[#1C1C1C] transition-colors font-semibold">
+                  (708) 748-2400
                 </a>
                 <p className="text-xs text-gray-400 mt-1">Call, email, or text us anytime</p>
               </div>
