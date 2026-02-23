@@ -8,21 +8,29 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Urban Bistro Brand Colors
-        cream: '#f7efd7',
-        'primary-brown': '#363333',
-        'accent-gold': '#dabb64',
-        'light-brown': '#8B7355',
-        charcoal: '#333333',
+        // Pepe's Mexican Restaurant Brand Colors
+        cream: '#D4782F',
+        'pepe-dark': '#1C1C1C',
+        'pepe-red': '#C8102E',
+        'pepe-green': '#006847',
+        'pepe-gold': '#E8A317',
+        'pepe-teal': '#2D6B5A',
+        'pepe-charcoal': '#2D2926',
+        'pepe-cream': '#D4782F',
         'success-green': '#4CAF50',
         'error-red': '#E53935',
         'muted': '#8B7355',
-        'dark': '#363333',
+        'dark': '#1C1C1C',
       },
       fontFamily: {
-        oswald: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
-        display: ['var(--font-oswald)', 'Oswald', 'sans-serif'],
-        body: ['var(--font-roboto-condensed)', 'Roboto Condensed', 'sans-serif'],
+        heading: ['var(--font-bevan)', 'Bevan', 'cursive'],
+        oswald: ['var(--font-bevan)', 'Bevan', 'cursive'],
+        display: ['var(--font-bevan)', 'Bevan', 'cursive'],
+        body: ['var(--font-lato)', 'Lato', 'sans-serif'],
+        lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
+        crimson: ['var(--font-crimson)', 'Crimson Text', 'serif'],
+        merriweather: ['var(--font-merriweather)', 'Merriweather', 'serif'],
+        dish: ['var(--font-roboto-condensed)', 'Roboto Condensed', 'sans-serif'],
         'roboto-condensed': ['var(--font-roboto-condensed)', 'Roboto Condensed', 'sans-serif'],
       },
       animation: {

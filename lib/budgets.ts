@@ -2,25 +2,25 @@ import { BudgetRange } from './types';
 
 export const BUDGET_RANGES: BudgetRange[] = [
   {
-    id: 'budget-20-25',
-    label: '$20 - $25',
-    min: 20,
-    max: 25,
-    description: 'Quality essentials for your event',
+    id: 'budget-5-10',
+    label: '$5 - $10',
+    min: 5,
+    max: 10,
+    description: 'Appetizers and sides for your group',
   },
   {
-    id: 'budget-25-40',
-    label: '$25 - $40',
-    min: 25,
-    max: 40,
-    description: 'Premium selection with variety',
+    id: 'budget-10-15',
+    label: '$10 - $15',
+    min: 10,
+    max: 15,
+    description: 'Party packages and entree selections',
   },
   {
-    id: 'budget-40-plus',
-    label: '$40+',
-    min: 40,
-    max: 100,
-    description: 'Full-service luxury catering',
+    id: 'budget-15-plus',
+    label: '$15+',
+    min: 15,
+    max: 50,
+    description: 'Full fiesta spread with all the fixings',
   },
 ];
 

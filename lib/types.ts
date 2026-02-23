@@ -1,5 +1,5 @@
 // Event Types
-export type EventType = 'breakfast' | 'lunch' | 'dessert';
+export type EventType = 'appetizers' | 'entrees' | 'sides';
 
 // Pricing Types
 export type PricingType = 'tray' | 'pan' | 'per-person' | 'per-dozen' | 'per-each' | 'per-container';
@@ -63,6 +63,19 @@ export type ProductPricing =
   | PerEachPricing
   | PerContainerPricing;
 
+// Variant types for product options (fillings, flavors, etc.)
+export interface VariantOption {
+  id: string;
+  label: string;
+}
+
+export interface VariantConfig {
+  label: string;              // "Filling", "Flavor", "Dipping Sauce", "Tortilla"
+  options: VariantOption[];
+  selectionMode: 'single' | 'split';
+  splitTotal?: number;        // For split mode: what quantities must sum to
+}
+
 // Budget Range
 export interface BudgetRange {
   id: string;
@@ -85,6 +98,7 @@ export interface CateringProduct {
   variantId?: string;
   slug?: string;
   inventory?: number;
+  variants?: VariantConfig;
 }
 
 // Calculated order item (what the customer actually gets)
@@ -99,12 +113,17 @@ export interface CalculatedOrderItem {
   servesMax: number;
   displayText: string; // e.g., "2 Half Pans - serves 20-30"
   itemQuantity: number; // how many of this product the user ordered (1, 2, 3, etc.)
+  selectedVariant?: string;
+  variantSplit?: Record<string, number>;
+  cartKey?: string;
 }
 
 // Selected item in the cart (simplified for state)
 export interface SelectedCateringItem {
   product: CateringProduct;
   quantity: number;
+  selectedVariant?: string;                 // For single mode: option ID
+  variantSplit?: Record<string, number>;    // For split mode: { beef: 10, chicken: 15 }
 }
 
 // Buyer/Contact information
@@ -161,9 +180,9 @@ export type CateringAction =
   | { type: 'SET_CUSTOM_BUDGET'; payload: number }
   | { type: 'SET_ORDER_TYPE'; payload: OrderType }
   | { type: 'SET_HEADCOUNT'; payload: number }
-  | { type: 'ADD_ITEM'; payload: CateringProduct }
+  | { type: 'ADD_ITEM'; payload: { product: CateringProduct; selectedVariant?: string; variantSplit?: Record<string, number> } }
   | { type: 'REMOVE_ITEM'; payload: string }
-  | { type: 'UPDATE_ITEM_QUANTITY'; payload: { productId: string; quantity: number } }
+  | { type: 'UPDATE_ITEM_QUANTITY'; payload: { cartKey: string; quantity: number } }
   | { type: 'CLEAR_ITEMS' }
   | { type: 'SELECT_PACKAGE'; payload: CateringPackage }
   | { type: 'CLEAR_PACKAGE' }

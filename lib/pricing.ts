@@ -5,6 +5,7 @@ import {
   TraySizeOption,
   PanSizeOption,
 } from './types';
+import { getCartKey } from './cart-utils';
 
 /**
  * Format currency for display
@@ -208,6 +209,9 @@ export function calculateAllOrderItems(
       ...calc,
       itemQuantity: item.quantity,
       totalPrice: calc.totalPrice * item.quantity,
+      selectedVariant: item.selectedVariant,
+      variantSplit: item.variantSplit,
+      cartKey: getCartKey(item),
     };
   });
 }

@@ -1,14 +1,14 @@
 'use client';
 
 const USE_CASES = [
-  'Corporate Events',
+  'Birthday Parties',
   'Office Catering',
   'Wedding Receptions',
-  'Holiday Parties',
-  'Board Meetings',
+  'Holiday Fiestas',
+  'Graduation Parties',
   'Team Lunches',
-  'Company Retreats',
-  'Client Dinners',
+  'Family Reunions',
+  'Corporate Events',
 ];
 
 export default function ClientLogos() {
@@ -22,7 +22,7 @@ export default function ClientLogos() {
           {USE_CASES.map((useCase, index) => (
             <span
               key={index}
-              className="px-4 py-1.5 rounded-full bg-[#f7efd7] text-[#363333] text-xs sm:text-sm font-semibold"
+              className="px-4 py-1.5 rounded-full bg-[#D4782F] text-[#1C1C1C] text-xs sm:text-sm font-semibold"
             >
               {useCase}
             </span>

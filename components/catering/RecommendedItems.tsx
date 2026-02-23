@@ -28,14 +28,14 @@ export default function RecommendedItems() {
   if (recommended.length === 0) return null;
 
   const handleAdd = (product: CateringProduct) => {
-    dispatch({ type: 'ADD_ITEM', payload: product });
+    dispatch({ type: 'ADD_ITEM', payload: { product } });
   };
 
   return (
-    <div className="border-2 border-[#dabb64]/50 rounded-xl p-4 sm:p-6 bg-[#dabb64]/5">
+    <div className="border-2 border-[#C8102E]/50 rounded-xl p-4 sm:p-6 bg-[#C8102E]/5">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-[#dabb64] text-lg">&#9733;</span>
-        <h3 className="font-oswald text-lg font-bold text-[#363333] tracking-wide">
+        <span className="text-[#C8102E] text-lg">&#9733;</span>
+        <h3 className="font-oswald text-lg font-bold text-[#1C1C1C] tracking-wide">
           RECOMMENDED FOR YOUR {getEventTypeName(state.eventType).toUpperCase()}
         </h3>
         <span className="text-xs text-gray-500">
@@ -61,7 +61,7 @@ export default function RecommendedItems() {
                 />
               </div>
               <div className="p-3">
-                <h4 className="font-oswald font-semibold text-[#363333] text-sm line-clamp-1 mb-1">
+                <h4 className="font-oswald font-semibold text-[#1C1C1C] text-sm line-clamp-1 mb-1">
                   {product.title}
                 </h4>
                 <p className="text-xs text-gray-500 mb-2">
@@ -69,7 +69,7 @@ export default function RecommendedItems() {
                 </p>
                 <button
                   onClick={() => handleAdd(product)}
-                  className="w-full text-xs font-semibold bg-[#363333] text-white py-1.5 rounded-lg hover:bg-[#dabb64] hover:text-[#363333] transition-colors"
+                  className="w-full text-xs font-semibold bg-[#1C1C1C] text-white py-1.5 rounded-lg hover:bg-[#C8102E] hover:text-[#1C1C1C] transition-colors"
                 >
                   Add to Order
                 </button>

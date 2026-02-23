@@ -8,7 +8,7 @@ const VALUE_PROPS = [
       </svg>
     ),
     title: 'Plan.',
-    description: 'Tell us about your event — how many people, the date, and any dietary needs. That\'s all we need to build your perfect order.',
+    description: 'Tell us about your event — how many guests, the date, and what you\'re craving. We\'ll help you build the perfect fiesta spread.',
   },
   {
     icon: (
@@ -17,7 +17,7 @@ const VALUE_PROPS = [
       </svg>
     ),
     title: 'Order.',
-    description: 'We\'ll calculate exactly how much food you need based on your headcount. No guessing. No back-and-forth. Just the right amount.',
+    description: 'Choose from our authentic Mexican catering menu — tacos, fajitas, carnitas, and more. We\'ll calculate exactly how much food you need.',
   },
   {
     icon: (
@@ -25,8 +25,8 @@ const VALUE_PROPS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
-    title: 'Enjoy.',
-    description: 'Your food arrives on time, portioned perfectly for your group. Everyone eats. You look like a hero.',
+    title: 'Fiesta!',
+    description: 'Your food arrives on time, fresh and delicious. Everyone eats, everyone\'s happy. That\'s a Pepe\'s party.',
   },
 ];
 
@@ -40,10 +40,10 @@ export default function ValueProposition() {
               key={index}
               className="text-center px-4"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#dabb64]/20 text-[#363333] mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C8102E]/10 text-[#C8102E] mb-4">
                 {prop.icon}
               </div>
-              <h3 className="font-oswald text-xl font-bold text-[#363333] mb-2 tracking-wide">
+              <h3 className="font-oswald text-xl text-[#1C1C1C] mb-2 tracking-wide">
                 {prop.title}
               </h3>
               <p className="text-sm text-gray-600 leading-relaxed">

@@ -47,10 +47,10 @@ export default function OrderTypeStep() {
   ];
 
   return (
-    <div ref={sectionRef} className="bg-[#f7efd7] py-12 sm:py-16 scroll-mt-4">
+    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#363333] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
             HOW WOULD YOU LIKE TO ORDER?
           </h2>
           <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
@@ -72,19 +72,19 @@ export default function OrderTypeStep() {
                   bg-white border-2 rounded-xl p-8 sm:p-10 text-center cursor-pointer
                   transition-all duration-300 hover:scale-105 shadow-md
                   ${state.orderType === option.id
-                    ? 'border-[#363333] bg-[#dabb64]/20'
-                    : 'border-gray-200 hover:border-[#dabb64]'
+                    ? 'border-[#1C1C1C] bg-[#C8102E]/20'
+                    : 'border-gray-200 hover:border-[#C8102E]'
                   }
                 `}
               >
                 <div className="text-6xl sm:text-7xl mb-4">{option.icon}</div>
-                <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333] mb-3 tracking-wide">
+                <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C] mb-3 tracking-wide">
                   {option.title}
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-2">
                   {option.description}
                 </p>
-                <p className="text-xs text-[#dabb64] font-semibold">
+                <p className="text-xs text-[#C8102E] font-semibold">
                   {option.detail}
                 </p>
               </div>
@@ -96,7 +96,7 @@ export default function OrderTypeStep() {
         <div className="mt-10 text-center">
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#363333] transition-colors tracking-wide"
+            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide"
           >
             ← BACK TO GUESTS & BUDGET
           </button>

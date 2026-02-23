@@ -4,27 +4,27 @@ import Card from '@/components/ui/Card';
 
 const TESTIMONIALS = [
   {
-    quote: 'Soul Delivered made our company holiday party unforgettable. The Shrimp & Grits were a huge hit, and the setup was flawless. We\'ll be ordering again for every event.',
+    quote: 'Pepe\'s catered our company party and it was incredible. The fajitas were sizzling and everyone went back for seconds. Best Mexican catering in the area!',
     author: 'Jennifer M.',
-    company: 'Marketing Director, Tech Startup',
+    company: 'Marketing Director',
     rating: 5,
   },
   {
-    quote: 'We needed catering for 150 people with just 3 days notice. Soul Delivered not only delivered on time but the food was absolutely incredible. The mac & cheese alone was worth it.',
+    quote: 'We ordered the Taco Party package for 80 people with just 3 days notice. Everything arrived on time and the food was amazing. The carnitas were unreal.',
     author: 'David R.',
-    company: 'Office Manager, Law Firm',
+    company: 'Office Manager',
     rating: 5,
   },
   {
-    quote: 'As someone who plans corporate events weekly, I\'ve tried every caterer in Chicago. Soul Delivered is our go-to now. Consistent quality, great prices, and they actually answer the phone.',
+    quote: 'We\'ve tried every caterer in Chicago Heights. Pepe\'s is our go-to now for every office event. Consistent quality, great prices, and authentic Mexican food.',
     author: 'Sarah K.',
     company: 'Event Coordinator',
     rating: 5,
   },
   {
-    quote: 'The vegan options blew our team away. Finally a caterer that doesn\'t treat plant-based as an afterthought. The Vegan Scramble and Sunrise Wraps were devoured in minutes.',
+    quote: 'The mini tacos and jalapeño poppers were devoured in minutes at our holiday party. Pepe\'s knows how to throw a fiesta. Will definitely order again!',
     author: 'Marcus T.',
-    company: 'HR Director, Creative Agency',
+    company: 'HR Director',
     rating: 5,
   },
 ];
@@ -35,7 +35,7 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'text-[#dabb64]' : 'text-gray-300'}`}
+          className={`w-4 h-4 ${i < rating ? 'text-[#E8A317]' : 'text-gray-300'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -48,14 +48,14 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-[#f7efd7] py-12 sm:py-16">
+    <section className="bg-[#D4782F] py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="font-oswald text-3xl sm:text-4xl font-bold text-[#363333] tracking-wider mb-3">
+          <h2 className="font-oswald text-3xl sm:text-4xl text-[#1C1C1C] tracking-wider mb-3">
             WHAT OUR CLIENTS SAY
           </h2>
           <p className="text-gray-600 max-w-xl mx-auto">
-            Trusted by companies across Chicago for their most important events
+            Trusted by families and businesses across the Chicagoland area since 1967
           </p>
         </div>
 
@@ -67,7 +67,7 @@ export default function TestimonialsSection() {
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
               <div className="border-t border-gray-200 pt-3">
-                <p className="font-oswald font-bold text-[#363333] text-sm">
+                <p className="font-oswald text-[#1C1C1C] text-sm">
                   {testimonial.author}
                 </p>
                 <p className="text-xs text-gray-500">{testimonial.company}</p>

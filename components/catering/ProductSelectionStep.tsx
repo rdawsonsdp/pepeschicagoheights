@@ -115,12 +115,12 @@ export default function ProductSelectionStep({
         <div className="text-center mb-6">
           <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
             {state.eventType && (
-              <Badge variant={state.eventType as 'breakfast' | 'lunch' | 'dessert'}>
+              <Badge variant={state.eventType as 'appetizers' | 'entrees' | 'sides'}>
                 {getEventTypeName(state.eventType)}
               </Badge>
             )}
           </div>
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#363333] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
             BUILD YOUR {state.eventType?.toUpperCase() || 'EVENT'}
           </h2>
           <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-6">
@@ -134,7 +134,7 @@ export default function ProductSelectionStep({
             <div className="flex items-center gap-4">
               <div>
                 <span className="text-xs text-gray-500 uppercase tracking-wide block">Per Person</span>
-                <span className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333]">
+                <span className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C]">
                   {formatCurrency(orderTotal / state.headcount)}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function ProductSelectionStep({
                 <span className="text-xs text-gray-500 uppercase tracking-wide block">
                   {state.headcount} guests
                 </span>
-                <span className="font-oswald text-xl font-bold text-[#dabb64]">
+                <span className="font-oswald text-xl font-bold text-[#C8102E]">
                   {formatCurrency(orderTotal)} total
                 </span>
               </div>
@@ -166,7 +166,7 @@ export default function ProductSelectionStep({
             placeholder="Search menu items..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#dabb64] focus:outline-none"
+            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#C8102E] focus:outline-none"
           />
         </div>
 
@@ -193,7 +193,7 @@ export default function ProductSelectionStep({
                       setSearchTerm('');
                       if (onToggleFilter) activeFilters.forEach(f => onToggleFilter(f));
                     }}
-                    className="mt-3 text-[#dabb64] hover:underline text-sm"
+                    className="mt-3 text-[#C8102E] hover:underline text-sm"
                   >
                     Clear filters
                   </button>
@@ -226,7 +226,7 @@ export default function ProductSelectionStep({
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-gradient-to-t from-white via-white to-transparent">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="w-full bg-[#363333] text-white rounded-xl py-4 px-6 flex items-center justify-between shadow-lg hover:bg-[#4a4646] transition-colors"
+            className="w-full bg-[#1C1C1C] text-white rounded-xl py-4 px-6 flex items-center justify-between shadow-lg hover:bg-[#2D2926] transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="relative">
@@ -234,7 +234,7 @@ export default function ProductSelectionStep({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 {state.selectedItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#dabb64] text-[#363333] text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-[#C8102E] text-[#1C1C1C] text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                     {state.selectedItems.length}
                   </span>
                 )}
@@ -244,7 +244,7 @@ export default function ProductSelectionStep({
               </span>
             </div>
             {state.selectedItems.length > 0 && (
-              <span className="font-oswald font-bold text-[#dabb64]">
+              <span className="font-oswald font-bold text-[#C8102E]">
                 {formatCurrency(orderTotal)}
               </span>
             )}
@@ -260,9 +260,9 @@ export default function ProductSelectionStep({
               onClick={() => setIsCartOpen(false)}
             />
             {/* Drawer */}
-            <div className="lg:hidden fixed inset-y-0 right-0 w-full max-w-md bg-[#f7efd7] z-50 shadow-2xl animate-slide-in-right overflow-y-auto">
+            <div className="lg:hidden fixed inset-y-0 right-0 w-full max-w-md bg-[#D4782F] z-50 shadow-2xl animate-slide-in-right overflow-y-auto">
               {/* Drawer Header */}
-              <div className="sticky top-0 bg-[#363333] text-white px-4 py-4 flex items-center justify-between z-10">
+              <div className="sticky top-0 bg-[#1C1C1C] text-white px-4 py-4 flex items-center justify-between z-10">
                 <h2 className="font-oswald text-xl font-bold tracking-wide">Your Order</h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -286,7 +286,7 @@ export default function ProductSelectionStep({
         <div className="mt-10 text-center">
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#363333] transition-colors tracking-wide"
+            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide"
           >
             ← BACK TO ORDER TYPE
           </button>

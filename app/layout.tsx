@@ -1,13 +1,31 @@
 import type { Metadata, Viewport } from 'next';
-import { Oswald, Roboto_Condensed } from 'next/font/google';
+import { Bevan, Lato, Crimson_Text, Merriweather, Roboto_Condensed } from 'next/font/google';
 import './globals.css';
 import Layout from '@/components/layout/Layout';
 import { CateringProvider } from '@/context/CateringContext';
 
-const oswald = Oswald({
-  variable: '--font-oswald',
+const bevan = Bevan({
+  variable: '--font-bevan',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400'],
+});
+
+const lato = Lato({
+  variable: '--font-lato',
+  subsets: ['latin'],
+  weight: ['300', '400', '700', '900'],
+});
+
+const crimsonText = Crimson_Text({
+  variable: '--font-crimson',
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+});
+
+const merriweather = Merriweather({
+  variable: '--font-merriweather',
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
 });
 
 const robotoCondensed = Roboto_Condensed({
@@ -17,13 +35,13 @@ const robotoCondensed = Roboto_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: 'CaterPro | The right food. The right amount. Every event.',
+  title: "Pepe's Mexican Restaurant | Full Service Catering",
   description:
-    'CaterPro offers exceptional catering for corporate events, meetings, and special occasions. The right food, the right amount, every event.',
+    "Pepe's Mexican Restaurant offers authentic Mexican catering for parties, corporate events, and special occasions. Have a Fiesta with our full service catering menu!",
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Urban Bistro',
+    title: "Pepe's Mexican Restaurant",
   },
 };
 
@@ -32,7 +50,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#000000',
+  themeColor: '#1C1C1C',
 };
 
 export default function RootLayout({
@@ -43,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${oswald.variable} ${robotoCondensed.variable} antialiased`}
+        className={`${bevan.variable} ${lato.variable} ${crimsonText.variable} ${merriweather.variable} ${robotoCondensed.variable} antialiased`}
       >
         <CateringProvider>
           <Layout>{children}</Layout>

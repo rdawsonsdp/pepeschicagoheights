@@ -10,13 +10,13 @@ import { getDisplayPrice, getPricingTypeLabel } from '@/lib/pricing';
 import Card from '@/components/ui/Card';
 import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
 
-type Category = 'all' | 'breakfast' | 'lunch' | 'dessert';
+type Category = 'all' | 'appetizers' | 'entrees' | 'sides';
 
 const CATEGORIES: { id: Category; name: string; description: string }[] = [
-  { id: 'all', name: 'All Products', description: 'Browse our complete menu' },
-  { id: 'breakfast', name: 'Breakfast', description: 'Start your day right' },
-  { id: 'lunch', name: 'Lunch & Dinner', description: 'Hearty meals for any occasion' },
-  { id: 'dessert', name: 'Desserts', description: 'Sweet treats and delicious endings' },
+  { id: 'all', name: 'All Products', description: 'Browse our complete catering menu' },
+  { id: 'appetizers', name: 'Appetizers', description: 'Starters and crowd favorites' },
+  { id: 'entrees', name: 'Main Dishes', description: 'Tacos, fajitas, carnitas, and more' },
+  { id: 'sides', name: 'Sides & More', description: 'Rice, beans, toppings, and desserts' },
 ];
 
 function ProductCard({ product }: { product: CateringProduct }) {
@@ -24,7 +24,7 @@ function ProductCard({ product }: { product: CateringProduct }) {
   const inCart = isItemInCart(product.id);
 
   const handleAddToCart = () => {
-    dispatch({ type: 'ADD_ITEM', payload: product });
+    dispatch({ type: 'ADD_ITEM', payload: { product } });
   };
 
   return (
@@ -37,12 +37,12 @@ function ProductCard({ product }: { product: CateringProduct }) {
           className="object-cover"
         />
         {inCart && (
-          <div className="absolute top-2 right-2 bg-[#dabb64] text-[#363333] text-xs font-bold px-2 py-1 rounded-full">
+          <div className="absolute top-2 right-2 bg-[#C8102E] text-white text-xs font-bold px-2 py-1 rounded-full">
             In Cart
           </div>
         )}
       </div>
-      <h3 className="font-oswald font-bold text-[#363333] text-lg mb-1 line-clamp-1">
+      <h3 className="font-oswald text-[#1C1C1C] text-lg mb-1 line-clamp-1">
         {product.title}
       </h3>
       <p className="text-sm text-gray-600 mb-3 line-clamp-2">
@@ -50,7 +50,7 @@ function ProductCard({ product }: { product: CateringProduct }) {
       </p>
       <div className="flex items-center justify-between mt-auto">
         <div>
-          <p className="font-oswald font-bold text-[#dabb64] text-lg">
+          <p className="font-oswald text-[#C8102E] text-lg">
             {getDisplayPrice(product)}
           </p>
           <p className="text-xs text-gray-500">
@@ -62,7 +62,7 @@ function ProductCard({ product }: { product: CateringProduct }) {
           className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
             inCart
               ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-              : 'bg-[#363333] text-white hover:bg-[#dabb64] hover:text-[#363333]'
+              : 'bg-[#1C1C1C] text-white hover:bg-[#C8102E]'
           }`}
         >
           {inCart ? 'Add More' : 'Add'}
@@ -102,15 +102,15 @@ export default function ProductsPage() {
 
   // Group products by their primary category for "all" view
   const groupedProducts = {
-    breakfast: filteredProducts.filter((p) => p.categories.includes('breakfast')),
-    lunch: filteredProducts.filter((p) => p.categories.includes('lunch') && !p.categories.includes('breakfast')),
-    dessert: filteredProducts.filter((p) => p.categories.includes('dessert') && !p.categories.includes('breakfast') && !p.categories.includes('lunch')),
+    appetizers: filteredProducts.filter((p) => p.categories.includes('appetizers')),
+    entrees: filteredProducts.filter((p) => p.categories.includes('entrees') && !p.categories.includes('appetizers')),
+    sides: filteredProducts.filter((p) => p.categories.includes('sides') && !p.categories.includes('appetizers') && !p.categories.includes('entrees')),
   };
 
   return (
-    <div className="min-h-screen bg-[#f7efd7]">
+    <div className="min-h-screen bg-[#D4782F]">
       {/* Header */}
-      <div className="bg-[#363333] py-8 sm:py-12">
+      <div className="bg-[#1C1C1C] py-8 sm:py-12">
         <div className="container mx-auto px-4">
           <Link
             href="/"
@@ -121,10 +121,10 @@ export default function ProductsPage() {
             </svg>
             Back to Order Builder
           </Link>
-          <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#f7efd7] tracking-wider mb-2">
-            FULL MENU
+          <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-[#D4782F] tracking-wider mb-2">
+            FULL CATERING MENU
           </h1>
-          <p className="text-[#dabb64] text-lg">
+          <p className="text-[#C8102E] text-lg">
             Browse all {CATERING_PRODUCTS.length} items from our catering menu
           </p>
         </div>
@@ -154,7 +154,7 @@ export default function ProductsPage() {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dabb64]/50"
+                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50"
               />
             </div>
 
@@ -166,8 +166,8 @@ export default function ProductsPage() {
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-4 py-2 rounded-lg font-oswald font-semibold text-sm whitespace-nowrap transition-all ${
                     activeCategory === cat.id
-                      ? 'bg-[#363333] text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-[#dabb64]/20'
+                      ? 'bg-[#1C1C1C] text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-[#C8102E]/10'
                   }`}
                 >
                   {cat.name}
@@ -185,14 +185,14 @@ export default function ProductsPage() {
 
       {/* Cart Summary Bar */}
       {state.selectedItems.length > 0 && (
-        <div className="bg-[#dabb64] py-3">
+        <div className="bg-[#C8102E] py-3">
           <div className="container mx-auto px-4 flex items-center justify-between">
-            <p className="font-oswald font-semibold text-[#363333]">
+            <p className="font-oswald font-semibold text-white">
               {state.selectedItems.length} item{state.selectedItems.length !== 1 ? 's' : ''} in cart
             </p>
             <Link
               href="/#catering"
-              className="bg-[#363333] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#4a4646] transition-colors"
+              className="bg-white text-[#1C1C1C] px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#D4782F] transition-colors"
             >
               View Cart
             </Link>
@@ -205,60 +205,60 @@ export default function ProductsPage() {
         {activeCategory === 'all' ? (
           // Grouped view for "All Products"
           <div className="space-y-12">
-            {/* Breakfast Section */}
-            {groupedProducts.breakfast.length > 0 && (
+            {/* Appetizers Section */}
+            {groupedProducts.appetizers.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333]">
-                    Breakfast
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                    Appetizers
                   </h2>
-                  <div className="flex-1 h-px bg-[#dabb64]" />
+                  <div className="flex-1 h-px bg-[#C8102E]" />
                   <span className="text-sm text-gray-500">
-                    {groupedProducts.breakfast.length} items
+                    {groupedProducts.appetizers.length} items
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {groupedProducts.breakfast.map((product) => (
+                  {groupedProducts.appetizers.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Lunch Section */}
-            {groupedProducts.lunch.length > 0 && (
+            {/* Main Dishes Section */}
+            {groupedProducts.entrees.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333]">
-                    Lunch & Dinner
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                    Main Dishes
                   </h2>
-                  <div className="flex-1 h-px bg-[#dabb64]" />
+                  <div className="flex-1 h-px bg-[#006847]" />
                   <span className="text-sm text-gray-500">
-                    {groupedProducts.lunch.length} items
+                    {groupedProducts.entrees.length} items
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {groupedProducts.lunch.map((product) => (
+                  {groupedProducts.entrees.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
               </section>
             )}
 
-            {/* Desserts Section */}
-            {groupedProducts.dessert.length > 0 && (
+            {/* Sides & More Section */}
+            {groupedProducts.sides.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333]">
-                    Desserts
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                    Sides & More
                   </h2>
-                  <div className="flex-1 h-px bg-[#dabb64]" />
+                  <div className="flex-1 h-px bg-[#E8A317]" />
                   <span className="text-sm text-gray-500">
-                    {groupedProducts.dessert.length} items
+                    {groupedProducts.sides.length} items
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                  {groupedProducts.dessert.map((product) => (
+                  {groupedProducts.sides.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
@@ -269,10 +269,10 @@ export default function ProductsPage() {
           // Flat view for specific category
           <>
             <div className="flex items-center gap-4 mb-6">
-              <h2 className="font-oswald text-2xl sm:text-3xl font-bold text-[#363333]">
+              <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
                 {CATEGORIES.find((c) => c.id === activeCategory)?.name}
               </h2>
-              <div className="flex-1 h-px bg-[#dabb64]" />
+              <div className="flex-1 h-px bg-[#C8102E]" />
               <span className="text-sm text-gray-500">
                 {filteredProducts.length} items
               </span>
@@ -291,7 +291,7 @@ export default function ProductsPage() {
                     setSearchQuery('');
                     setActiveCategory('all');
                   }}
-                  className="mt-4 text-[#dabb64] hover:underline"
+                  className="mt-4 text-[#C8102E] hover:underline"
                 >
                   Clear filters
                 </button>
@@ -302,14 +302,14 @@ export default function ProductsPage() {
       </div>
 
       {/* Back to Order Builder CTA */}
-      <div className="bg-[#363333] py-12">
+      <div className="bg-[#1C1C1C] py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-[#f7efd7] mb-4">
+          <h3 className="font-oswald text-2xl sm:text-3xl text-[#D4782F] mb-4">
             Ready to finalize your order?
           </h3>
           <Link
             href="/#catering"
-            className="inline-block bg-[#dabb64] text-[#363333] font-oswald font-bold px-8 py-3 rounded-lg hover:bg-[#f7efd7] transition-colors"
+            className="inline-block bg-[#C8102E] text-white font-oswald px-8 py-3 rounded-lg hover:bg-[#E8A317] hover:text-[#1C1C1C] transition-colors"
           >
             Return to Order Builder
           </Link>

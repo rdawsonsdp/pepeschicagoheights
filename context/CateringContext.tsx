@@ -25,6 +25,10 @@ import {
   calculateAllOrderItems,
 } from '@/lib/pricing';
 import { CalculatedOrderItem } from '@/lib/types';
+import { getCartKey, getAddCartKey } from '@/lib/cart-utils';
+
+// Re-export for convenience
+export { getCartKey } from '@/lib/cart-utils';
 
 const STORAGE_KEY = 'catering-state';
 
@@ -100,8 +104,11 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
     }
 
     case 'ADD_ITEM': {
+      const { product, selectedVariant, variantSplit } = action.payload;
+      const newKey = getAddCartKey(product, selectedVariant, variantSplit);
+
       const existingIndex = state.selectedItems.findIndex(
-        (item) => item.product.id === action.payload.id
+        (item) => getCartKey(item) === newKey
       );
 
       if (existingIndex >= 0) {
@@ -117,7 +124,7 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
         ...state,
         selectedItems: [
           ...state.selectedItems,
-          { product: action.payload, quantity: 1 },
+          { product, quantity: 1, selectedVariant, variantSplit },
         ],
       };
     }
@@ -126,18 +133,18 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
       return {
         ...state,
         selectedItems: state.selectedItems.filter(
-          (item) => item.product.id !== action.payload
+          (item) => getCartKey(item) !== action.payload
         ),
       };
     }
 
     case 'UPDATE_ITEM_QUANTITY': {
-      const { productId, quantity } = action.payload;
+      const { cartKey, quantity } = action.payload;
       if (quantity <= 0) {
         return {
           ...state,
           selectedItems: state.selectedItems.filter(
-            (item) => item.product.id !== productId
+            (item) => getCartKey(item) !== cartKey
           ),
         };
       }
@@ -145,7 +152,7 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
       return {
         ...state,
         selectedItems: state.selectedItems.map((item) =>
-          item.product.id === productId ? { ...item, quantity } : item
+          getCartKey(item) === cartKey ? { ...item, quantity } : item
         ),
       };
     }
@@ -251,7 +258,7 @@ export function CateringProvider({ children }: { children: ReactNode }) {
   const calculatedItems = calculateAllOrderItems(state.selectedItems, state.headcount);
 
   const totalCost = state.selectedPackage
-    ? state.selectedPackage.pricePerPerson * state.headcount  // Package: fixed per-person × headcount
+    ? state.selectedPackage.pricePerPerson * state.headcount  // Package: fixed per-person x headcount
     : calculateTotalCost(state.selectedItems, state.headcount); // Build your own: calculated based on headcount
 
   const perPersonCost = state.selectedPackage
