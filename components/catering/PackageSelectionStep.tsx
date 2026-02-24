@@ -49,23 +49,23 @@ export default function PackageSelectionStep() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
-      <div className="container mx-auto px-4">
+    <div ref={sectionRef} className="bg-pepe-cream py-12 sm:py-16 scroll-mt-4 texture-paper relative">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-10">
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-4">
             CHOOSE A PACKAGE
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto italic">
             Pre-built menus designed for {state.headcount} guests
             {state.budgetRange && (
-              <span className="text-[#C8102E] font-semibold"> within your {state.budgetRange.label}/person budget</span>
+              <span className="text-pepe-red font-semibold"> within your {state.budgetRange.label}/person budget</span>
             )}
           </p>
         </div>
 
         {allPackages.length === 0 ? (
           <Card className="text-center py-12 max-w-md mx-auto">
-            <p className="text-gray-500">No packages available for this event type.</p>
+            <p className="text-muted">No packages available for this event type.</p>
           </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
@@ -83,16 +83,16 @@ export default function PackageSelectionStep() {
                   <Card
                     className={`relative flex flex-col h-full transition-all duration-300 ${
                       isSelected
-                        ? 'ring-4 ring-[#C8102E] bg-[#C8102E]/10'
+                        ? 'ring-4 ring-pepe-red bg-pepe-red/10'
                         : inBudget && state.budgetRange
-                        ? 'ring-2 ring-green-400/50'
+                        ? 'ring-2 ring-pepe-orange/50'
                         : ''
                     } ${!meetsMin ? 'opacity-60' : 'hover:scale-[1.02]'}`}
                     hover={meetsMin}
                   >
                     {/* Budget match badge */}
                     {state.budgetRange && inBudget && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-pepe-orange text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap">
                         Within Budget
                       </div>
                     )}
@@ -109,31 +109,31 @@ export default function PackageSelectionStep() {
                     </div>
 
                     {/* Title & Price */}
-                    <h3 className="font-oswald text-xl sm:text-2xl font-bold text-[#1C1C1C] mb-1 tracking-wide">
+                    <h3 className="font-oswald text-xl sm:text-2xl font-bold text-pepe-dark mb-1 tracking-wide">
                       {pkg.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4">{pkg.description}</p>
+                    <p className="text-sm text-pepe-charcoal/70 mb-4 font-crimson">{pkg.description}</p>
 
                     {/* Price */}
-                    <div className="mb-4 p-3 bg-[#D4782F] rounded-lg">
+                    <div className="mb-4 p-3 bg-pepe-sand/50 rounded-xl border border-pepe-sand">
                       <div className="flex items-baseline gap-1">
-                        <span className="font-oswald text-3xl font-bold text-[#1C1C1C]">
+                        <span className="font-oswald text-3xl font-bold text-pepe-dark">
                           {formatCurrency(pkg.pricePerPerson)}
                         </span>
-                        <span className="text-sm text-gray-500">/person</span>
+                        <span className="text-sm text-muted">/person</span>
                       </div>
-                      <p className="text-sm text-[#1C1C1C] font-semibold mt-1">
+                      <p className="text-sm text-pepe-dark font-semibold mt-1">
                         {state.headcount} guests = {formatCurrency(pkg.pricePerPerson * state.headcount)} total
                       </p>
                     </div>
 
                     {/* Items List */}
                     <div className="flex-grow mb-4">
-                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Includes:</p>
+                      <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Includes:</p>
                       <ul className="space-y-1.5">
                         {pkg.items.map((item, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                            <svg className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <li key={i} className="flex items-start gap-2 text-sm text-pepe-charcoal">
+                            <svg className="w-4 h-4 text-pepe-orange mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                             {item}
@@ -144,7 +144,7 @@ export default function PackageSelectionStep() {
 
                     {/* Min headcount notice */}
                     {!meetsMin && (
-                      <p className="text-xs text-red-500 mb-3">
+                      <p className="text-xs text-error-red mb-3">
                         Minimum {pkg.minHeadcount} guests required (you have {state.headcount})
                       </p>
                     )}
@@ -168,9 +168,9 @@ export default function PackageSelectionStep() {
         {/* Checkout Button */}
         {state.selectedPackage && (
           <div className="mt-10 text-center animate-scale-in">
-            <div className="inline-block bg-[#D4782F] rounded-xl p-6 border-2 border-[#C8102E]">
-              <p className="text-sm text-gray-600 mb-2">Selected: <strong>{state.selectedPackage.title}</strong></p>
-              <p className="font-oswald text-2xl font-bold text-[#1C1C1C] mb-4">
+            <div className="inline-block bg-pepe-warm-white rounded-2xl p-6 border-2 border-pepe-red/30 shadow-warm-lg">
+              <p className="text-sm text-pepe-charcoal/70 mb-2 font-crimson">Selected: <strong>{state.selectedPackage.title}</strong></p>
+              <p className="font-oswald text-2xl font-bold text-pepe-dark mb-4">
                 {formatCurrency(state.selectedPackage.pricePerPerson * state.headcount)} for {state.headcount} guests
               </p>
               <Button onClick={handleCheckout} className="px-10">
@@ -184,7 +184,7 @@ export default function PackageSelectionStep() {
         <div className="mt-10 text-center">
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide"
+            className="font-oswald text-muted hover:text-pepe-dark transition-colors tracking-wide"
           >
             ← BACK TO ORDER TYPE
           </button>

@@ -6,13 +6,13 @@ import { DINE_IN_MENU, DINE_IN_PROMOS, FOOD_SECTIONS, DRINK_SECTIONS, DineInMenu
 
 function MenuItemRow({ name, description, price }: { name: string; description?: string; price?: string }) {
   return (
-    <div className="py-4 border-b border-[#f7efd7]/20 last:border-b-0">
+    <div className="py-4 border-b border-pepe-menu-cream/20 last:border-b-0">
       <div className="flex justify-between items-start gap-4">
-        <h4 className="font-oswald text-lg sm:text-xl font-bold text-[#f7efd7] tracking-wide">
+        <h4 className="font-oswald text-lg sm:text-xl font-bold text-pepe-menu-cream tracking-wide">
           {name}
         </h4>
         {price && (
-          <span className="font-oswald text-lg sm:text-xl font-bold text-[#f7efd7] whitespace-nowrap flex-shrink-0">
+          <span className="font-oswald text-lg sm:text-xl font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0">
             {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
               ? price
               : `${price}`}
@@ -20,7 +20,7 @@ function MenuItemRow({ name, description, price }: { name: string; description?:
         )}
       </div>
       {description && (
-        <p className="text-[#f7efd7]/70 text-sm sm:text-base mt-1 leading-relaxed">
+        <p className="text-pepe-menu-cream/70 text-sm sm:text-base mt-1 leading-relaxed">
           {description}
         </p>
       )}
@@ -32,12 +32,12 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
   return (
     <div id={section.id} className="scroll-mt-28 mb-0">
       {/* Gradient Header */}
-      <div className="bg-gradient-to-r from-[#8B2500] to-[#D4782F] px-5 sm:px-8 py-6 sm:py-8">
-        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#f7efd7] tracking-wider">
+      <div className="bg-gradient-to-r from-pepe-maroon to-pepe-burnt-orange px-5 sm:px-8 py-6 sm:py-8">
+        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-menu-cream tracking-wider">
           {section.title}
         </h3>
         {section.subtitle && (
-          <p className="text-[#f7efd7]/80 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
+          <p className="text-pepe-menu-cream/80 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
             {section.subtitle}
           </p>
         )}
@@ -57,7 +57,7 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
       )}
 
       {/* Menu Items */}
-      <div className="bg-[#D4782F] px-5 sm:px-8 py-4 sm:py-6">
+      <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
         {section.items.map((item, idx) => (
           <MenuItemRow key={idx} {...item} />
         ))}
@@ -102,15 +102,15 @@ export default function DineInMenuPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D4782F]">
+    <div className="min-h-screen bg-pepe-burnt-orange">
       {/* Hero */}
-      <div className="bg-gradient-to-b from-[#8B2500] to-[#5a1800] py-12 sm:py-16 relative overflow-hidden">
+      <div className="bg-gradient-to-b from-pepe-maroon to-[#5A2010] py-12 sm:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#C8102E] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-pepe-red to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
-            <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#E8A317] tracking-wider mb-4">
+            <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-pepe-red tracking-wider mb-4">
               DINE-IN MENU
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
@@ -121,8 +121,8 @@ export default function DineInMenuPage() {
           {/* Promos */}
           <div className="flex flex-wrap justify-center gap-4 mt-8">
             {DINE_IN_PROMOS.map((promo) => (
-              <div key={promo.title} className="bg-[#C8102E]/20 border border-[#C8102E]/40 rounded-full px-5 py-2">
-                <span className="font-oswald text-[#E8A317] tracking-wide text-sm sm:text-base">
+              <div key={promo.title} className="bg-pepe-red/20 border border-pepe-red/40 rounded-full px-5 py-2">
+                <span className="font-oswald text-pepe-orange tracking-wide text-sm sm:text-base">
                   {promo.title}:
                 </span>{' '}
                 <span className="text-white/80 text-sm">
@@ -135,7 +135,7 @@ export default function DineInMenuPage() {
       </div>
 
       {/* Food / Drinks Toggle + Section Nav */}
-      <div className="sticky top-0 z-40 bg-[#1C1C1C] border-b border-gray-800 shadow-lg">
+      <div className="sticky top-0 z-40 bg-pepe-dark border-b border-pepe-orange/20 shadow-lg">
         <div className="container mx-auto px-4">
           {/* Toggle */}
           <div className="flex justify-center py-3 gap-2">
@@ -146,8 +146,8 @@ export default function DineInMenuPage() {
               }}
               className={`px-6 py-2 rounded-full font-oswald text-sm sm:text-base tracking-wider transition-all ${
                 activeTab === 'food'
-                  ? 'bg-[#D4782F] text-white'
-                  : 'bg-transparent text-gray-400 hover:text-white border border-gray-700'
+                  ? 'bg-pepe-burnt-orange text-white'
+                  : 'bg-transparent text-muted/70 hover:text-white border border-pepe-charcoal/50'
               }`}
             >
               FOOD
@@ -159,8 +159,8 @@ export default function DineInMenuPage() {
               }}
               className={`px-6 py-2 rounded-full font-oswald text-sm sm:text-base tracking-wider transition-all ${
                 activeTab === 'drinks'
-                  ? 'bg-[#D4782F] text-white'
-                  : 'bg-transparent text-gray-400 hover:text-white border border-gray-700'
+                  ? 'bg-pepe-burnt-orange text-white'
+                  : 'bg-transparent text-muted/70 hover:text-white border border-pepe-charcoal/50'
               }`}
             >
               DRINKS
@@ -175,8 +175,8 @@ export default function DineInMenuPage() {
                 onClick={() => scrollToSection(section.id)}
                 className={`px-3 py-1.5 rounded-full font-oswald text-xs sm:text-sm whitespace-nowrap transition-all ${
                   activeSection === section.id
-                    ? 'bg-[#E8A317] text-[#1C1C1C]'
-                    : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
+                    ? 'bg-pepe-orange text-white'
+                    : 'bg-pepe-charcoal text-muted/70 hover:text-white hover:bg-pepe-charcoal/80'
                 }`}
               >
                 {section.title}
@@ -194,9 +194,9 @@ export default function DineInMenuPage() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="bg-[#8B2500] py-10 sm:py-14">
+      <div className="bg-pepe-maroon py-10 sm:py-14">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-oswald text-2xl sm:text-3xl text-[#E8A317] mb-3 tracking-wide">
+          <h3 className="font-oswald text-2xl sm:text-3xl text-pepe-red mb-3 tracking-wide">
             PLANNING A PARTY?
           </h3>
           <p className="text-white/70 mb-6 max-w-xl mx-auto">
@@ -204,7 +204,7 @@ export default function DineInMenuPage() {
           </p>
           <a
             href="/menus"
-            className="inline-flex items-center gap-2 bg-[#D4782F] text-white font-oswald px-8 py-3 rounded-full hover:bg-[#c06a25] transition-all"
+            className="inline-flex items-center gap-2 bg-pepe-burnt-orange text-white font-oswald px-8 py-3 rounded-full hover:bg-[#D4820C] transition-all"
           >
             <span>View Catering Menu</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,7 +214,7 @@ export default function DineInMenuPage() {
           <div className="mt-6">
             <a
               href="tel:+17087482400"
-              className="text-[#E8A317] font-oswald text-lg hover:text-white transition-colors"
+              className="text-pepe-orange font-oswald text-lg hover:text-white transition-colors"
             >
               Call (708) 748-2400
             </a>

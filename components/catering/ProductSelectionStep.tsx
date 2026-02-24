@@ -46,8 +46,8 @@ export default function ProductSelectionStep({
 
   // Budget status
   const budgetStatus = getBudgetStatus(perPersonCost, state.budgetRange, state.customBudget);
-  const budgetColor = budgetStatus === 'on-track' ? 'text-green-600' : budgetStatus === 'under' ? 'text-yellow-600' : 'text-red-600';
-  const budgetBg = budgetStatus === 'on-track' ? 'bg-green-50 border-green-200' : budgetStatus === 'under' ? 'bg-yellow-50 border-yellow-200' : 'bg-red-50 border-red-200';
+  const budgetColor = budgetStatus === 'on-track' ? 'text-pepe-green' : budgetStatus === 'under' ? 'text-pepe-orange' : 'text-error-red';
+  const budgetBg = budgetStatus === 'on-track' ? 'bg-pepe-green/5 border-pepe-green/20' : budgetStatus === 'under' ? 'bg-pepe-orange/5 border-pepe-orange/20' : 'bg-pepe-red/5 border-pepe-red/20';
 
   // Close cart when pressing Escape
   useEffect(() => {
@@ -109,7 +109,7 @@ export default function ProductSelectionStep({
   };
 
   return (
-    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
+    <div ref={sectionRef} className="bg-pepe-cream py-12 sm:py-16 scroll-mt-4">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-6">
@@ -120,10 +120,10 @@ export default function ProductSelectionStep({
               </Badge>
             )}
           </div>
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-4">
             BUILD YOUR {state.eventType?.toUpperCase() || 'EVENT'}
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-6">
+          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto mb-6 italic">
             Select items for your {state.eventType || ''} - sizes auto-adjust to your {state.headcount} guest count
           </p>
         </div>
@@ -133,17 +133,17 @@ export default function ProductSelectionStep({
           <div className={`sticky top-0 z-30 mb-6 p-4 rounded-xl border-2 ${budgetBg} flex flex-wrap items-center justify-between gap-4`}>
             <div className="flex items-center gap-4">
               <div>
-                <span className="text-xs text-gray-500 uppercase tracking-wide block">Per Person</span>
-                <span className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C]">
+                <span className="text-xs text-muted uppercase tracking-wide block">Per Person</span>
+                <span className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-dark">
                   {formatCurrency(orderTotal / state.headcount)}
                 </span>
               </div>
-              <div className="h-10 w-px bg-gray-300 hidden sm:block" />
+              <div className="h-10 w-px bg-pepe-sand hidden sm:block" />
               <div className="hidden sm:block">
-                <span className="text-xs text-gray-500 uppercase tracking-wide block">
+                <span className="text-xs text-muted uppercase tracking-wide block">
                   {state.headcount} guests
                 </span>
-                <span className="font-oswald text-xl font-bold text-[#C8102E]">
+                <span className="font-oswald text-xl font-bold text-pepe-red">
                   {formatCurrency(orderTotal)} total
                 </span>
               </div>
@@ -153,7 +153,7 @@ export default function ProductSelectionStep({
                 {budgetStatus === 'on-track' && 'Within budget range'}
                 {budgetStatus === 'under' && 'Below budget range'}
                 {budgetStatus === 'over' && 'Over budget range'}
-                <span className="text-xs text-gray-500 ml-1">({state.budgetRange.label})</span>
+                <span className="text-xs text-muted ml-1">({state.budgetRange.label})</span>
               </div>
             )}
           </div>
@@ -166,7 +166,7 @@ export default function ProductSelectionStep({
             placeholder="Search menu items..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#C8102E] focus:outline-none"
+            className="w-full px-4 py-3 border-2 border-pepe-sand rounded-xl bg-pepe-warm-white focus:border-pepe-orange focus:outline-none focus:ring-2 focus:ring-pepe-orange/30"
           />
         </div>
 
@@ -182,7 +182,7 @@ export default function ProductSelectionStep({
           <div className="lg:col-span-2">
             {sortedProducts.length === 0 ? (
               <Card className="text-center py-12">
-                <p className="text-gray-500">
+                <p className="text-muted">
                   {searchTerm || activeFilters.length > 0
                     ? 'No products match your filters.'
                     : 'No products available for this event type.'}
@@ -193,7 +193,7 @@ export default function ProductSelectionStep({
                       setSearchTerm('');
                       if (onToggleFilter) activeFilters.forEach(f => onToggleFilter(f));
                     }}
-                    className="mt-3 text-[#C8102E] hover:underline text-sm"
+                    className="mt-3 text-pepe-red hover:underline text-sm"
                   >
                     Clear filters
                   </button>
@@ -226,7 +226,7 @@ export default function ProductSelectionStep({
         <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 p-4 bg-gradient-to-t from-white via-white to-transparent">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="w-full bg-[#1C1C1C] text-white rounded-xl py-4 px-6 flex items-center justify-between shadow-lg hover:bg-[#2D2926] transition-colors"
+            className="w-full bg-pepe-dark text-white rounded-2xl py-4 px-6 flex items-center justify-between shadow-warm-lg hover:bg-pepe-charcoal transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="relative">
@@ -234,7 +234,7 @@ export default function ProductSelectionStep({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
                 {state.selectedItems.length > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#C8102E] text-[#1C1C1C] text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  <span className="absolute -top-2 -right-2 bg-pepe-red text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
                     {state.selectedItems.length}
                   </span>
                 )}
@@ -244,7 +244,7 @@ export default function ProductSelectionStep({
               </span>
             </div>
             {state.selectedItems.length > 0 && (
-              <span className="font-oswald font-bold text-[#C8102E]">
+              <span className="font-oswald font-bold text-pepe-red">
                 {formatCurrency(orderTotal)}
               </span>
             )}
@@ -260,9 +260,9 @@ export default function ProductSelectionStep({
               onClick={() => setIsCartOpen(false)}
             />
             {/* Drawer */}
-            <div className="lg:hidden fixed inset-y-0 right-0 w-full max-w-md bg-[#D4782F] z-50 shadow-2xl animate-slide-in-right overflow-y-auto">
+            <div className="lg:hidden fixed inset-y-0 right-0 w-full max-w-md bg-pepe-cream z-50 shadow-2xl animate-slide-in-right overflow-y-auto">
               {/* Drawer Header */}
-              <div className="sticky top-0 bg-[#1C1C1C] text-white px-4 py-4 flex items-center justify-between z-10">
+              <div className="sticky top-0 bg-pepe-dark text-white px-4 py-4 flex items-center justify-between z-10">
                 <h2 className="font-oswald text-xl font-bold tracking-wide">Your Order</h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
@@ -286,7 +286,7 @@ export default function ProductSelectionStep({
         <div className="mt-10 text-center">
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide"
+            className="font-oswald text-muted hover:text-pepe-dark transition-colors tracking-wide"
           >
             ← BACK TO ORDER TYPE
           </button>

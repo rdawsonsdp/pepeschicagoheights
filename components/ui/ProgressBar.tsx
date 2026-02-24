@@ -22,7 +22,7 @@ export default function ProgressBar({
   const variantStyles = {
     default: 'bg-primary-brown',
     success: 'bg-success-green',
-    warning: 'bg-yellow-500',
+    warning: 'bg-pepe-orange',
     error: 'bg-error-red',
   };
 

@@ -27,8 +27,8 @@ export default function DietaryFilterBar({ activeTags, onToggleTag }: DietaryFil
             onClick={() => onToggleTag(filter.id)}
             className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
               isActive
-                ? 'bg-[#1C1C1C] text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:border-[#C8102E] hover:text-[#1C1C1C]'
+                ? 'bg-pepe-dark text-white shadow-warm'
+                : 'bg-pepe-warm-white text-pepe-charcoal border border-pepe-sand hover:border-pepe-red/50 hover:text-pepe-red'
             }`}
           >
             {filter.label}
@@ -38,7 +38,7 @@ export default function DietaryFilterBar({ activeTags, onToggleTag }: DietaryFil
       {activeTags.length > 0 && (
         <button
           onClick={() => activeTags.forEach(tag => onToggleTag(tag))}
-          className="px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap text-red-500 hover:bg-red-50 transition-all"
+          className="px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap text-pepe-red hover:bg-pepe-red/5 transition-all"
         >
           Clear all
         </button>

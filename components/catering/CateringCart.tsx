@@ -86,26 +86,26 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
 
   return (
     <>
-      <Card className="animate-scale-in delay-200 bg-[#D4782F]" hover={false}>
+      <Card className="animate-scale-in delay-200" hover={false}>
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg sm:text-xl font-oswald font-bold text-[#1C1C1C] tracking-wide">
+          <h2 className="text-lg sm:text-xl font-oswald font-bold text-pepe-dark tracking-wide">
             Your Order
           </h2>
         </div>
 
         {/* Large Stats Display */}
         {state.selectedItems.length > 0 && (
-          <div className="grid grid-cols-2 gap-4 mb-4 p-4 bg-white rounded-xl border-l-4 border-[#C8102E]">
+          <div className="grid grid-cols-2 gap-4 mb-4 p-4 bg-pepe-sand/30 rounded-xl border-l-4 border-pepe-red">
             <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Per Person</p>
-              <p className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C]">
+              <p className="text-xs text-muted uppercase tracking-wide mb-1">Per Person</p>
+              <p className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-dark">
                 {formatCurrency(totalPerPerson)}
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide mb-1">Total</p>
-              <p className="font-oswald text-2xl sm:text-3xl font-bold text-[#C8102E]">
+              <p className="text-xs text-muted uppercase tracking-wide mb-1">Total</p>
+              <p className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-red">
                 {formatCurrency(orderTotal)}
               </p>
             </div>
@@ -114,11 +114,11 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
 
         {/* Budget Tracker */}
         {state.budgetRange && state.selectedItems.length > 0 && (
-          <div className="mb-4 p-3 bg-white rounded-lg">
+          <div className="mb-4 p-3 bg-pepe-sand/30 rounded-xl">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-xs font-semibold text-gray-500 uppercase">Budget: {state.budgetRange.label}/person</span>
+              <span className="text-xs font-semibold text-muted uppercase">Budget: {state.budgetRange.label}/person</span>
               <span className={`text-xs font-bold ${
-                budgetStatus === 'on-track' ? 'text-green-600' : budgetStatus === 'under' ? 'text-yellow-600' : 'text-red-600'
+                budgetStatus === 'on-track' ? 'text-pepe-green' : budgetStatus === 'under' ? 'text-pepe-orange' : 'text-error-red'
               }`}>
                 {budgetStatus === 'on-track' ? 'On Track' : budgetStatus === 'under' ? 'Under Budget' : 'Over Budget'}
               </span>
@@ -143,10 +143,10 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
 
         {/* Event Type Summary */}
         {state.eventType && (
-          <div className="mb-4 p-3 bg-white/50 rounded-lg text-sm">
+          <div className="mb-4 p-3 bg-pepe-sand/20 rounded-xl text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Event Type:</span>
-              <span className="font-medium text-[#1C1C1C]">
+              <span className="text-muted">Event Type:</span>
+              <span className="font-medium text-pepe-dark">
                 {getEventTypeName(state.eventType)}
               </span>
             </div>
@@ -155,13 +155,13 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
 
         {/* Headcount Input */}
         <div className="mb-4 sm:mb-6">
-          <label className="text-xs font-semibold text-[#1C1C1C] uppercase tracking-wide mb-2 block font-oswald">
+          <label className="text-xs font-semibold text-pepe-dark uppercase tracking-wide mb-2 block font-oswald">
             Number of Guests
           </label>
           <div className="flex items-center gap-2">
             <button
               onClick={() => handleHeadcountChange(state.headcount - 5)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-600 hover:bg-white transition-colors text-lg font-medium"
+              className="w-9 h-9 flex items-center justify-center rounded-xl border border-pepe-sand text-pepe-charcoal hover:bg-pepe-sand/50 transition-colors text-lg font-medium"
               aria-label="Decrease guests"
             >
               -
@@ -174,11 +174,11 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
                 const val = parseInt(e.target.value, 10);
                 if (!isNaN(val) && val >= 1) handleHeadcountChange(val);
               }}
-              className="flex-1 text-center font-bold text-[#1C1C1C] text-lg border border-gray-300 rounded-lg py-1.5 focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="flex-1 text-center font-bold text-pepe-dark text-lg border border-pepe-sand bg-pepe-warm-white rounded-xl py-1.5 focus:outline-none focus:ring-2 focus:ring-pepe-orange/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
             />
             <button
               onClick={() => handleHeadcountChange(state.headcount + 5)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-gray-600 hover:bg-white transition-colors text-lg font-medium"
+              className="w-9 h-9 flex items-center justify-center rounded-xl border border-pepe-sand text-pepe-charcoal hover:bg-pepe-sand/50 transition-colors text-lg font-medium"
               aria-label="Increase guests"
             >
               +
@@ -193,8 +193,8 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
                 onClick={() => handleHeadcountChange(n)}
                 className={`px-2.5 py-1 rounded-full text-xs font-semibold transition-colors ${
                   state.headcount === n
-                    ? 'bg-[#1C1C1C] text-white'
-                    : 'bg-white text-gray-600 hover:bg-[#C8102E]/20 hover:text-[#1C1C1C]'
+                    ? 'bg-pepe-dark text-white'
+                    : 'bg-pepe-sand/50 text-pepe-charcoal hover:bg-pepe-red/20 hover:text-pepe-dark'
                 }`}
               >
                 {n}
@@ -207,8 +207,8 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
         {calculatedItems.length === 0 ? (
           <div className="text-center py-8">
             <div className="text-4xl mb-3">🍽️</div>
-            <p className="text-sm text-gray-500">Add items to build your order</p>
-            <p className="text-xs text-gray-400 mt-1">Sizes auto-adjust to your guest count</p>
+            <p className="text-sm text-muted">Add items to build your order</p>
+            <p className="text-xs text-muted/70 mt-1">Sizes auto-adjust to your guest count</p>
           </div>
         ) : (
           <>
@@ -231,30 +231,30 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
                 return (
                   <div
                     key={item.cartKey || item.product.id}
-                    className="flex justify-between items-start border-b border-gray-200 pb-3"
+                    className="flex justify-between items-start border-b border-pepe-sand pb-3"
                   >
                     <div className="flex-1 min-w-0 pr-2">
-                      <p className="font-oswald font-semibold text-[#1C1C1C] text-sm truncate">
+                      <p className="font-oswald font-semibold text-pepe-dark text-sm truncate">
                         {item.itemQuantity > 1 ? `${item.itemQuantity} \u00d7 ` : ''}
                         {item.product.title}
                         {variantLabel ? ` (${variantLabel})` : ''}
                       </p>
                       {splitLabel && (
-                        <p className="text-xs text-[#C8102E] mt-0.5 font-medium">
+                        <p className="text-xs text-pepe-red mt-0.5 font-medium">
                           {splitLabel}
                         </p>
                       )}
-                      <p className="text-xs text-[#006847] mt-0.5">
+                      <p className="text-xs text-pepe-green mt-0.5">
                         {item.displayText}
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
-                      <p className="font-oswald font-bold text-[#1C1C1C] text-sm whitespace-nowrap">
+                      <p className="font-oswald font-bold text-pepe-dark text-sm whitespace-nowrap">
                         {formatCurrency(item.totalPrice)}
                       </p>
                       <button
                         onClick={() => handleRemoveItem(item.cartKey || item.product.id)}
-                        className="text-red-400 hover:text-red-600 p-1"
+                        className="text-error-red/70 hover:text-error-red p-1"
                         aria-label={`Remove ${item.product.title}`}
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -270,46 +270,46 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
             {/* Clear All Button */}
             <button
               onClick={handleClearAll}
-              className="w-full text-sm text-gray-500 hover:text-red-500 mb-4 transition-colors"
+              className="w-full text-sm text-muted hover:text-pepe-red mb-4 transition-colors"
             >
               Clear All Items
             </button>
 
             {/* Totals */}
-            <div className="border-t-2 border-[#C8102E] pt-4 space-y-3">
+            <div className="border-t-2 border-pepe-red pt-4 space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Guests</span>
-                <span className="font-semibold text-[#1C1C1C]">
+                <span className="text-pepe-charcoal/70">Guests</span>
+                <span className="font-semibold text-pepe-dark">
                   {state.headcount}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Subtotal</span>
-                <span className="font-semibold text-[#1C1C1C]">
+                <span className="text-pepe-charcoal/70">Subtotal</span>
+                <span className="font-semibold text-pepe-dark">
                   {formatCurrency(totalCost)}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
                 <div className="flex items-center gap-1.5">
-                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                   </svg>
-                  <span className="text-gray-600">Delivery</span>
-                  <span className="text-xs text-gray-400">({getOrderSizeLabel(state.headcount)})</span>
+                  <span className="text-pepe-charcoal/70">Delivery</span>
+                  <span className="text-xs text-muted/70">({getOrderSizeLabel(state.headcount)})</span>
                 </div>
-                <span className="font-semibold text-[#1C1C1C]">
+                <span className="font-semibold text-pepe-dark">
                   {formatCurrency(deliveryFee)}
                 </span>
               </div>
-              <div className="flex justify-between text-sm pt-2 border-t border-gray-200">
-                <span className="text-gray-600 font-medium">Order Total</span>
-                <span className="font-bold text-[#1C1C1C]">
+              <div className="flex justify-between text-sm pt-2 border-t border-pepe-sand">
+                <span className="text-pepe-charcoal/70 font-medium">Order Total</span>
+                <span className="font-bold text-pepe-dark">
                   {formatCurrency(orderTotal)}
                 </span>
               </div>
-              <div className="flex justify-between text-lg font-oswald font-bold pt-2 border-t border-gray-200">
-                <span className="text-[#1C1C1C]">Per Person</span>
-                <span className="text-[#C8102E]">
+              <div className="flex justify-between text-lg font-oswald font-bold pt-2 border-t border-pepe-sand">
+                <span className="text-pepe-dark">Per Person</span>
+                <span className="text-pepe-red">
                   {formatCurrency(totalPerPerson)}
                 </span>
               </div>
@@ -327,11 +327,11 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
         )}
 
         {/* Reset Order Bar */}
-        <div className="mt-6 pt-4 border-t border-gray-200">
+        <div className="mt-6 pt-4 border-t border-pepe-sand">
           {!showResetConfirm ? (
             <button
               onClick={() => setShowResetConfirm(true)}
-              className="w-full flex items-center justify-center gap-2 text-sm text-gray-400 hover:text-gray-600 transition-colors py-2"
+              className="w-full flex items-center justify-center gap-2 text-sm text-muted/70 hover:text-muted transition-colors py-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -339,20 +339,20 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
               Start Over
             </button>
           ) : (
-            <div className="bg-red-50 rounded-lg p-3 animate-scale-in">
-              <p className="text-sm text-gray-700 text-center mb-3">
+            <div className="bg-pepe-red/5 rounded-xl p-3 animate-scale-in">
+              <p className="text-sm text-pepe-charcoal text-center mb-3">
                 Reset your entire order?
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setShowResetConfirm(false)}
-                  className="flex-1 px-3 py-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-3 py-2 text-sm font-medium text-pepe-charcoal bg-pepe-warm-white border border-pepe-sand rounded-xl hover:bg-pepe-sand/50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleResetOrder}
-                  className="flex-1 px-3 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600 transition-colors"
+                  className="flex-1 px-3 py-2 text-sm font-medium text-white bg-pepe-red rounded-xl hover:bg-pepe-maroon transition-colors"
                 >
                   Yes, Reset
                 </button>

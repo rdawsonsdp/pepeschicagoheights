@@ -32,13 +32,13 @@ export default function RecommendedItems() {
   };
 
   return (
-    <div className="border-2 border-[#C8102E]/50 rounded-xl p-4 sm:p-6 bg-[#C8102E]/5">
+    <div className="border-2 border-pepe-red/50 rounded-xl p-4 sm:p-6 bg-pepe-red/5">
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-[#C8102E] text-lg">&#9733;</span>
-        <h3 className="font-oswald text-lg font-bold text-[#1C1C1C] tracking-wide">
+        <span className="text-pepe-red text-lg">&#9733;</span>
+        <h3 className="font-oswald text-lg font-bold text-pepe-dark tracking-wide">
           RECOMMENDED FOR YOUR {getEventTypeName(state.eventType).toUpperCase()}
         </h3>
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-muted">
           ({state.headcount} guests{state.budgetRange ? `, ${state.budgetRange.label} budget` : ''})
         </span>
       </div>
@@ -49,7 +49,7 @@ export default function RecommendedItems() {
           return (
             <div
               key={product.id}
-              className="flex-shrink-0 w-[180px] sm:w-[200px] bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow"
+              className="flex-shrink-0 w-[180px] sm:w-[200px] bg-pepe-warm-white rounded-xl border border-pepe-sand overflow-hidden hover:shadow-warm transition-shadow"
             >
               <div className="relative h-24">
                 <Image
@@ -61,15 +61,15 @@ export default function RecommendedItems() {
                 />
               </div>
               <div className="p-3">
-                <h4 className="font-oswald font-semibold text-[#1C1C1C] text-sm line-clamp-1 mb-1">
+                <h4 className="font-oswald font-semibold text-pepe-dark text-sm line-clamp-1 mb-1">
                   {product.title}
                 </h4>
-                <p className="text-xs text-gray-500 mb-2">
+                <p className="text-xs text-muted mb-2">
                   {formatCurrency(calc.totalPrice / state.headcount)}/person
                 </p>
                 <button
                   onClick={() => handleAdd(product)}
-                  className="w-full text-xs font-semibold bg-[#1C1C1C] text-white py-1.5 rounded-lg hover:bg-[#C8102E] hover:text-[#1C1C1C] transition-colors"
+                  className="w-full text-xs font-semibold bg-pepe-dark text-white py-1.5 rounded-lg hover:bg-pepe-red transition-colors"
                 >
                   Add to Order
                 </button>

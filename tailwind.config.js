@@ -9,18 +9,35 @@ module.exports = {
     extend: {
       colors: {
         // Pepe's Mexican Restaurant Brand Colors
-        cream: '#D4782F',
-        'pepe-dark': '#1C1C1C',
-        'pepe-red': '#C8102E',
+        cream: '#FFFFFF',
+        'pepe-dark': '#1A1A1A',
+        'pepe-red': '#00bfff',
         'pepe-green': '#006847',
-        'pepe-gold': '#E8A317',
+        'pepe-gold': '#F0960E',
+        'pepe-orange': '#E88A00',
         'pepe-teal': '#2D6B5A',
-        'pepe-charcoal': '#2D2926',
-        'pepe-cream': '#D4782F',
+        'pepe-charcoal': '#333333',
+        'pepe-cream': '#FFFFFF',
+        'pepe-burnt-orange': '#D4782F',
+        'pepe-terracotta': '#CC5500',
+        'pepe-warm-white': '#F8F8F8',
+        'pepe-sand': '#E0E0E0',
+        'pepe-maroon': '#8B2318',
         'success-green': '#4CAF50',
         'error-red': '#E53935',
-        'muted': '#8B7355',
-        'dark': '#1C1C1C',
+        'muted': '#888888',
+        'dark': '#1A1A1A',
+        // Semantic aliases for component usage
+        'primary-brown': '#1A1A1A',
+        'charcoal': '#333333',
+        'light-brown': '#888888',
+        'accent-gold': '#F0960E',
+        // Button state tokens
+        'pepe-red-hover': '#00a6d6',
+        'pepe-red-active': '#008db8',
+        'pepe-dark-active': '#111111',
+        // Dine-in menu cream
+        'pepe-menu-cream': '#FFFFFF',
       },
       fontFamily: {
         heading: ['var(--font-bevan)', 'Bevan', 'cursive'],

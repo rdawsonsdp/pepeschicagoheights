@@ -33,8 +33,8 @@ export default function BudgetCard({ budget, isSelected, hasSelection, onSelect 
         isSelected
           ? 'ring-2 ring-primary-brown bg-primary-brown/5 scale-[1.02]'
           : isUnselected
-            ? 'opacity-50 grayscale hover:opacity-100 hover:grayscale-0 hover:ring-2 hover:ring-accent-gold/50'
-            : 'hover:ring-2 hover:ring-accent-gold/50'
+            ? 'opacity-50 grayscale hover:opacity-100 hover:grayscale-0 hover:ring-2 hover:ring-pepe-orange/50'
+            : 'hover:ring-2 hover:ring-pepe-orange/50'
       }`}
       onClick={onSelect}
     >

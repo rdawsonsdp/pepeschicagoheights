@@ -15,7 +15,7 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-[#1C1C1C] text-white sticky top-0 z-50">
+    <header className="bg-pepe-orange text-white sticky top-0 z-50 border-b-4 border-white">
       <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -36,14 +36,14 @@ export default function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="font-oswald text-sm xl:text-base tracking-wide text-white hover:text-[#C8102E] transition-colors"
+                className="font-oswald text-sm xl:text-base tracking-wide text-white hover:text-pepe-dark transition-colors"
               >
                 {link.label}
               </Link>
             ))}
             <a
               href="tel:+17087482400"
-              className="font-oswald text-sm xl:text-base tracking-wide text-[#E8A317] hover:text-white transition-colors"
+              className="font-oswald text-sm xl:text-base tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"
             >
               (708) 748-2400
             </a>
@@ -83,12 +83,12 @@ export default function Header() {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <nav className="lg:hidden mt-4 pb-4 border-t border-white/20 pt-4">
+          <nav className="lg:hidden mt-4 pb-4 border-t border-white/30 pt-4">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="block py-3 font-oswald tracking-wide text-white hover:text-[#C8102E] transition-colors"
+                className="block py-3 font-oswald tracking-wide text-white hover:text-pepe-dark transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.label}
@@ -96,7 +96,7 @@ export default function Header() {
             ))}
             <a
               href="tel:+17087482400"
-              className="block py-3 font-oswald tracking-wide text-[#E8A317] hover:text-white transition-colors"
+              className="block py-3 font-oswald tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"
             >
               (708) 748-2400
             </a>

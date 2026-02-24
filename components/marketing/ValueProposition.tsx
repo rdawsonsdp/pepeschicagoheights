@@ -32,7 +32,7 @@ const VALUE_PROPS = [
 
 export default function ValueProposition() {
   return (
-    <section className="bg-[#D4782F] py-12 sm:py-16">
+    <section className="bg-pepe-cream py-12 sm:py-16 texture-paper relative">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {VALUE_PROPS.map((prop, index) => (
@@ -40,13 +40,13 @@ export default function ValueProposition() {
               key={index}
               className="text-center px-4"
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#C8102E]/10 text-[#C8102E] mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-pepe-red/15 text-pepe-red mb-4 border border-pepe-red/20">
                 {prop.icon}
               </div>
-              <h3 className="font-oswald text-xl text-[#1C1C1C] mb-2 tracking-wide">
+              <h3 className="font-oswald text-xl text-pepe-dark mb-2 tracking-wide">
                 {prop.title}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
+              <p className="text-sm text-pepe-charcoal/70 leading-relaxed font-crimson">
                 {prop.description}
               </p>
             </div>

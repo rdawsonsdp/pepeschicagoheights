@@ -42,7 +42,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D4782F]">
+    <div className="min-h-screen bg-pepe-cream">
       {/* Decorative Banner - Top */}
       <div className="w-full h-[60px] sm:h-[70px] relative overflow-hidden">
         <Image
@@ -64,24 +64,30 @@ export default function HomePage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#1C1C1C] via-[#1C1C1C]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-pepe-dark via-pepe-dark/40 to-transparent" />
         </div>
 
-        <div className="bg-[#8B2500] py-8 sm:py-10 text-center">
-          <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#00BFFF] tracking-wider mb-1 drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+        <div className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-8 sm:py-10 text-center">
+          <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-pepe-red tracking-wider mb-1 drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
             PEPE&apos;S MEXICAN RESTAURANT
           </h1>
-          <p className="font-oswald text-2xl sm:text-3xl md:text-4xl text-[#00BFFF] tracking-wider drop-shadow-md" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+          <p className="font-oswald text-2xl sm:text-3xl md:text-4xl text-pepe-red tracking-wider drop-shadow-md" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
             CHICAGO HEIGHTS
           </p>
-          <p className="font-oswald text-base sm:text-lg md:text-xl text-[#E8A317] tracking-wider mt-2">
+          <p className="font-crimson text-base sm:text-lg md:text-xl text-pepe-sand tracking-wider mt-2 italic">
             Chicago Heights, IL &bull; Since 1967
           </p>
         </div>
 
-        <div className="bg-[#1C1C1C] py-3 text-center">
-          <p className="font-oswald text-lg sm:text-xl md:text-2xl text-[#E8A317] tracking-[0.3em]">
-            TAKE OUT / CATERING
+        {/* Orange-white stripe divider */}
+        <div className="flex">
+          <div className="flex-1 h-2 bg-pepe-orange"></div>
+          <div className="w-1 h-2 bg-white"></div>
+          <div className="flex-1 h-2 bg-pepe-orange"></div>
+        </div>
+        <div className="bg-pepe-dark py-3 text-center">
+          <p className="font-crimson text-lg sm:text-xl md:text-2xl text-pepe-orange tracking-[0.2em] italic">
+            Take Out &amp; Catering
           </p>
         </div>
       </section>
@@ -96,20 +102,20 @@ export default function HomePage() {
       <ClientLogos />
 
       {/* Step Indicator */}
-      <section id="catering" className="bg-[#D4782F] pt-12 sm:pt-16">
+      <section id="catering" className="bg-pepe-cream pt-12 sm:pt-16">
         <div className="container mx-auto px-4">
           <StepIndicator currentStep={state.currentStep} />
         </div>
       </section>
 
       {/* Step 1: Event Type Selection */}
-      <section className="bg-[#D4782F] pb-12 sm:pb-16">
-        <div className="container mx-auto px-4">
+      <section className="bg-pepe-cream pb-12 sm:pb-16 texture-paper relative">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10">
-            <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-[#1C1C1C] tracking-wider mb-4">
+            <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-pepe-dark tracking-wider mb-4">
               WHAT ARE YOU CRAVING?
             </h2>
-            <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
+            <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto italic">
               Select a category to start building your catering order
             </p>
           </div>
@@ -128,11 +134,11 @@ export default function HomePage() {
                       <div
                         onClick={() => handleSelectEventType(eventType.id)}
                         className={`
-                          relative overflow-hidden rounded-xl cursor-pointer
-                          transition-all duration-300 shadow-md
+                          relative overflow-hidden rounded-2xl cursor-pointer
+                          transition-all duration-300 shadow-warm
                           h-[180px] sm:h-[240px] md:h-[320px]
                           ${isSelected
-                            ? 'ring-4 ring-[#C8102E] scale-[1.02]'
+                            ? 'ring-4 ring-pepe-red scale-[1.02]'
                             : 'hover:scale-105'
                           }
                           ${isUnselected ? 'opacity-70' : ''}
@@ -193,17 +199,17 @@ export default function HomePage() {
       )}
 
       {/* Browse Full Menu Link */}
-      <section className="bg-[#8B2500] py-12 sm:py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="font-oswald text-2xl sm:text-3xl text-[#00BFFF] mb-3 tracking-wide">
+      <section className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-12 sm:py-16 relative texture-tile">
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h3 className="font-oswald text-2xl sm:text-3xl text-pepe-red mb-3 tracking-wide">
             LOOKING FOR SOMETHING ELSE?
           </h3>
-          <p className="text-white/80 mb-6 max-w-xl mx-auto">
+          <p className="font-crimson text-white/80 mb-6 max-w-xl mx-auto italic">
             Browse our complete catering menu featuring appetizers, main dishes, sides, toppings, and desserts.
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 bg-[#00BFFF] text-[#1C1C1C] font-oswald font-bold px-8 py-3 rounded-lg hover:bg-[#E8A317] transition-all group"
+            className="inline-flex items-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-warm-white hover:text-pepe-dark transition-all group shadow-warm"
           >
             <span>Browse Full Menu</span>
             <svg

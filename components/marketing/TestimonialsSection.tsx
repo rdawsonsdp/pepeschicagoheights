@@ -35,7 +35,7 @@ function StarRating({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'text-[#E8A317]' : 'text-gray-300'}`}
+          className={`w-4 h-4 ${i < rating ? 'text-pepe-orange' : 'text-pepe-sand'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -48,13 +48,13 @@ function StarRating({ rating }: { rating: number }) {
 
 export default function TestimonialsSection() {
   return (
-    <section className="bg-[#D4782F] py-12 sm:py-16">
+    <section className="bg-pepe-sand py-12 sm:py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="font-oswald text-3xl sm:text-4xl text-[#1C1C1C] tracking-wider mb-3">
+          <h2 className="font-oswald text-3xl sm:text-4xl text-pepe-dark tracking-wider mb-3">
             WHAT OUR CLIENTS SAY
           </h2>
-          <p className="text-gray-600 max-w-xl mx-auto">
+          <p className="font-crimson text-pepe-charcoal/70 max-w-xl mx-auto italic">
             Trusted by families and businesses across the Chicagoland area since 1967
           </p>
         </div>
@@ -63,14 +63,14 @@ export default function TestimonialsSection() {
           {TESTIMONIALS.map((testimonial, index) => (
             <Card key={index} className="flex flex-col" hover={false}>
               <StarRating rating={testimonial.rating} />
-              <p className="text-sm text-gray-700 mt-3 mb-4 flex-grow italic leading-relaxed">
+              <p className="text-sm text-pepe-charcoal/80 mt-3 mb-4 flex-grow italic leading-relaxed font-crimson">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
-              <div className="border-t border-gray-200 pt-3">
-                <p className="font-oswald text-[#1C1C1C] text-sm">
+              <div className="border-t border-pepe-sand pt-3">
+                <p className="font-oswald text-pepe-dark text-sm">
                   {testimonial.author}
                 </p>
-                <p className="text-xs text-gray-500">{testimonial.company}</p>
+                <p className="text-xs text-muted">{testimonial.company}</p>
               </div>
             </Card>
           ))}

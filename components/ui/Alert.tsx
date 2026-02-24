@@ -8,10 +8,10 @@ interface AlertProps {
 
 export default function Alert({ variant = 'info', children, className = '' }: AlertProps) {
   const variantStyles = {
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
-    success: 'bg-green-50 border-success-green/30 text-green-800',
-    warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-    error: 'bg-red-50 border-error-red/30 text-red-800',
+    info: 'bg-pepe-warm-white border-pepe-burnt-orange/30 text-pepe-dark',
+    success: 'bg-pepe-orange/10 border-pepe-orange/30 text-pepe-dark',
+    warning: 'bg-pepe-sand/30 border-pepe-orange/40 text-pepe-terracotta',
+    error: 'bg-pepe-red/5 border-pepe-red/30 text-pepe-maroon',
   };
 
   const iconMap = {
@@ -38,7 +38,7 @@ export default function Alert({ variant = 'info', children, className = '' }: Al
   };
 
   return (
-    <div className={`flex items-start gap-3 p-4 rounded-lg border ${variantStyles[variant]} ${className}`}>
+    <div className={`flex items-start gap-3 p-4 rounded-xl border ${variantStyles[variant]} ${className}`}>
       <span className="flex-shrink-0 mt-0.5">{iconMap[variant]}</span>
       <div className="text-sm">{children}</div>
     </div>

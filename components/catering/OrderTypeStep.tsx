@@ -47,13 +47,13 @@ export default function OrderTypeStep() {
   ];
 
   return (
-    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
+    <div ref={sectionRef} className="bg-pepe-sand py-12 sm:py-16 scroll-mt-4">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-4">
             HOW WOULD YOU LIKE TO ORDER?
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto italic">
             Build a custom menu or choose from our curated packages
           </p>
         </div>
@@ -69,22 +69,22 @@ export default function OrderTypeStep() {
               <div
                 onClick={() => handleSelect(option.id)}
                 className={`
-                  bg-white border-2 rounded-xl p-8 sm:p-10 text-center cursor-pointer
-                  transition-all duration-300 hover:scale-105 shadow-md
+                  bg-pepe-warm-white border-2 rounded-2xl p-8 sm:p-10 text-center cursor-pointer
+                  transition-all duration-300 hover:scale-[1.03] shadow-warm
                   ${state.orderType === option.id
-                    ? 'border-[#1C1C1C] bg-[#C8102E]/20'
-                    : 'border-gray-200 hover:border-[#C8102E]'
+                    ? 'border-pepe-red bg-pepe-red/5 shadow-warm-lg'
+                    : 'border-pepe-sand hover:border-pepe-red/50'
                   }
                 `}
               >
                 <div className="text-6xl sm:text-7xl mb-4">{option.icon}</div>
-                <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C] mb-3 tracking-wide">
+                <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-dark mb-3 tracking-wide">
                   {option.title}
                 </h3>
-                <p className="text-gray-600 text-sm sm:text-base mb-2">
+                <p className="text-pepe-charcoal/70 text-sm sm:text-base mb-2 font-crimson">
                   {option.description}
                 </p>
-                <p className="text-xs text-[#C8102E] font-semibold">
+                <p className="text-xs text-pepe-red font-semibold">
                   {option.detail}
                 </p>
               </div>
@@ -96,7 +96,7 @@ export default function OrderTypeStep() {
         <div className="mt-10 text-center">
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide"
+            className="font-oswald text-muted hover:text-pepe-dark transition-colors tracking-wide"
           >
             ← BACK TO GUESTS & BUDGET
           </button>

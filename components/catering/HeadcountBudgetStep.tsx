@@ -35,14 +35,14 @@ export default function HeadcountBudgetStep() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-[#D4782F] py-12 sm:py-16 scroll-mt-4">
-      <div className="container mx-auto px-4">
+    <div ref={sectionRef} className="bg-pepe-cream py-12 sm:py-16 scroll-mt-4 texture-paper relative">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Headcount Section */}
         <div className="text-center mb-12">
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-[#1C1C1C] tracking-wider mb-4">
+          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-4">
             HOW MANY GUESTS?
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-8">
+          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto mb-8 italic">
             This helps us recommend the right portions and pricing for your event
           </p>
 
@@ -50,7 +50,7 @@ export default function HeadcountBudgetStep() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <button
               onClick={() => handleHeadcountChange(state.headcount - 5)}
-              className="w-14 h-14 rounded-full bg-[#D4782F] hover:bg-[#C8102E] text-[#1C1C1C] font-bold text-2xl transition-colors flex items-center justify-center"
+              className="w-14 h-14 rounded-full bg-pepe-warm-white border-2 border-pepe-sand hover:bg-pepe-red hover:text-white hover:border-pepe-red text-pepe-dark font-bold text-2xl transition-colors flex items-center justify-center"
               aria-label="Decrease guests by 5"
             >
               -
@@ -59,12 +59,12 @@ export default function HeadcountBudgetStep() {
               type="number"
               value={state.headcount}
               onChange={(e) => handleHeadcountChange(parseInt(e.target.value) || 10)}
-              className="w-28 h-14 text-center text-3xl font-oswald font-bold border-2 border-[#1C1C1C] rounded-lg focus:ring-2 focus:ring-[#C8102E]/50 focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+              className="w-28 h-14 text-center text-3xl font-oswald font-bold border-2 border-pepe-sand bg-pepe-warm-white rounded-xl focus:ring-2 focus:ring-pepe-orange/50 focus:border-pepe-orange focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               min="1"
             />
             <button
               onClick={() => handleHeadcountChange(state.headcount + 5)}
-              className="w-14 h-14 rounded-full bg-[#D4782F] hover:bg-[#C8102E] text-[#1C1C1C] font-bold text-2xl transition-colors flex items-center justify-center"
+              className="w-14 h-14 rounded-full bg-pepe-warm-white border-2 border-pepe-sand hover:bg-pepe-red hover:text-white hover:border-pepe-red text-pepe-dark font-bold text-2xl transition-colors flex items-center justify-center"
               aria-label="Increase guests by 5"
             >
               +
@@ -81,12 +81,12 @@ export default function HeadcountBudgetStep() {
                 <button
                   key={n}
                   onClick={() => handleHeadcountChange(n)}
-                  className={`px-5 py-3 rounded-xl text-sm font-bold transition-all duration-300 border-2 ${
+                  className={`px-5 py-3 rounded-full text-sm font-bold transition-all duration-300 border-2 ${
                     isSelected
-                      ? 'bg-[#1C1C1C] text-white border-[#1C1C1C] scale-[1.02] shadow-md'
+                      ? 'bg-pepe-dark text-white border-pepe-dark scale-[1.02] shadow-warm'
                       : isUnselected
-                        ? 'bg-[#D4782F] text-gray-600 border-transparent opacity-50 grayscale hover:opacity-100 hover:grayscale-0 hover:bg-[#C8102E]/30 hover:text-[#1C1C1C]'
-                        : 'bg-[#D4782F] text-gray-600 border-transparent hover:bg-[#C8102E]/30 hover:text-[#1C1C1C]'
+                        ? 'bg-pepe-warm-white text-muted border-pepe-sand opacity-50 hover:opacity-100 hover:bg-pepe-red/10 hover:text-pepe-dark'
+                        : 'bg-pepe-warm-white text-muted border-pepe-sand hover:bg-pepe-red/10 hover:text-pepe-dark'
                   }`}
                 >
                   {n} guests
@@ -98,10 +98,10 @@ export default function HeadcountBudgetStep() {
 
         {/* Budget Section */}
         <div className="text-center mb-8">
-          <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-[#1C1C1C] tracking-wider mb-3">
+          <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-dark tracking-wider mb-3">
             WHAT&apos;S YOUR PER-PERSON BUDGET?
           </h3>
-          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto mb-8">
+          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto mb-8 italic">
             Optional — helps us highlight the best options for your budget
           </p>
 
@@ -122,19 +122,19 @@ export default function HeadcountBudgetStep() {
         <div className="flex flex-col items-center gap-4 mt-10">
           <button
             onClick={handleContinue}
-            className="bg-[#1C1C1C] text-white font-oswald font-bold px-10 py-4 rounded-lg hover:bg-gray-800 transition-colors text-lg tracking-wide shadow-md"
+            className="bg-pepe-red text-white font-oswald font-bold px-10 py-4 rounded-full hover:bg-pepe-red-hover transition-colors text-lg tracking-wide shadow-warm"
           >
             CONTINUE
           </button>
           <button
             onClick={handleSkipBudget}
-            className="bg-[#D4782F] text-[#1C1C1C] font-oswald font-bold px-10 py-4 rounded-lg hover:bg-[#E8A317] transition-colors text-lg tracking-wide shadow-md"
+            className="bg-pepe-warm-white text-pepe-charcoal font-oswald font-bold px-10 py-4 rounded-full hover:bg-pepe-orange hover:text-white transition-colors text-lg tracking-wide border-2 border-pepe-sand"
           >
             SKIP BUDGET SELECTION
           </button>
           <button
             onClick={handleBack}
-            className="font-oswald text-gray-500 hover:text-[#1C1C1C] transition-colors tracking-wide mt-2"
+            className="font-oswald text-muted hover:text-pepe-dark transition-colors tracking-wide mt-2"
           >
             ← BACK TO EVENT TYPE
           </button>

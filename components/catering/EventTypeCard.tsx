@@ -19,7 +19,7 @@ export default function EventTypeCard({
       className={`text-center hover-lift cursor-pointer transition-all duration-300 ${
         isSelected
           ? 'ring-2 ring-primary-brown bg-primary-brown/5'
-          : 'hover:ring-2 hover:ring-accent-gold/50'
+          : 'hover:ring-2 hover:ring-pepe-orange/50'
       }`}
       onClick={onSelect}
     >

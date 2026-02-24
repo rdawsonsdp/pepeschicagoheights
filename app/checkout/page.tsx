@@ -149,14 +149,14 @@ export default function CheckoutPage() {
   // Redirect if cart is empty
   if (calculatedItems.length === 0) {
     return (
-      <div className="min-h-screen bg-[#D4782F] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-pepe-cream flex items-center justify-center p-4">
         <Card className="max-w-md w-full text-center">
           <div className="text-5xl mb-4">🛒</div>
-          <h2 className="font-oswald text-2xl font-bold text-[#1C1C1C] mb-2">Your Cart is Empty</h2>
-          <p className="text-gray-600 mb-6">Add some items to your order before checking out.</p>
+          <h2 className="font-oswald text-2xl font-bold text-pepe-dark mb-2">Your Cart is Empty</h2>
+          <p className="text-pepe-charcoal/70 mb-6">Add some items to your order before checking out.</p>
           <Link
             href="/#catering"
-            className="inline-block bg-[#1C1C1C] text-white font-oswald font-bold px-6 py-3 rounded-lg hover:bg-[#C8102E] hover:text-[#1C1C1C] transition-colors"
+            className="inline-block bg-pepe-dark text-white font-oswald font-bold px-6 py-3 rounded-lg hover:bg-pepe-red hover:text-pepe-dark transition-colors"
           >
             Start Ordering
           </Link>
@@ -309,9 +309,9 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D4782F]">
+    <div className="min-h-screen bg-pepe-cream">
       {/* Header */}
-      <div className="bg-[#1C1C1C] py-6 sm:py-8">
+      <div className="bg-pepe-dark py-6 sm:py-8">
         <div className="container mx-auto px-4">
           <Link
             href="/#catering"
@@ -322,14 +322,14 @@ export default function CheckoutPage() {
             </svg>
             Back to Order
           </Link>
-          <h1 className="font-oswald text-3xl sm:text-4xl font-bold text-[#D4782F] tracking-wider">
+          <h1 className="font-oswald text-3xl sm:text-4xl font-bold text-pepe-red tracking-wider">
             CHECKOUT
           </h1>
         </div>
       </div>
 
       {/* Process Steps */}
-      <div className="bg-white border-b">
+      <div className="bg-pepe-warm-white border-b border-pepe-sand">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between max-w-3xl mx-auto">
             {PROCESS_STEPS.map((step, index) => {
@@ -343,7 +343,7 @@ export default function CheckoutPage() {
                   {index > 0 && (
                     <div
                       className={`absolute right-1/2 top-5 w-full h-0.5 -translate-y-1/2 ${
-                        isCompleted || isCurrent ? 'bg-[#C8102E]' : 'bg-gray-200'
+                        isCompleted || isCurrent ? 'bg-pepe-red' : 'bg-pepe-warm-white'
                       }`}
                       style={{ width: 'calc(100% + 2rem)', right: '50%', zIndex: 0 }}
                     />
@@ -353,10 +353,10 @@ export default function CheckoutPage() {
                   <div
                     className={`relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-colors ${
                       isCurrent
-                        ? 'bg-[#C8102E] text-[#1C1C1C]'
+                        ? 'bg-pepe-red text-pepe-dark'
                         : isCompleted
-                        ? 'bg-[#1C1C1C] text-white'
-                        : 'bg-gray-200 text-gray-400'
+                        ? 'bg-pepe-dark text-white'
+                        : 'bg-pepe-warm-white text-muted/70'
                     }`}
                   >
                     {step.icon}
@@ -365,12 +365,12 @@ export default function CheckoutPage() {
                   {/* Label */}
                   <p
                     className={`mt-2 text-xs sm:text-sm font-oswald font-semibold ${
-                      isCurrent ? 'text-[#1C1C1C]' : isCompleted ? 'text-[#1C1C1C]' : 'text-gray-400'
+                      isCurrent ? 'text-pepe-dark' : isCompleted ? 'text-pepe-dark' : 'text-muted/70'
                     }`}
                   >
                     {step.label}
                   </p>
-                  <p className="text-[10px] sm:text-xs text-gray-400 hidden sm:block">
+                  <p className="text-[10px] sm:text-xs text-muted/70 hidden sm:block">
                     {step.description}
                   </p>
                 </div>
@@ -389,8 +389,8 @@ export default function CheckoutPage() {
               <div className="space-y-6">
                 {/* Contact Information */}
                 <Card>
-                  <h2 className="font-oswald text-xl font-bold text-[#1C1C1C] mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-[#C8102E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h2 className="font-oswald text-xl font-bold text-pepe-dark mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-pepe-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     Contact Information
@@ -398,56 +398,56 @@ export default function CheckoutPage() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        First Name <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        First Name <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="text"
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleInputChange}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.firstName ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.firstName ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+                      {errors.firstName && <p className="text-error-red text-xs mt-1">{errors.firstName}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Last Name <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Last Name <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="text"
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleInputChange}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.lastName ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.lastName ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
+                      {errors.lastName && <p className="text-error-red text-xs mt-1">{errors.lastName}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Email <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Email <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.email ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.email ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                      {errors.email && <p className="text-error-red text-xs mt-1">{errors.email}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Phone <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Phone <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="tel"
@@ -455,15 +455,15 @@ export default function CheckoutPage() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="(555) 123-4567"
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.phone ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.phone ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                      {errors.phone && <p className="text-error-red text-xs mt-1">{errors.phone}</p>}
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
                         Company/Organization
                       </label>
                       <input
@@ -471,7 +471,7 @@ export default function CheckoutPage() {
                         name="company"
                         value={formData.company}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50"
+                        className="w-full px-3 py-2 border border-pepe-sand rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40"
                       />
                     </div>
                   </div>
@@ -479,8 +479,8 @@ export default function CheckoutPage() {
 
                 {/* Delivery Address */}
                 <Card>
-                  <h2 className="font-oswald text-xl font-bold text-[#1C1C1C] mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-[#C8102E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h2 className="font-oswald text-xl font-bold text-pepe-dark mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-pepe-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -489,8 +489,8 @@ export default function CheckoutPage() {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Street Address <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Street Address <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="text"
@@ -498,15 +498,15 @@ export default function CheckoutPage() {
                         value={formData.address}
                         onChange={handleInputChange}
                         placeholder="123 Main Street"
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.address ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.address ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address}</p>}
+                      {errors.address && <p className="text-error-red text-xs mt-1">{errors.address}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
                         Suite/Floor/Building (Optional)
                       </label>
                       <input
@@ -515,30 +515,30 @@ export default function CheckoutPage() {
                         value={formData.address2}
                         onChange={handleInputChange}
                         placeholder="Suite 100, Floor 2, etc."
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50"
+                        className="w-full px-3 py-2 border border-pepe-sand rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40"
                       />
                     </div>
 
                     <div className="grid sm:grid-cols-3 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          City <span className="text-red-500">*</span>
+                        <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                          City <span className="text-pepe-red">*</span>
                         </label>
                         <input
                           type="text"
                           name="city"
                           value={formData.city}
                           onChange={handleInputChange}
-                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                            errors.city ? 'border-red-500' : 'border-gray-300'
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                            errors.city ? 'border-error-red' : 'border-pepe-sand'
                           }`}
                         />
-                        {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city}</p>}
+                        {errors.city && <p className="text-error-red text-xs mt-1">{errors.city}</p>}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          State <span className="text-red-500">*</span>
+                        <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                          State <span className="text-pepe-red">*</span>
                         </label>
                         <input
                           type="text"
@@ -547,16 +547,16 @@ export default function CheckoutPage() {
                           onChange={handleInputChange}
                           placeholder="IL"
                           maxLength={2}
-                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                            errors.state ? 'border-red-500' : 'border-gray-300'
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                            errors.state ? 'border-error-red' : 'border-pepe-sand'
                           }`}
                         />
-                        {errors.state && <p className="text-red-500 text-xs mt-1">{errors.state}</p>}
+                        {errors.state && <p className="text-error-red text-xs mt-1">{errors.state}</p>}
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          ZIP Code <span className="text-red-500">*</span>
+                        <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                          ZIP Code <span className="text-pepe-red">*</span>
                         </label>
                         <input
                           type="text"
@@ -564,11 +564,11 @@ export default function CheckoutPage() {
                           value={formData.zip}
                           onChange={handleInputChange}
                           placeholder="60601"
-                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                            errors.zip ? 'border-red-500' : 'border-gray-300'
+                          className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                            errors.zip ? 'border-error-red' : 'border-pepe-sand'
                           }`}
                         />
-                        {errors.zip && <p className="text-red-500 text-xs mt-1">{errors.zip}</p>}
+                        {errors.zip && <p className="text-error-red text-xs mt-1">{errors.zip}</p>}
                       </div>
                     </div>
                   </div>
@@ -576,8 +576,8 @@ export default function CheckoutPage() {
 
                 {/* Event Details */}
                 <Card>
-                  <h2 className="font-oswald text-xl font-bold text-[#1C1C1C] mb-4 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-[#C8102E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <h2 className="font-oswald text-xl font-bold text-pepe-dark mb-4 flex items-center gap-2">
+                    <svg className="w-5 h-5 text-pepe-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                     Event Details
@@ -585,8 +585,8 @@ export default function CheckoutPage() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Event Date <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Event Date <span className="text-pepe-red">*</span>
                       </label>
                       <input
                         type="date"
@@ -594,23 +594,23 @@ export default function CheckoutPage() {
                         value={formData.eventDate}
                         onChange={handleInputChange}
                         min={getMinDate()}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.eventDate ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.eventDate ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       />
-                      {errors.eventDate && <p className="text-red-500 text-xs mt-1">{errors.eventDate}</p>}
+                      {errors.eventDate && <p className="text-error-red text-xs mt-1">{errors.eventDate}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Delivery Time <span className="text-red-500">*</span>
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
+                        Delivery Time <span className="text-pepe-red">*</span>
                       </label>
                       <select
                         name="deliveryTime"
                         value={formData.deliveryTime}
                         onChange={handleInputChange}
-                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 ${
-                          errors.deliveryTime ? 'border-red-500' : 'border-gray-300'
+                        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 ${
+                          errors.deliveryTime ? 'border-error-red' : 'border-pepe-sand'
                         }`}
                       >
                         <option value="">Select a time...</option>
@@ -618,7 +618,7 @@ export default function CheckoutPage() {
                           <option key={time} value={time}>{time}</option>
                         ))}
                       </select>
-                      {errors.deliveryTime && <p className="text-red-500 text-xs mt-1">{errors.deliveryTime}</p>}
+                      {errors.deliveryTime && <p className="text-error-red text-xs mt-1">{errors.deliveryTime}</p>}
                     </div>
 
                     <div className="sm:col-span-2">
@@ -628,16 +628,16 @@ export default function CheckoutPage() {
                           name="setupRequired"
                           checked={formData.setupRequired}
                           onChange={handleInputChange}
-                          className="w-5 h-5 rounded border-gray-300 text-[#C8102E] focus:ring-[#C8102E]"
+                          className="w-5 h-5 rounded border-pepe-sand text-pepe-red focus:ring-pepe-orange"
                         />
-                        <span className="text-sm text-gray-700">
+                        <span className="text-sm text-pepe-charcoal">
                           <strong>Full Setup Service</strong> — Our team will set up your catering spread
                         </span>
                       </label>
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-pepe-charcoal mb-1">
                         Special Instructions / Dietary Notes
                       </label>
                       <textarea
@@ -646,7 +646,7 @@ export default function CheckoutPage() {
                         onChange={handleInputChange}
                         rows={3}
                         placeholder="Loading dock access, dietary restrictions, allergies, etc."
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50 resize-none"
+                        className="w-full px-3 py-2 border border-pepe-sand rounded-lg focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 resize-none"
                       />
                     </div>
                   </div>
@@ -660,55 +660,55 @@ export default function CheckoutPage() {
               /* Confirmation Step */
               <div className="space-y-6">
                 <Card>
-                  <h2 className="font-oswald text-xl font-bold text-[#1C1C1C] mb-4">
+                  <h2 className="font-oswald text-xl font-bold text-pepe-dark mb-4">
                     Review Your Order
                   </h2>
 
                   {/* Contact Summary */}
-                  <div className="mb-6 pb-6 border-b border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Contact</h3>
-                    <p className="text-[#1C1C1C] font-medium">{formData.firstName} {formData.lastName}</p>
-                    <p className="text-gray-600 text-sm">{formData.email}</p>
-                    <p className="text-gray-600 text-sm">{formData.phone}</p>
-                    {formData.company && <p className="text-gray-600 text-sm">{formData.company}</p>}
+                  <div className="mb-6 pb-6 border-b border-pepe-sand">
+                    <h3 className="text-sm font-semibold text-muted uppercase tracking-wide mb-2">Contact</h3>
+                    <p className="text-pepe-dark font-medium">{formData.firstName} {formData.lastName}</p>
+                    <p className="text-pepe-charcoal/70 text-sm">{formData.email}</p>
+                    <p className="text-pepe-charcoal/70 text-sm">{formData.phone}</p>
+                    {formData.company && <p className="text-pepe-charcoal/70 text-sm">{formData.company}</p>}
                   </div>
 
                   {/* Delivery Summary */}
-                  <div className="mb-6 pb-6 border-b border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Delivery</h3>
-                    <p className="text-[#1C1C1C]">{formData.address}</p>
-                    {formData.address2 && <p className="text-[#1C1C1C]">{formData.address2}</p>}
-                    <p className="text-[#1C1C1C]">{formData.city}, {formData.state} {formData.zip}</p>
+                  <div className="mb-6 pb-6 border-b border-pepe-sand">
+                    <h3 className="text-sm font-semibold text-muted uppercase tracking-wide mb-2">Delivery</h3>
+                    <p className="text-pepe-dark">{formData.address}</p>
+                    {formData.address2 && <p className="text-pepe-dark">{formData.address2}</p>}
+                    <p className="text-pepe-dark">{formData.city}, {formData.state} {formData.zip}</p>
                   </div>
 
                   {/* Event Summary */}
-                  <div className="mb-6 pb-6 border-b border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Event</h3>
-                    <div className="flex items-center gap-4 text-[#1C1C1C]">
+                  <div className="mb-6 pb-6 border-b border-pepe-sand">
+                    <h3 className="text-sm font-semibold text-muted uppercase tracking-wide mb-2">Event</h3>
+                    <div className="flex items-center gap-4 text-pepe-dark">
                       <div className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-[#C8102E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-pepe-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                         <span>{new Date(formData.eventDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-[#C8102E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-pepe-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>{formData.deliveryTime}</span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 mt-2">
+                    <p className="text-sm text-pepe-charcoal/70 mt-2">
                       {state.headcount} guests • {formData.setupRequired ? 'Full setup included' : 'Drop-off only'}
                     </p>
                     {formData.specialInstructions && (
-                      <p className="text-sm text-gray-500 mt-2 italic">"{formData.specialInstructions}"</p>
+                      <p className="text-sm text-muted mt-2 italic">"{formData.specialInstructions}"</p>
                     )}
                   </div>
 
                   {/* Order Items */}
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Order Items</h3>
+                    <h3 className="text-sm font-semibold text-muted uppercase tracking-wide mb-3">Order Items</h3>
                     <div className="space-y-3">
                       {calculatedItems.map(item => {
                         const variantLabel = item.selectedVariant
@@ -727,16 +727,16 @@ export default function CheckoutPage() {
                         return (
                           <div key={item.cartKey || item.product.id} className="flex justify-between text-sm">
                             <div>
-                              <p className="font-medium text-[#1C1C1C]">
+                              <p className="font-medium text-pepe-dark">
                                 {item.product.title}
                                 {variantLabel ? ` (${variantLabel})` : ''}
                               </p>
                               {splitLabel && (
-                                <p className="text-[#C8102E] text-xs font-medium">{splitLabel}</p>
+                                <p className="text-pepe-red text-xs font-medium">{splitLabel}</p>
                               )}
-                              <p className="text-gray-500 text-xs">{item.displayText}</p>
+                              <p className="text-muted text-xs">{item.displayText}</p>
                             </div>
-                            <p className="font-semibold text-[#1C1C1C]">{formatCurrency(item.totalPrice)}</p>
+                            <p className="font-semibold text-pepe-dark">{formatCurrency(item.totalPrice)}</p>
                           </div>
                         );
                       })}
@@ -745,7 +745,7 @@ export default function CheckoutPage() {
                 </Card>
 
                 {submitError && (
-                  <div className="flex items-start gap-3 p-4 rounded-lg border bg-red-50 border-red-200 text-red-800 mb-4">
+                  <div className="flex items-start gap-3 p-4 rounded-lg border bg-pepe-red/5 border-pepe-red/30 text-pepe-maroon mb-4">
                     <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -757,7 +757,7 @@ export default function CheckoutPage() {
                   <button
                     onClick={() => setCurrentStep(1)}
                     disabled={isSubmitting}
-                    className="flex-1 px-6 py-3 border-2 border-[#1C1C1C] text-[#1C1C1C] font-oswald font-bold rounded-lg hover:bg-[#1C1C1C] hover:text-white transition-colors disabled:opacity-50"
+                    className="flex-1 px-6 py-3 border-2 border-pepe-dark text-pepe-dark font-oswald font-bold rounded-lg hover:bg-pepe-dark hover:text-white transition-colors disabled:opacity-50"
                   >
                     Edit Details
                   </button>
@@ -781,39 +781,39 @@ export default function CheckoutPage() {
 
           {/* Order Summary Sidebar */}
           <div className="lg:col-span-1">
-            <Card className="sticky top-4 bg-[#D4782F]">
-              <h2 className="font-oswald text-xl font-bold text-[#1C1C1C] mb-4">
+            <Card className="sticky top-4 bg-pepe-sand">
+              <h2 className="font-oswald text-xl font-bold text-pepe-dark mb-4">
                 Order Summary
               </h2>
 
-              <div className="space-y-3 mb-4 pb-4 border-b border-gray-200">
+              <div className="space-y-3 mb-4 pb-4 border-b border-pepe-sand">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">{calculatedItems.length} item{calculatedItems.length !== 1 ? 's' : ''}</span>
-                  <span className="font-medium text-[#1C1C1C]">{formatCurrency(totalCost)}</span>
+                  <span className="text-pepe-charcoal/70">{calculatedItems.length} item{calculatedItems.length !== 1 ? 's' : ''}</span>
+                  <span className="font-medium text-pepe-dark">{formatCurrency(totalCost)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Guests</span>
-                  <span className="font-medium text-[#1C1C1C]">{state.headcount}</span>
+                  <span className="text-pepe-charcoal/70">Guests</span>
+                  <span className="font-medium text-pepe-dark">{state.headcount}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Delivery</span>
-                  <span className="font-medium text-[#1C1C1C]">{formatCurrency(deliveryFee)}</span>
+                  <span className="text-pepe-charcoal/70">Delivery</span>
+                  <span className="font-medium text-pepe-dark">{formatCurrency(deliveryFee)}</span>
                 </div>
               </div>
 
               <div className="flex justify-between font-oswald font-bold text-lg mb-2">
-                <span className="text-[#1C1C1C]">Total</span>
-                <span className="text-[#C8102E]">{formatCurrency(orderTotal)}</span>
+                <span className="text-pepe-dark">Total</span>
+                <span className="text-pepe-red">{formatCurrency(orderTotal)}</span>
               </div>
 
-              <div className="flex justify-between text-sm text-gray-500">
+              <div className="flex justify-between text-sm text-muted">
                 <span>Per Person</span>
                 <span>{formatCurrency(orderTotal / state.headcount)}</span>
               </div>
 
               {/* Items Preview */}
-              <div className="mt-6 pt-4 border-t border-gray-200">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Items</p>
+              <div className="mt-6 pt-4 border-t border-pepe-sand">
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-3">Items</p>
                 <div className="space-y-2 max-h-48 overflow-y-auto">
                   {calculatedItems.map(item => {
                     const variantLabel = item.selectedVariant
@@ -821,7 +821,7 @@ export default function CheckoutPage() {
                       : null;
                     return (
                       <div key={item.cartKey || item.product.id} className="text-sm">
-                        <p className="text-[#1C1C1C] truncate">
+                        <p className="text-pepe-dark truncate">
                           {item.product.title}
                           {variantLabel ? ` (${variantLabel})` : ''}
                         </p>
@@ -832,21 +832,21 @@ export default function CheckoutPage() {
               </div>
 
               {/* Trust Signals */}
-              <div className="mt-6 pt-4 border-t border-gray-200 space-y-3">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mt-6 pt-4 border-t border-pepe-sand space-y-3">
+                <div className="flex items-center gap-2 text-sm text-pepe-charcoal/70">
+                  <svg className="w-4 h-4 text-pepe-orange flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                   On-time delivery guaranteed
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 text-sm text-pepe-charcoal/70">
+                  <svg className="w-4 h-4 text-pepe-orange flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Full setup included
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 text-sm text-pepe-charcoal/70">
+                  <svg className="w-4 h-4 text-pepe-orange flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Satisfaction guaranteed
@@ -854,12 +854,12 @@ export default function CheckoutPage() {
               </div>
 
               {/* Support */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Need Help?</p>
-                <a href="tel:7087482400" className="text-sm text-[#C8102E] hover:text-[#1C1C1C] transition-colors font-semibold">
+              <div className="mt-4 pt-4 border-t border-pepe-sand">
+                <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Need Help?</p>
+                <a href="tel:7087482400" className="text-sm text-pepe-red hover:text-pepe-dark transition-colors font-semibold">
                   (708) 748-2400
                 </a>
-                <p className="text-xs text-gray-400 mt-1">Call, email, or text us anytime</p>
+                <p className="text-xs text-muted/70 mt-1">Call, email, or text us anytime</p>
               </div>
             </Card>
           </div>

@@ -29,14 +29,14 @@ export default function Input({
       <input
         id={inputId}
         className={`
-          w-full px-4 py-3 rounded-lg border transition-all duration-200
-          focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold
+          w-full px-4 py-3 rounded-xl border-2 transition-all duration-200
+          focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 focus:border-pepe-orange
           ${error
-            ? 'border-error-red bg-red-50 text-red-900'
-            : 'border-light-brown/30 bg-white text-charcoal'
+            ? 'border-error-red bg-pepe-red/5 text-pepe-maroon'
+            : 'border-pepe-sand bg-pepe-warm-white text-pepe-charcoal'
           }
-          placeholder:text-light-brown/60
-          disabled:bg-gray-100 disabled:cursor-not-allowed
+          placeholder:text-muted/60
+          disabled:bg-pepe-sand/50 disabled:cursor-not-allowed
           ${className}
         `}
         aria-invalid={error ? 'true' : 'false'}

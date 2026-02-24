@@ -37,32 +37,32 @@ function ProductCard({ product }: { product: CateringProduct }) {
           className="object-cover"
         />
         {inCart && (
-          <div className="absolute top-2 right-2 bg-[#C8102E] text-white text-xs font-bold px-2 py-1 rounded-full">
+          <div className="absolute top-2 right-2 bg-pepe-red text-white text-xs font-bold px-2 py-1 rounded-full">
             In Cart
           </div>
         )}
       </div>
-      <h3 className="font-oswald text-[#1C1C1C] text-lg mb-1 line-clamp-1">
+      <h3 className="font-oswald text-pepe-dark text-lg mb-1 line-clamp-1">
         {product.title}
       </h3>
-      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+      <p className="text-sm text-pepe-charcoal/70 mb-3 line-clamp-2">
         {product.description}
       </p>
       <div className="flex items-center justify-between mt-auto">
         <div>
-          <p className="font-oswald text-[#C8102E] text-lg">
+          <p className="font-oswald text-pepe-red text-lg">
             {getDisplayPrice(product)}
           </p>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-muted">
             {getPricingTypeLabel(product)}
           </p>
         </div>
         <button
           onClick={handleAddToCart}
-          className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all ${
+          className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${
             inCart
-              ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-              : 'bg-[#1C1C1C] text-white hover:bg-[#C8102E]'
+              ? 'bg-pepe-sand text-pepe-charcoal hover:bg-pepe-sand/80'
+              : 'bg-pepe-red text-white hover:bg-pepe-red-hover'
           }`}
         >
           {inCart ? 'Add More' : 'Add'}
@@ -108,9 +108,9 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D4782F]">
+    <div className="min-h-screen bg-pepe-cream">
       {/* Header */}
-      <div className="bg-[#1C1C1C] py-8 sm:py-12">
+      <div className="bg-pepe-dark py-8 sm:py-12">
         <div className="container mx-auto px-4">
           <Link
             href="/"
@@ -121,23 +121,23 @@ export default function ProductsPage() {
             </svg>
             Back to Order Builder
           </Link>
-          <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-[#D4782F] tracking-wider mb-2">
+          <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-pepe-red tracking-wider mb-2">
             FULL CATERING MENU
           </h1>
-          <p className="text-[#C8102E] text-lg">
+          <p className="text-pepe-sand text-lg font-crimson italic">
             Browse all {CATERING_PRODUCTS.length} items from our catering menu
           </p>
         </div>
       </div>
 
       {/* Search and Filter Bar */}
-      <div className="bg-white shadow-sm sticky top-0 z-40">
+      <div className="bg-pepe-warm-white shadow-warm sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search */}
             <div className="relative flex-1">
               <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted/70"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -154,7 +154,7 @@ export default function ProductsPage() {
                 placeholder="Search products..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#C8102E]/50"
+                className="w-full pl-10 pr-4 py-2.5 border-2 border-pepe-sand rounded-xl bg-pepe-warm-white focus:outline-none focus:ring-2 focus:ring-pepe-orange/40 focus:border-pepe-orange"
               />
             </div>
 
@@ -164,10 +164,10 @@ export default function ProductsPage() {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-lg font-oswald font-semibold text-sm whitespace-nowrap transition-all ${
+                  className={`px-4 py-2 rounded-full font-oswald font-semibold text-sm whitespace-nowrap transition-all ${
                     activeCategory === cat.id
-                      ? 'bg-[#1C1C1C] text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-[#C8102E]/10'
+                      ? 'bg-pepe-dark text-white shadow-warm'
+                      : 'bg-pepe-sand text-pepe-charcoal hover:bg-pepe-red/10'
                   }`}
                 >
                   {cat.name}
@@ -185,14 +185,14 @@ export default function ProductsPage() {
 
       {/* Cart Summary Bar */}
       {state.selectedItems.length > 0 && (
-        <div className="bg-[#C8102E] py-3">
+        <div className="bg-pepe-red py-3">
           <div className="container mx-auto px-4 flex items-center justify-between">
             <p className="font-oswald font-semibold text-white">
               {state.selectedItems.length} item{state.selectedItems.length !== 1 ? 's' : ''} in cart
             </p>
             <Link
               href="/#catering"
-              className="bg-white text-[#1C1C1C] px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#D4782F] transition-colors"
+              className="bg-white text-pepe-dark px-4 py-2 rounded-lg font-semibold text-sm hover:bg-pepe-orange hover:text-white transition-colors"
             >
               View Cart
             </Link>
@@ -209,11 +209,11 @@ export default function ProductsPage() {
             {groupedProducts.appetizers.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-pepe-dark">
                     Appetizers
                   </h2>
-                  <div className="flex-1 h-px bg-[#C8102E]" />
-                  <span className="text-sm text-gray-500">
+                  <div className="flex-1 h-px bg-pepe-red" />
+                  <span className="text-sm text-muted">
                     {groupedProducts.appetizers.length} items
                   </span>
                 </div>
@@ -229,11 +229,11 @@ export default function ProductsPage() {
             {groupedProducts.entrees.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-pepe-dark">
                     Main Dishes
                   </h2>
-                  <div className="flex-1 h-px bg-[#006847]" />
-                  <span className="text-sm text-gray-500">
+                  <div className="flex-1 h-px bg-pepe-green" />
+                  <span className="text-sm text-muted">
                     {groupedProducts.entrees.length} items
                   </span>
                 </div>
@@ -249,11 +249,11 @@ export default function ProductsPage() {
             {groupedProducts.sides.length > 0 && (
               <section>
                 <div className="flex items-center gap-4 mb-6">
-                  <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+                  <h2 className="font-oswald text-2xl sm:text-3xl text-pepe-dark">
                     Sides & More
                   </h2>
-                  <div className="flex-1 h-px bg-[#E8A317]" />
-                  <span className="text-sm text-gray-500">
+                  <div className="flex-1 h-px bg-pepe-orange" />
+                  <span className="text-sm text-muted">
                     {groupedProducts.sides.length} items
                   </span>
                 </div>
@@ -269,11 +269,11 @@ export default function ProductsPage() {
           // Flat view for specific category
           <>
             <div className="flex items-center gap-4 mb-6">
-              <h2 className="font-oswald text-2xl sm:text-3xl text-[#1C1C1C]">
+              <h2 className="font-oswald text-2xl sm:text-3xl text-pepe-dark">
                 {CATEGORIES.find((c) => c.id === activeCategory)?.name}
               </h2>
-              <div className="flex-1 h-px bg-[#C8102E]" />
-              <span className="text-sm text-gray-500">
+              <div className="flex-1 h-px bg-pepe-red" />
+              <span className="text-sm text-muted">
                 {filteredProducts.length} items
               </span>
             </div>
@@ -285,13 +285,13 @@ export default function ProductsPage() {
               </div>
             ) : (
               <div className="text-center py-16">
-                <p className="text-gray-500 text-lg">No products found</p>
+                <p className="text-muted text-lg">No products found</p>
                 <button
                   onClick={() => {
                     setSearchQuery('');
                     setActiveCategory('all');
                   }}
-                  className="mt-4 text-[#C8102E] hover:underline"
+                  className="mt-4 text-pepe-red hover:underline"
                 >
                   Clear filters
                 </button>
@@ -302,14 +302,14 @@ export default function ProductsPage() {
       </div>
 
       {/* Back to Order Builder CTA */}
-      <div className="bg-[#1C1C1C] py-12">
+      <div className="bg-pepe-dark py-12">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-oswald text-2xl sm:text-3xl text-[#D4782F] mb-4">
+          <h3 className="font-oswald text-2xl sm:text-3xl text-pepe-red mb-4">
             Ready to finalize your order?
           </h3>
           <Link
             href="/#catering"
-            className="inline-block bg-[#C8102E] text-white font-oswald px-8 py-3 rounded-lg hover:bg-[#E8A317] hover:text-[#1C1C1C] transition-colors"
+            className="inline-block bg-pepe-orange text-white font-oswald px-8 py-3 rounded-full hover:bg-white hover:text-pepe-dark transition-colors shadow-warm"
           >
             Return to Order Builder
           </Link>

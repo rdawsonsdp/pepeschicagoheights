@@ -1,19 +1,34 @@
 @import "tailwindcss";
 
 :root {
-  --background: #D4782F;
-  --foreground: #2D2926;
+  --background: #FFFFFF;
+  --foreground: #333333;
 
   /* Pepe's Mexican Restaurant Brand Colors */
-  --pepe-dark: #1C1C1C;
-  --pepe-red: #C8102E;
+  --pepe-dark: #1A1A1A;
+  --pepe-red: #00bfff;
   --pepe-green: #006847;
-  --pepe-gold: #E8A317;
-  --pepe-cream: #D4782F; /* burnt orange - formerly beige */
-  --pepe-charcoal: #2D2926;
+  --pepe-gold: #F0960E;
+  --pepe-orange: #E88A00;
+  --pepe-cream: #FFFFFF;
+  --pepe-charcoal: #333333;
   --pepe-teal: #2D6B5A;
+  --pepe-burnt-orange: #D4782F;
+  --pepe-terracotta: #CC5500;
+  --pepe-warm-white: #F8F8F8;
+  --pepe-sand: #E0E0E0;
+  --pepe-maroon: #8B2318;
   --success-green: #4CAF50;
   --error-red: #E53935;
+  /* Semantic aliases */
+  --primary-brown: #1A1A1A;
+  --charcoal: #333333;
+  --light-brown: #888888;
+  --accent-gold: #F0960E;
+  --pepe-red-hover: #00a6d6;
+  --pepe-red-active: #008db8;
+  --pepe-dark-active: #111111;
+  --pepe-menu-cream: #FFFFFF;
 }
 
 /* Animation keyframes */
@@ -186,19 +201,79 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px -8px rgba(200, 16, 46, 0.4);
+  box-shadow: 0 8px 20px -8px rgba(0, 191, 255, 0.4);
 }
 
 /* Glass card effect */
 .glass-card {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 104, 71, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Warm subtle texture overlay - CSS only */
+.texture-paper {
+  position: relative;
+}
+.texture-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    radial-gradient(circle at 25% 25%, #CCCCCC 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, #CCCCCC 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle tile pattern for dark sections */
+.texture-tile {
+  position: relative;
+}
+.texture-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image:
+    linear-gradient(45deg, #00bfff 25%, transparent 25%),
+    linear-gradient(-45deg, #00bfff 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #00bfff 75%),
+    linear-gradient(-45deg, transparent 75%, #00bfff 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Warm section divider */
+.divider-warm {
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--pepe-orange), var(--pepe-burnt-orange), var(--pepe-orange), transparent);
+  border: none;
+  opacity: 0.6;
+}
+
+/* Warm brown-tinted shadows */
+.shadow-warm {
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.15), 0 2px 8px -2px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-warm-lg {
+  box-shadow: 0 8px 30px -6px rgba(0, 0, 0, 0.20), 0 4px 12px -4px rgba(0, 0, 0, 0.10);
+}
+
+/* Warm subtitle style */
+.subtitle-warm {
+  font-family: var(--font-crimson), 'Crimson Text', serif;
+  font-style: italic;
 }
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #C8102E 0%, #E8A317 100%);
+  background: linear-gradient(135deg, #00bfff 0%, #E88A00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -228,8 +303,22 @@
   --color-pepe-cream: var(--pepe-cream);
   --color-pepe-charcoal: var(--pepe-charcoal);
   --color-pepe-teal: var(--pepe-teal);
+  --color-pepe-burnt-orange: var(--pepe-burnt-orange);
+  --color-pepe-terracotta: var(--pepe-terracotta);
+  --color-pepe-warm-white: var(--pepe-warm-white);
+  --color-pepe-sand: var(--pepe-sand);
   --color-success-green: var(--success-green);
   --color-error-red: var(--error-red);
+  --color-primary-brown: var(--primary-brown);
+  --color-charcoal: var(--charcoal);
+  --color-light-brown: var(--light-brown);
+  --color-accent-gold: var(--accent-gold);
+  --color-pepe-orange: var(--pepe-orange);
+  --color-pepe-maroon: var(--pepe-maroon);
+  --color-pepe-red-hover: var(--pepe-red-hover);
+  --color-pepe-red-active: var(--pepe-red-active);
+  --color-pepe-dark-active: var(--pepe-dark-active);
+  --color-pepe-menu-cream: var(--pepe-menu-cream);
   --font-sans: var(--font-lato);
   --font-heading: var(--font-bevan);
   --font-crimson: var(--font-crimson);
@@ -364,16 +453,16 @@ a:active {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #FFFFFF;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #006847;
+  background: #00bfff;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8102E;
+  background: #00a6d6;
 }
 
 /* Step indicator styles */
@@ -401,7 +490,7 @@ a:active {
 
 .step-dot.completed {
   opacity: 1;
-  background: var(--success-green);
+  background: var(--pepe-gold);
 }
 
 .step-line {
@@ -413,5 +502,5 @@ a:active {
 
 .step-line.completed {
   opacity: 1;
-  background: var(--success-green);
+  background: var(--pepe-gold);
 }

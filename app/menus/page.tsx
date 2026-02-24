@@ -71,7 +71,7 @@ function getProductsForSubsection(subsectionId: string): CateringProduct[] {
 
 function MenuItemCard({ product }: { product: CateringProduct }) {
   return (
-    <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-pepe-warm-white rounded-xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-shadow border border-pepe-sand">
       <div className="relative h-32 sm:h-40">
         <Image
           src={product.image}
@@ -81,17 +81,17 @@ function MenuItemCard({ product }: { product: CateringProduct }) {
         />
       </div>
       <div className="p-4">
-        <h4 className="font-oswald text-[#1C1C1C] text-sm sm:text-base mb-1 line-clamp-1">
+        <h4 className="font-oswald text-pepe-dark text-sm sm:text-base mb-1 line-clamp-1">
           {product.title}
         </h4>
-        <p className="text-xs text-gray-500 mb-2 line-clamp-2 font-merriweather">
+        <p className="text-xs text-muted mb-2 line-clamp-2 font-merriweather">
           {product.description}
         </p>
         <div className="flex items-center justify-between">
-          <span className="font-oswald text-[#C8102E]">
+          <span className="font-oswald text-pepe-red">
             {getDisplayPrice(product)}
           </span>
-          <span className="text-[10px] text-gray-400 uppercase">
+          <span className="text-[10px] text-muted/70 uppercase">
             {getPricingTypeLabel(product)}
           </span>
         </div>
@@ -140,18 +140,18 @@ export default function MenusPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#D4782F]">
+    <div className="min-h-screen bg-pepe-cream">
       {/* Hero Header */}
-      <div className="bg-[#1C1C1C] py-12 sm:py-16 relative overflow-hidden">
+      <div className="bg-pepe-dark py-12 sm:py-16 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#C8102E] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-pepe-red to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
-            <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#E8A317] tracking-wider mb-4">
+            <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-pepe-red tracking-wider mb-4">
               CATERING MENU
             </h1>
-            <p className="text-[#C8102E] text-lg sm:text-xl max-w-2xl mx-auto font-merriweather">
+            <p className="text-pepe-sand text-lg sm:text-xl max-w-2xl mx-auto font-crimson italic">
               Have a Fiesta! Browse our full service catering menu featuring authentic Mexican favorites.
             </p>
           </div>
@@ -159,7 +159,7 @@ export default function MenusPage() {
       </div>
 
       {/* Quick Navigation */}
-      <div className="bg-white border-b sticky top-0 z-40 shadow-sm">
+      <div className="bg-pepe-warm-white border-b border-pepe-sand sticky top-0 z-40 shadow-warm">
         <div className="container mx-auto px-4">
           <div className="flex overflow-x-auto gap-2 py-4 scrollbar-hide">
             {MENU_SECTIONS.map((section) => (
@@ -168,8 +168,8 @@ export default function MenusPage() {
                 onClick={() => scrollToSection(section.id)}
                 className={`px-4 py-2 rounded-full font-oswald font-semibold text-sm whitespace-nowrap transition-all ${
                   activeSection === section.id
-                    ? 'bg-[#1C1C1C] text-white'
-                    : 'bg-[#D4782F] text-[#1C1C1C] hover:bg-[#C8102E]/10'
+                    ? 'bg-pepe-dark text-white shadow-warm'
+                    : 'bg-pepe-sand text-pepe-charcoal hover:bg-pepe-red/10'
                 }`}
               >
                 {section.title}
@@ -196,13 +196,13 @@ export default function MenusPage() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#1C1C1C]/90 via-[#1C1C1C]/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-pepe-dark/90 via-pepe-dark/70 to-transparent" />
               </div>
               <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-10">
-                <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-[#E8A317] tracking-wider mb-2">
+                <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-pepe-red tracking-wider mb-2">
                   {section.title}
                 </h2>
-                <p className="text-[#C8102E] text-base sm:text-lg">
+                <p className="text-pepe-sand text-base sm:text-lg font-crimson italic">
                   {section.subtitle}
                 </p>
               </div>
@@ -218,12 +218,12 @@ export default function MenusPage() {
                   <div key={subsection.id}>
                     <div className="flex items-center gap-4 mb-6">
                       <div>
-                        <h3 className="font-crimson text-xl sm:text-2xl font-bold text-[#006847]">
+                        <h3 className="font-crimson text-xl sm:text-2xl font-bold text-pepe-green">
                           {subsection.title}
                         </h3>
-                        <p className="text-sm text-gray-500">{subsection.description}</p>
+                        <p className="text-sm text-muted">{subsection.description}</p>
                       </div>
-                      <div className="flex-1 h-px bg-[#006847]/30" />
+                      <div className="flex-1 h-px bg-pepe-green/30" />
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                       {products.map((product) => (
@@ -239,9 +239,9 @@ export default function MenusPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-[#1C1C1C] py-12 sm:py-16">
+      <div className="bg-pepe-dark py-12 sm:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="font-oswald text-2xl sm:text-3xl md:text-4xl text-[#E8A317] mb-4 tracking-wide">
+          <h3 className="font-oswald text-2xl sm:text-3xl md:text-4xl text-pepe-red mb-4 tracking-wide">
             READY TO ORDER?
           </h3>
           <p className="text-white/70 mb-6 max-w-xl mx-auto">
@@ -249,7 +249,7 @@ export default function MenusPage() {
           </p>
           <Link
             href="/#catering"
-            className="inline-flex items-center gap-2 bg-[#C8102E] text-white font-oswald px-8 py-3 rounded-lg hover:bg-[#E8A317] hover:text-[#1C1C1C] transition-all"
+            className="inline-flex items-center gap-2 bg-pepe-orange text-white font-oswald px-8 py-3 rounded-full hover:bg-white hover:text-pepe-dark transition-all shadow-warm"
           >
             <span>Start Your Order</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,11 +260,11 @@ export default function MenusPage() {
       </div>
 
       {/* Pricing Note */}
-      <div className="bg-[#D4782F] py-8 border-t border-[#006847]/20">
+      <div className="bg-pepe-sand py-8">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h4 className="font-oswald text-lg text-[#1C1C1C] mb-2">IMPORTANT INFORMATION</h4>
-            <p className="text-sm text-gray-600 font-merriweather">
+            <h4 className="font-oswald text-lg text-pepe-dark mb-2">IMPORTANT INFORMATION</h4>
+            <p className="text-sm text-pepe-charcoal/70 font-crimson">
               Delivery is available for an additional fee. Pre-payment is required for most orders.
               We require at least 2 day notice on most orders.
               All prices are subject to sales tax and may change without notice.

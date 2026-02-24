@@ -24,14 +24,14 @@ export default function Button({
 
   const variantStyles = {
     primary: disabled
-      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-      : 'bg-[#D4782F] text-white hover:bg-[#c06a25] active:bg-[#b0601f] focus:ring-[#D4782F] shadow-md hover:shadow-lg',
+      ? 'bg-pepe-sand text-muted cursor-not-allowed'
+      : 'bg-pepe-red text-white hover:bg-pepe-red-hover active:bg-pepe-red-active focus:ring-pepe-red shadow-warm hover:shadow-warm-lg',
     secondary: disabled
-      ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-      : 'bg-[#C8102E] text-white hover:bg-[#a80d26] active:bg-[#900b20] focus:ring-[#C8102E] shadow-md hover:shadow-lg',
+      ? 'bg-pepe-sand text-muted cursor-not-allowed'
+      : 'bg-pepe-dark text-white hover:bg-pepe-charcoal active:bg-pepe-dark-active focus:ring-pepe-dark shadow-warm hover:shadow-warm-lg',
     outline: disabled
-      ? 'border-2 border-gray-300 text-gray-500 cursor-not-allowed'
-      : 'border-2 border-[#D4782F] text-[#D4782F] hover:bg-[#D4782F] hover:text-white focus:ring-[#D4782F]',
+      ? 'border-2 border-pepe-sand text-muted cursor-not-allowed'
+      : 'border-2 border-pepe-red text-pepe-red hover:bg-pepe-red hover:text-white focus:ring-pepe-red',
   };
 
   return (

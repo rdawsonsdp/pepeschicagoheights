@@ -28,10 +28,10 @@ export default function StepIndicator({
                 font-bold text-sm sm:text-base transition-all duration-300
                 ${
                   currentStep > step.number
-                    ? 'bg-green-500 text-white'
+                    ? 'bg-pepe-orange text-pepe-dark'
                     : currentStep === step.number
-                    ? 'bg-[#1C1C1C] text-white ring-4 ring-[#1C1C1C]/20'
-                    : 'bg-gray-200 text-gray-400'
+                    ? 'bg-pepe-dark text-white ring-4 ring-pepe-orange/30'
+                    : 'bg-pepe-sand text-muted'
                 }
               `}
             >
@@ -58,8 +58,8 @@ export default function StepIndicator({
                 mt-2 text-xs sm:text-sm font-medium hidden sm:block
                 ${
                   currentStep >= step.number
-                    ? 'text-[#1C1C1C]'
-                    : 'text-gray-400'
+                    ? 'text-pepe-dark'
+                    : 'text-muted'
                 }
               `}
             >
@@ -74,8 +74,8 @@ export default function StepIndicator({
                 w-8 sm:w-16 h-1 mx-1 sm:mx-3 rounded-full transition-all duration-300
                 ${
                   currentStep > step.number
-                    ? 'bg-green-500'
-                    : 'bg-gray-200'
+                    ? 'bg-pepe-orange'
+                    : 'bg-pepe-sand'
                 }
               `}
             />
