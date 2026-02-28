@@ -4,6 +4,10 @@ import path from 'path';
 
 export async function POST(request: Request) {
   try {
+    const { requireAdminSession } = await import('@/lib/admin-auth');
+    const auth = await requireAdminSession();
+    if (!auth.authorized) return auth.response;
+
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     if (!file) {

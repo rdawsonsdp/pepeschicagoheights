@@ -59,6 +59,10 @@ function buildProductBlock(p: NewProduct): string {
 
 export async function POST(request: Request) {
   try {
+    const { requireAdminSession } = await import('@/lib/admin-auth');
+    const auth = await requireAdminSession();
+    if (!auth.authorized) return auth.response;
+
     const product: NewProduct = await request.json();
     const filePath = path.join(process.cwd(), 'lib', 'products.ts');
     let content = fs.readFileSync(filePath, 'utf-8');

@@ -11,8 +11,9 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'HOME' },
     { href: '/dine-in', label: 'DINE-IN MENU' },
-    { href: '/menus', label: 'CATERING MENU' },
-    { href: '/products', label: 'ORDER NOW' },
+    { href: '/drinks', label: 'DRINKS' },
+    { href: '/desserts', label: 'DESSERTS' },
+    { href: '/catering', label: 'ORDER CATERING' },
     { href: '/admin/menu-engineering', label: 'ADMIN' },
   ];
 

@@ -1,236 +1,410 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useCatering } from '@/context/CateringContext';
-import { EVENT_TYPES } from '@/lib/event-types';
-import StepIndicator from '@/components/catering/StepIndicator';
-import HeadcountBudgetStep from '@/components/catering/HeadcountBudgetStep';
-import OrderTypeStep from '@/components/catering/OrderTypeStep';
-import ProductSelectionStep from '@/components/catering/ProductSelectionStep';
-import PackageSelectionStep from '@/components/catering/PackageSelectionStep';
-import ValueProposition from '@/components/marketing/ValueProposition';
-import TrustSignals from '@/components/marketing/TrustSignals';
-import ClientLogos from '@/components/marketing/ClientLogos';
-import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
-import RecommendedItems from '@/components/catering/RecommendedItems';
 import { siteConfig } from '@/lib/site-config';
 
-export default function HomePage() {
-  const { state, dispatch } = useCatering();
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+const DAILY_SPECIALS = [
+  { day: 'Monday', items: ['1/2 Price Margaritas', 'Candy Shots $5.00'] },
+  { day: 'Tuesday', items: ["Pepe's Fajita Combo $4 Off", 'Margarita Flights $4 Off'] },
+  { day: 'Wednesday', items: ['1/2 Price Margaritas', 'Candy Shots $5.00'] },
+  { day: 'Thursday', items: ['Chicken Fajitas $4 Off', 'Candy Shots $5.00'] },
+  { day: 'Friday', items: ['Steak Fajitas $4 Off', '27 oz. Margarita $11.95'] },
+  { day: 'Saturday', items: ['Tierra y Mar $4 Off', '27 oz. Margarita $11.95 (Strawberry or Reg)'] },
+  { day: 'Sunday', items: ['Carne Tampiquefia $4 Off', '27 oz. Margarita One Flavor $11.95'] },
+];
 
-  const handleSelectEventType = (eventTypeId: string) => {
-    dispatch({
-      type: 'SET_EVENT_TYPE',
-      payload: eventTypeId as 'appetizers' | 'entrees' | 'sides',
-    });
-  };
+const TUESDAY_SPECIALS = [
+  '$1.99 Tacos',
+  '$1.99 Enchiladas',
+  '$1.99 Tostadas',
+  '$1.99 Tostadas Suiza',
+  '(Beef, Chicken or Pork) Steak +$1',
+  '$1.99 French Fries',
+];
 
-  const eventImages: Record<string, string> = siteConfig.branding.categoryImages;
-
-  const handleToggleFilter = (tag: string) => {
-    setActiveFilters(prev =>
-      prev.includes(tag)
-        ? prev.filter(f => f !== tag)
-        : [...prev, tag]
-    );
-  };
-
+export default function LandingPage() {
   return (
     <div className="min-h-screen bg-pepe-cream">
-      {/* Decorative Banner - Top */}
-      <div className="w-full h-[60px] sm:h-[70px] relative overflow-hidden">
-        <Image
-          src={siteConfig.branding.bannerImagePath}
-          alt=""
-          fill
-          className="object-cover"
-          aria-hidden="true"
-        />
-      </div>
-
-      {/* Hero Section */}
+      {/* ─── HERO ─── */}
       <section className="relative">
-        <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+        <div className="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[650px] overflow-hidden">
           <Image
             src={siteConfig.branding.heroImagePath}
-            alt={`Authentic ${siteConfig.restaurant.cuisineType} food by ${siteConfig.restaurant.name}`}
+            alt={`${siteConfig.restaurant.name} - Authentic Mexican Food`}
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-pepe-dark via-pepe-dark/40 to-transparent" />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-pepe-dark via-pepe-dark/50 to-pepe-dark/20" />
 
-        <div className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-8 sm:py-10 text-center">
-          <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-pepe-red tracking-wider mb-1 drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-            {siteConfig.content.heroTitle}
-          </h1>
-          <p className="font-oswald text-2xl sm:text-3xl md:text-4xl text-pepe-red tracking-wider drop-shadow-md" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-            {siteConfig.content.heroSubtitle}
-          </p>
-          <p className="font-crimson text-base sm:text-lg md:text-xl text-pepe-sand tracking-wider mt-2 italic">
-            {siteConfig.content.heroSubline}
-          </p>
-        </div>
-
-        {/* Orange-white stripe divider */}
-        <div className="flex">
-          <div className="flex-1 h-2 bg-pepe-orange"></div>
-          <div className="w-1 h-2 bg-white"></div>
-          <div className="flex-1 h-2 bg-pepe-orange"></div>
-        </div>
-        <div className="bg-pepe-dark py-3 text-center">
-          <p className="font-crimson text-lg sm:text-xl md:text-2xl text-pepe-orange tracking-[0.2em] italic">
-            {siteConfig.content.serviceType}
-          </p>
-        </div>
-      </section>
-
-      {/* Value Proposition */}
-      <ValueProposition />
-
-      {/* How It Works */}
-      <TrustSignals />
-
-      {/* Client Logos */}
-      <ClientLogos />
-
-      {/* Step Indicator */}
-      <section id="catering" className="bg-pepe-cream pt-12 sm:pt-16">
-        <div className="container mx-auto px-4">
-          <StepIndicator currentStep={state.currentStep} />
-        </div>
-      </section>
-
-      {/* Step 1: Event Type Selection */}
-      <section className="bg-pepe-cream pb-12 sm:pb-16 texture-paper relative">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-10">
-            <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-pepe-dark tracking-wider mb-4">
-              WHAT ARE YOU CRAVING?
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+            <Image
+              src={siteConfig.branding.logoPath}
+              alt={siteConfig.restaurant.name}
+              width={180}
+              height={180}
+              className="h-24 sm:h-32 md:h-40 w-auto mb-4 drop-shadow-2xl"
+            />
+            <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-wider mb-1 drop-shadow-lg">
+              Pepe&apos;s Mexican Restaurant
+            </h1>
+            <h2 className="font-oswald text-2xl sm:text-3xl md:text-4xl text-white tracking-wider mb-2 drop-shadow-lg">
+              Chicago Heights
             </h2>
-            <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto italic">
-              Select a category to start building your catering order
+            <p className="font-crimson text-lg sm:text-xl text-pepe-sand italic mb-6 drop-shadow">
+              Chicago Heights, IL
             </p>
           </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                {EVENT_TYPES.map((eventType, index) => {
-                  const isSelected = state.eventType === eventType.id;
-                  const isUnselected = state.eventType && state.eventType !== eventType.id;
-
-                  return (
-                    <div
-                      key={eventType.id}
-                      className="animate-scale-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div
-                        onClick={() => handleSelectEventType(eventType.id)}
-                        className={`
-                          relative overflow-hidden rounded-2xl cursor-pointer
-                          transition-all duration-300 shadow-warm
-                          h-[180px] sm:h-[240px] md:h-[320px]
-                          ${isSelected
-                            ? 'ring-4 ring-pepe-red scale-[1.02]'
-                            : 'hover:scale-105'
-                          }
-                          ${isUnselected ? 'opacity-70' : ''}
-                        `}
-                      >
-                        <Image
-                          src={eventImages[eventType.id] || '/images/appetizers.jpg'}
-                          alt={eventType.name}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className={`absolute inset-0 ${isSelected ? 'bg-gradient-to-t from-black/70 via-black/30 to-transparent' : 'bg-gradient-to-t from-black/80 via-black/40 to-transparent'}`} />
-                        <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-center">
-                          <h3 className="font-oswald text-2xl sm:text-3xl text-white mb-2 tracking-wide drop-shadow-lg">
-                            {eventType.name.toUpperCase()}
-                          </h3>
-                          <p className="text-white/90 text-sm sm:text-base drop-shadow">
-                            {eventType.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-      {/* Step 2: Headcount & Budget */}
-      {state.currentStep >= 2 && (
-        <HeadcountBudgetStep />
-      )}
-
-      {/* Step 3: Order Type */}
-      {state.currentStep >= 3 && (
-        <OrderTypeStep />
-      )}
-
-      {/* Step 4: Product or Package Selection */}
-      {state.currentStep >= 4 && (
-        state.orderType === 'packages' ? (
-          <PackageSelectionStep />
-        ) : (
-          <ProductSelectionStep
-            activeFilters={activeFilters}
-            onToggleFilter={handleToggleFilter}
-            filterBar={
-              <DietaryFilterBar
-                activeTags={activeFilters}
-                onToggleTag={handleToggleFilter}
-              />
-            }
-            recommendedSection={
-              <RecommendedItems />
-            }
-          />
-        )
-      )}
-
-      {/* Browse Full Menu Link */}
-      <section className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-12 sm:py-16 relative texture-tile">
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h3 className="font-oswald text-2xl sm:text-3xl text-pepe-red mb-3 tracking-wide">
-            LOOKING FOR SOMETHING ELSE?
-          </h3>
-          <p className="font-crimson text-white/80 mb-6 max-w-xl mx-auto italic">
-            Browse our complete catering menu featuring appetizers, main dishes, sides, toppings, and desserts.
-          </p>
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-warm-white hover:text-pepe-dark transition-all group shadow-warm"
-          >
-            <span>Browse Full Menu</span>
-            <svg
-              className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
         </div>
       </section>
 
-      {/* Decorative Banner - Bottom */}
-      <div className="w-full h-[60px] sm:h-[70px] relative overflow-hidden">
+      {/* ─── ADDRESS & CONTACT BAR ─── */}
+      <section className="bg-pepe-dark py-8 sm:py-10 text-center">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h2 className="font-oswald text-xl sm:text-2xl text-white tracking-wider mb-1">
+            470 W Lincoln Hwy
+          </h2>
+          <h2 className="font-oswald text-xl sm:text-2xl text-white tracking-wider mb-2">
+            Chicago Heights, IL
+          </h2>
+          <a href="tel:+17087482400" className="font-oswald text-xl sm:text-2xl text-pepe-orange tracking-wider hover:text-pepe-gold transition-colors">
+            (708) 748-2400
+          </a>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
+            <a
+              href="tel:+17087482400"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg text-lg tracking-wide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call To Order
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ORDER ONLINE BAR ─── */}
+      <section className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-6 sm:py-8">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="https://www.toasttab.com/local/order/pepesmexicanrestaurantchicagoheights" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg tracking-wide">
+              Order Online
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </a>
+            <a href="https://www.doordash.com/store/pepe's-mexican-restaurant-chicago-heights-190401/" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg tracking-wide">
+              DoorDash
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </a>
+            <a href="https://www.ubereats.com/store/pepes-chicago-heights/J7SihHifR1qowWaXfVq5EA" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg tracking-wide">
+              Uber Eats
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── DINNER MENU ─── */}
+      <section className="py-16 sm:py-20 bg-pepe-burnt-orange">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+            <div className="order-2 md:order-1">
+              <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
+                JOIN US FOR AUTHENTIC MEXICAN FOOD
+              </h3>
+              <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed mb-6">
+                Discover classic Mexican cooking the way we have made it for 50 years. From
+                slow-braised carnitas to rich mole poblano, our dinner menu celebrates authentic
+                regional recipes crafted with care and served with pride.
+              </p>
+              <Link
+                href="/dine-in"
+                className="inline-flex items-center gap-2 bg-pepe-maroon text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-maroon/80 transition-all shadow-md tracking-wide"
+              >
+                Our Menu
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+            <div className="order-1 md:order-2 relative h-[280px] sm:h-[360px] rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/menu/enchiladas-cheese.jpg"
+                alt="Authentic Mexican Dinner"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-maroon via-pepe-orange to-pepe-gold" />
+
+      {/* ─── LUNCH BUFFET ─── */}
+      <section className="py-16 sm:py-20 bg-pepe-green">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+            <div className="relative h-[280px] sm:h-[360px] rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/entrees.jpg"
+                alt="Lunch Buffet"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
+                THE BEST LUNCH DEAL IN TOWN!
+              </h3>
+              <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed mb-4">
+                Endless tacos, enchiladas, and more.
+              </p>
+              <p className="font-crimson text-white/70 leading-relaxed mb-6">
+                Experience the ultimate Mexican feast! Our all-you-can-eat buffet features traditional
+                favorites and fresh ingredients daily. From chips and guac to enchiladas and churros
+                &mdash; come hungry, leave happy!
+              </p>
+              <Link
+                href="/dine-in"
+                className="inline-flex items-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-md tracking-wide"
+              >
+                Our Buffet
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-gold via-pepe-orange to-pepe-maroon" />
+
+      {/* ─── HAPPY HOUR / DRINKS ─── */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-pepe-maroon to-pepe-burnt-orange">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center max-w-5xl mx-auto">
+            <div className="relative h-[280px] sm:h-[360px] rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/menu/margarita.jpg"
+                alt="Happy Hour Margaritas"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
+                HAPPY HOUR COCKTAILS & MORE!
+              </h3>
+              <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed mb-6">
+                Happy Hour just got happier! Score amazing deals on your favorite drinks and apps
+                every weekday from 3&ndash;6pm. Craft cocktails, cold beers, savory bites &mdash;
+                all at prices that&apos;ll make you smile.
+              </p>
+              <Link
+                href="/drinks"
+                className="inline-flex items-center gap-2 bg-pepe-green text-white font-oswald font-bold px-6 py-3 rounded-full hover:bg-pepe-teal transition-all shadow-md tracking-wide"
+              >
+                Drinks Menu
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-maroon via-pepe-orange to-pepe-gold" />
+
+      {/* ─── GAMING / SLOTS ─── */}
+      <section className="py-16 sm:py-20 bg-pepe-green">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
+              GET LUCKY AT OUR SLOTS!
+            </h3>
+            <p className="font-crimson text-base sm:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
+              Hit the jackpot on our state-of-the-art slot machines! With the latest games,
+              progressive jackpots, and non-stop action, every spin brings you closer to your big win.
+            </p>
+          </div>
+          <div className="relative h-[280px] sm:h-[380px] rounded-2xl overflow-hidden shadow-xl max-w-3xl mx-auto">
+            <Image
+              src="/images/menu/slots.jpg"
+              alt="Slot Machines"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-gold via-pepe-orange to-pepe-maroon" />
+
+      {/* ─── DAILY SPECIALS ─── */}
+      <section className="py-16 sm:py-20 bg-pepe-burnt-orange">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-2">
+              OUR DAILY SPECIALS
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {DAILY_SPECIALS.map((special) => (
+              <div
+                key={special.day}
+                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow"
+              >
+                <div className="bg-pepe-maroon px-4 py-2.5">
+                  <h4 className="font-oswald text-lg text-white tracking-wider text-center">
+                    {special.day.toUpperCase()}
+                  </h4>
+                </div>
+                <ul className="px-4 py-4 space-y-2">
+                  {special.items.map((item, i) => (
+                    <li key={i} className="font-crimson text-pepe-charcoal/80 leading-snug flex items-start gap-2" style={{ fontSize: '17px' }}>
+                      <span className="text-pepe-orange mt-0.5 shrink-0">&#9679;</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-maroon via-pepe-orange to-pepe-gold" />
+
+      {/* ─── TUESDAY $1.99 SPECIALS ─── */}
+      <section className="py-12 sm:py-16 bg-pepe-green">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <h3 className="font-oswald text-2xl sm:text-3xl text-white tracking-wider mb-2">
+            TUESDAY SPECIAL
+          </h3>
+          <p className="font-oswald text-lg sm:text-xl text-pepe-gold tracking-wider mb-6">
+            OUR $1.99 MENU
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center mb-4">
+            {TUESDAY_SPECIALS.map((item, i) => (
+              <span key={i} className="font-crimson text-sm sm:text-base text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/20">
+                {item}
+              </span>
+            ))}
+          </div>
+          <p className="font-oswald text-sm text-pepe-gold/80 tracking-wider mt-4">
+            CARRY OUT ONLY
+          </p>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-gold via-pepe-orange to-pepe-maroon" />
+
+      {/* ─── CATERING CTA ─── */}
+      <section className="py-16 sm:py-20 bg-gradient-to-b from-pepe-maroon to-pepe-burnt-orange">
+        <div className="container mx-auto px-4 text-center max-w-3xl">
+          <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
+            LET US CATER YOUR NEXT EVENT!
+          </h3>
+          <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed mb-8">
+            Let us cater your next celebration! From intimate gatherings to large parties,
+            we&apos;ll handle the food while you enjoy the moment.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/catering"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg text-lg tracking-wide"
+            >
+              Order Catering
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <Link
+              href="/menus"
+              className="inline-flex items-center justify-center gap-2 bg-white/10 text-white font-oswald font-bold px-8 py-3 rounded-full border-2 border-white/30 hover:bg-white/20 transition-all shadow-lg text-lg tracking-wide"
+            >
+              View Catering Menu
+            </Link>
+            <a
+              href="tel:+17087482400"
+              className="inline-flex items-center justify-center gap-2 bg-pepe-dark text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-charcoal transition-all shadow-lg text-lg tracking-wide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              Call for Catering
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="h-2 bg-gradient-to-r from-pepe-maroon via-pepe-orange to-pepe-gold" />
+
+      {/* ─── FIND US / MAP ─── */}
+      <section className="py-16 sm:py-20 bg-pepe-green">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-2">
+              FIND US
+            </h3>
+            <p className="font-crimson text-base sm:text-lg text-white/80">
+              470 W Lincoln Hwy, Chicago Heights, IL 60411
+            </p>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-xl">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2981.2!2d-87.6358!3d41.5061!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e1b0c1d2e5a3b%3A0x4a7c6e5f8d9b0c1e!2s470%20W%20Lincoln%20Hwy%2C%20Chicago%20Heights%2C%20IL%2060411!5e0!3m2!1sen!2sus!4v1700000000000"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Pepe's Mexican Restaurant Location"
+            />
+          </div>
+          <div className="text-center mt-6">
+            <a
+              href="https://www.google.com/maps/dir//470+W+Lincoln+Hwy,+Chicago+Heights,+IL+60411"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-pepe-orange text-white font-oswald font-bold px-8 py-3 rounded-full hover:bg-pepe-burnt-orange transition-all shadow-lg text-lg tracking-wide"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Get Directions
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── LOGO FOOTER ─── */}
+      <section className="py-10 bg-pepe-dark text-center">
         <Image
-          src={siteConfig.branding.bannerImagePath}
-          alt=""
-          fill
-          className="object-cover"
-          aria-hidden="true"
+          src={siteConfig.branding.logoPath}
+          alt={siteConfig.restaurant.name}
+          width={200}
+          height={200}
+          className="h-20 sm:h-24 w-auto mx-auto"
         />
-      </div>
+      </section>
     </div>
   );
 }
