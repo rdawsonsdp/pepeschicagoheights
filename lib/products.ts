@@ -19,7 +19,6 @@ function panPricing(
 }
 
 export const CATERING_PRODUCTS: CateringProduct[] = [
-  // ==================== APPETIZERS ====================
   {
     id: 'mini-tacos',
     title: 'Mini Tacos',
@@ -28,6 +27,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: panPricing(30, 60, 24, 24, 48, 48),
     tags: ['appetizer', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 22,
+      salesRank: 7,
+      placementPriority: 1,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Crowd Favorite',
+      enhancedDescription: 'Pepe\'s famous bite-sized tacos — the #1 party starter since 1967. Choose beef, chicken, or cheese for a crowd-pleaser that disappears fast.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -46,6 +59,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: panPricing(39, 66, 24, 24, 48, 48),
     tags: ['appetizer', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 20,
+      salesRank: 22,
+      placementPriority: 8,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Hidden Gem',
+      enhancedDescription: 'Crispy rolled tortillas filled with seasoned beef or chicken — a crunchy, satisfying appetizer your guests won\'t stop reaching for.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -57,12 +84,26 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
   },
   {
     id: 'jalapeno-poppers',
-    title: 'Jalape\u00f1o Poppers',
-    description: 'Choice of cheddar or cream cheese. Stuffed jalape\u00f1os with a crispy coating.',
+    title: 'Jalapeño Poppers',
+    description: 'Choice of cheddar or cream cheese. Stuffed jalapeños with a crispy coating.',
     image: '/images/menu/jalapeno-poppers.jpg',
     categories: ['appetizers'],
     pricing: panPricing(41, 69, 24, 24, 48, 48),
     tags: ['appetizer', 'spicy', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 17,
+      salesRank: 23,
+      placementPriority: 9,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Try Something New',
+      enhancedDescription: 'Crispy-coated stuffed jalapeños with your choice of cheddar or cream cheese — the perfect spicy-creamy appetizer combo.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -80,6 +121,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: panPricing(45, 90, 24, 24, 48, 48),
     tags: ['appetizer', 'spicy', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 34,
+      salesRank: 12,
+      placementPriority: 5,
+      visualWeight: 'medium',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Dipping Sauce',
       options: [
@@ -97,6 +152,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: panPricing(39, 60, 10, 15, 20, 30),
     tags: ['appetizer', 'salad', 'healthy', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 17,
+      salesRank: 25,
+      placementPriority: 10,
+      visualWeight: 'low',
+      descriptionStrategy: 'enhance',
+      badgeText: 'House Favorite',
+      enhancedDescription: 'A fresh, colorful spread of lettuce, shredded carrots, tomatoes, and green peppers with your choice of protein served on the side.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -115,6 +184,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: { type: 'per-each' as const, priceEach: 5.25 },
     tags: ['appetizer', 'chips', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 10,
+      salesRank: 30,
+      placementPriority: 30,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'chips-large',
@@ -124,6 +207,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: { type: 'per-each' as const, priceEach: 7.25 },
     tags: ['appetizer', 'chips', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 10,
+      salesRank: 17,
+      placementPriority: 15,
+      visualWeight: 'low',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'chips-xlarge',
@@ -133,9 +230,21 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['appetizers'],
     pricing: { type: 'per-each' as const, priceEach: 15.25 },
     tags: ['appetizer', 'chips', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 10,
+      salesRank: 29,
+      placementPriority: 11,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Best Value',
+      enhancedDescription: 'Fresh tortilla chips for the whole party — our extra-large bag is the best value for events of 20+ guests.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== ENTREES - TACO FILLING ====================
   {
     id: 'beef-taco-filling',
     title: 'Beef Taco Filling',
@@ -144,6 +253,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(75, 140, 30, 35, 60, 70),
     tags: ['entree', 'beef', 'taco', 'taco-filling', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 30,
+      salesRank: 4,
+      placementPriority: 2,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Crowd Favorite',
+      enhancedDescription: 'Pepe\'s classic seasoned beef taco filling — a crowd favorite that makes 30-70 tacos per pan. Includes warm tortillas for the ultimate taco bar.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'chicken-taco-filling',
@@ -151,8 +274,22 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     description: 'Seasoned chicken taco filling. Half pan makes about 30-35 tacos, full pan about 60-70 tacos. Includes 3 warm tortillas per taco.',
     image: '/images/menu/chicken-taco-filling.jpg',
     categories: ['entrees'],
-    pricing: panPricing(75, 140, 30, 35, 60, 70),
+    pricing: panPricing(85, 140, 30, 35, 60, 70),
     tags: ['entree', 'chicken', 'taco', 'taco-filling', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 24,
+      salesRank: 2,
+      placementPriority: 2,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Most Popular you must try this!!',
+      enhancedDescription: 'Our most-ordered taco filling — seasoned chicken that makes 30-70 tacos per pan. Includes warm tortillas for the ultimate taco bar.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'pork-taco-filling',
@@ -162,17 +299,43 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(75, 140, 30, 35, 60, 70),
     tags: ['entree', 'pork', 'taco', 'taco-filling', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 26,
+      salesRank: 26,
+      placementPriority: 12,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Try Something New',
+      enhancedDescription: 'Slow-seasoned pork taco filling for an authentic twist on your taco bar. Makes 30-70 tacos per pan with warm tortillas included.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== ENTREES - FAJITAS ====================
   {
     id: 'chicken-fajitas',
     title: 'Chicken Fajitas',
-    description: 'Grilled chicken fajitas with saut\u00e9ed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
+    description: 'Grilled chicken fajitas with sautéed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
     image: '/images/menu/chicken-fajitas.jpg',
     categories: ['entrees'],
     pricing: panPricing(85, 125, 10, 15, 20, 30),
     tags: ['entree', 'chicken', 'fajita', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 27,
+      salesRank: 1,
+      placementPriority: 1,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Chef\'s Pick',
+      enhancedDescription: 'Pepe\'s signature sizzling chicken fajitas — our most-loved entree since 1967. Served with sautéed peppers, onions, tortillas, sour cream, pico, and guacamole.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Tortilla',
       options: [
@@ -185,11 +348,25 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
   {
     id: 'steak-fajitas',
     title: 'Steak Fajitas',
-    description: 'Grilled steak fajitas with saut\u00e9ed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
+    description: 'Grilled steak fajitas with sautéed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
     image: '/images/menu/steak-fajitas.jpg',
     categories: ['entrees'],
     pricing: panPricing(85, 125, 10, 15, 20, 30),
     tags: ['entree', 'beef', 'fajita', 'premium', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 33,
+      salesRank: 10,
+      placementPriority: 6,
+      visualWeight: 'high',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Tortilla',
       options: [
@@ -202,11 +379,25 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
   {
     id: 'combo-fajitas',
     title: 'Combo Fajitas',
-    description: 'A combination of grilled chicken and steak fajitas with saut\u00e9ed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
+    description: 'A combination of grilled chicken and steak fajitas with sautéed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
     image: '/images/menu/combo-fajitas.jpg',
     categories: ['entrees'],
     pricing: panPricing(85, 125, 10, 15, 20, 30),
     tags: ['entree', 'combo', 'fajita', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 30,
+      salesRank: 3,
+      placementPriority: 3,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Crowd Favorite',
+      enhancedDescription: 'The best of both worlds — grilled chicken AND steak fajitas together. Our most popular choice for events that want to impress everyone.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Tortilla',
       options: [
@@ -219,11 +410,25 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
   {
     id: 'vegetable-fajitas',
     title: 'Vegetable Fajitas',
-    description: 'Grilled vegetable fajitas with saut\u00e9ed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
+    description: 'Grilled vegetable fajitas with sautéed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
     image: '/images/menu/vegetable-fajitas.jpg',
     categories: ['entrees'],
     pricing: panPricing(85, 125, 10, 15, 20, 30),
     tags: ['entree', 'vegetarian', 'fajita', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 20,
+      salesRank: 27,
+      placementPriority: 13,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'House Favorite',
+      enhancedDescription: 'A colorful medley of grilled vegetables with sautéed peppers and onions — our most-requested vegetarian option with the same great fajita experience.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Tortilla',
       options: [
@@ -233,8 +438,6 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
       selectionMode: 'single',
     },
   },
-
-  // ==================== ENTREES - CARNITAS ====================
   {
     id: 'carnitas-regular',
     title: 'Carnitas Regular',
@@ -243,6 +446,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(70, 140, 8, 12, 18, 25),
     tags: ['entree', 'pork', 'carnitas', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 28,
+      salesRank: 6,
+      placementPriority: 4,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Chef\'s Pick',
+      enhancedDescription: 'Pepe\'s famous slow-cooked carnitas — fork-tender pork braised for hours in our authentic recipe. A crowd favorite since 1967.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'carnitas-mild-salsa',
@@ -252,6 +469,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(70, 110, 8, 12, 18, 25),
     tags: ['entree', 'pork', 'carnitas', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 29,
+      salesRank: 31,
+      placementPriority: 28,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'carnitas-hot-green-salsa',
@@ -261,9 +492,21 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(70, 110, 8, 12, 18, 25),
     tags: ['entree', 'pork', 'carnitas', 'spicy', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 29,
+      salesRank: 32,
+      placementPriority: 29,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== ENTREES - A LA CART ====================
   {
     id: 'tamales',
     title: 'Tamales',
@@ -272,6 +515,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(35, 70, 10, 15, 20, 30),
     tags: ['entree', 'tamale', 'traditional', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 22,
+      salesRank: 24,
+      placementPriority: 14,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Hidden Gem',
+      enhancedDescription: 'Authentic handmade tamales wrapped in corn husks — a traditional Mexican favorite your guests will love. 20 pieces per half pan.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -289,9 +546,21 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: panPricing(40, 70, 10, 15, 20, 30),
     tags: ['entree', 'enchilada', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 24,
+      salesRank: 16,
+      placementPriority: 15,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'House Favorite',
+      enhancedDescription: 'Classic enchiladas smothered in sauce and cheese — a comforting Mexican staple perfect alongside fajitas or as a main course. 20 pieces per half pan.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== ENTREES - TACO TRAYS ====================
   {
     id: 'taco-tray-25',
     title: 'Taco Tray - 25 Tacos',
@@ -300,6 +569,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: { type: 'per-each' as const, priceEach: 75 },
     tags: ['entree', 'taco', 'taco-tray', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 27,
+      salesRank: 18,
+      placementPriority: 16,
+      visualWeight: 'medium',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -319,6 +602,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: { type: 'per-each' as const, priceEach: 140 },
     tags: ['entree', 'taco', 'taco-tray', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 26,
+      salesRank: 5,
+      placementPriority: 5,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Most Popular',
+      enhancedDescription: 'Our most-ordered taco tray — 50 ready-to-serve tacos with your choice of beef, chicken, or pork. Split the filling any way you like.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -338,6 +635,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: { type: 'per-each' as const, priceEach: 200 },
     tags: ['entree', 'taco', 'taco-tray', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 27,
+      salesRank: 33,
+      placementPriority: 31,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -357,6 +668,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['entrees'],
     pricing: { type: 'per-each' as const, priceEach: 250 },
     tags: ['entree', 'taco', 'taco-tray', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 28,
+      salesRank: 11,
+      placementPriority: 7,
+      visualWeight: 'medium',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Filling',
       options: [
@@ -368,8 +693,6 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
       splitTotal: 100,
     },
   },
-
-  // ==================== SIDES ====================
   {
     id: 'spanish-rice',
     title: 'Spanish Rice',
@@ -378,6 +701,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: panPricing(30, 50, 15, 20, 30, 35),
     tags: ['side', 'rice', 'popular', 'vegetarian', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 12,
+      salesRank: 8,
+      placementPriority: 8,
+      visualWeight: 'medium',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'refried-beans',
@@ -387,9 +724,21 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: panPricing(30, 50, 15, 20, 30, 35),
     tags: ['side', 'beans', 'popular', 'vegetarian', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 12,
+      salesRank: 9,
+      placementPriority: 9,
+      visualWeight: 'medium',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== SIDES - TOPPINGS/EXTRAS ====================
   {
     id: 'topping-cheese',
     title: 'Cheese (per lb)',
@@ -398,6 +747,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 12 },
     tags: ['side', 'topping', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 28,
+      salesRank: 21,
+      placementPriority: 32,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-lettuce',
@@ -407,6 +770,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 12 },
     tags: ['side', 'topping', 'vegetarian', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 7,
+      salesRank: 34,
+      placementPriority: 33,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-tomato-slices',
@@ -416,15 +793,43 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 12 },
     tags: ['side', 'topping', 'vegetarian', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 10,
+      salesRank: 35,
+      placementPriority: 34,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-jalapeno-carrots',
-    title: 'Jalape\u00f1o & Carrots (pint)',
-    description: 'Pickled jalape\u00f1os and carrots, one pint. Adds a spicy kick to any dish.',
-    image: '/images/menu/jalapeno-carrots.jpg',
+    title: 'Jalapeño & Carrots (pint)',
+    description: 'Pickled jalapeños and carrots, one pint. Adds a spicy kick to any dish.',
+    image: '/images/menu/karolina-grabowska-yjvhactgjzs-unsplash.jpg',
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 9 },
     tags: ['side', 'topping', 'spicy', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 10,
+      salesRank: 36,
+      placementPriority: 35,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-pico-de-gallo',
@@ -434,6 +839,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 9 },
     tags: ['side', 'topping', 'fresh', 'mexican'],
+    menuEngineering: {
+      classification: 'PLOWHORSE',
+      foodCost: 12,
+      salesRank: 19,
+      placementPriority: 10,
+      visualWeight: 'low',
+      descriptionStrategy: 'maintain',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-sour-cream',
@@ -443,6 +862,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 9 },
     tags: ['side', 'topping', 'mexican'],
+    menuEngineering: {
+      classification: 'DOG',
+      foodCost: 12,
+      salesRank: 20,
+      placementPriority: 36,
+      visualWeight: 'low',
+      descriptionStrategy: 'minimize',
+      badgeText: null,
+      enhancedDescription: null,
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-guacamole-chips',
@@ -452,6 +885,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 9.75 },
     tags: ['side', 'topping', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 24,
+      salesRank: 13,
+      placementPriority: 6,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Crowd Favorite',
+      enhancedDescription: 'Fresh-made guacamole with crispy tortilla chips — our guests\' favorite appetizer add-on. Serves 6-10 people per pint.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'topping-house-salsa',
@@ -461,17 +908,43 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: { type: 'per-each' as const, priceEach: 9.75 },
     tags: ['side', 'topping', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 10,
+      salesRank: 14,
+      placementPriority: 12,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'House Favorite',
+      enhancedDescription: 'Pepe\'s legendary house-made salsa by the liter — the perfect companion for chips, tacos, and everything on your table. A Chicago favorite since 1967.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
-
-  // ==================== SIDES - DESSERTS ====================
   {
     id: 'bunuelos',
-    title: 'Bu\u00f1uelos',
+    title: 'Buñuelos',
     description: 'Traditional Mexican fried dough dusted with cinnamon and sugar. Available in 30-piece or 60-piece trays.',
     image: '/images/menu/bunuelos.jpg',
     categories: ['sides'],
     pricing: panPricing(18, 35, 15, 20, 30, 40),
     tags: ['side', 'dessert', 'traditional', 'mexican'],
+    menuEngineering: {
+      classification: 'PUZZLE',
+      foodCost: 8,
+      salesRank: 28,
+      placementPriority: 18,
+      visualWeight: 'medium',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Hidden Gem',
+      enhancedDescription: 'Authentic Mexican buñuelos — light, crispy fried dough generously dusted with cinnamon sugar. A traditional dessert that brings the fiesta to any event.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
   },
   {
     id: 'mini-churros',
@@ -481,6 +954,20 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     categories: ['sides'],
     pricing: panPricing(25, 45, 12, 18, 24, 36),
     tags: ['side', 'dessert', 'popular', 'mexican'],
+    menuEngineering: {
+      classification: 'STAR',
+      foodCost: 12,
+      salesRank: 15,
+      placementPriority: 6,
+      visualWeight: 'high',
+      descriptionStrategy: 'enhance',
+      badgeText: 'Crowd Favorite',
+      enhancedDescription: 'The perfect sweet finish — crispy golden mini churros filled with your choice of Bavarian Cream, Strawberry, or served Plain with cinnamon sugar. Always the first dessert to disappear at every event.',
+      salesVelocity7d: null,
+      salesVelocity30d: null,
+      trendDirection: null,
+      lastClassifiedAt: null,
+    },
     variants: {
       label: 'Flavor',
       options: [
@@ -513,18 +1000,15 @@ export function getRecommendedProducts(
 ): CateringProduct[] {
   let candidates = CATERING_PRODUCTS.filter(p => !cartItemIds.includes(p.id));
 
-  // Filter by event type if set
   if (eventType) {
     candidates = candidates.filter(p => p.categories.includes(eventType as any));
   }
 
-  // Exclude toppings and chips for recommendations (they are add-ons)
   candidates = candidates.filter(p =>
     !p.tags?.includes('topping') &&
     !p.tags?.includes('chips')
   );
 
-  // Prioritize popular items
   candidates.sort((a, b) => {
     const aPopular = a.tags?.includes('popular') ? 1 : 0;
     const bPopular = b.tags?.includes('popular') ? 1 : 0;
@@ -567,7 +1051,6 @@ export function getSuggestedMenu(
     menu.push(...pick(['dessert', 'popular'], 1));
   }
 
-  // Deduplicate
   const seen = new Set<string>();
   return menu.filter(p => {
     if (seen.has(p.id)) return false;

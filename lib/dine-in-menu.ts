@@ -1,7 +1,12 @@
+import type { MenuClassification, VisualWeight } from './types';
+
 export interface DineInMenuItem {
   name: string;
   description?: string;
   price?: string; // string to support ranges like "$8 / 16oz $13"
+  classification?: MenuClassification;
+  visualWeight?: VisualWeight;
+  image?: string;
 }
 
 export interface DineInMenuSection {
@@ -13,7 +18,6 @@ export interface DineInMenuSection {
 }
 
 export const DINE_IN_MENU: DineInMenuSection[] = [
-  // ─── FOOD ───────────────────────────────────────
   {
     id: 'appetizers',
     title: 'APPETIZERS',
@@ -56,7 +60,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     subtitle: 'Your choice of flour tortilla or soft/crispy corn with lettuce, cheese, and tomato',
     image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&h=400&fit=crop',
     items: [
-      { name: 'Beef Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
+      { name: 'Beef Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/beef-taco-filling.jpg' },
       { name: 'Chicken Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Pork Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Shrimp, Carnitas, or Al Pastor (1)', price: '5' },
@@ -121,10 +125,10 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     subtitle: 'Served with sauteed onions, peppers and tomato, rice, beans, guacamole, pico de gallo, shredded cheese and sour cream',
     image: 'https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=800&h=400&fit=crop',
     items: [
-      { name: 'Steak or Chicken', price: '26' },
+      { name: 'Steak or Chicken', price: '26', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/chicken-fajitas.jpg' },
       { name: 'Shrimp Fajitas', price: '28' },
       { name: 'Veggie', price: '20' },
-      { name: "Pepe's Fajita Combo", description: 'Steak / Chicken / Shrimp / Carnitas', price: '29.95' },
+      { name: 'Pepe\'s Fajita Combo', description: 'Steak / Chicken / Shrimp / Carnitas', price: '29.95' },
     ],
   },
   {
@@ -163,8 +167,8 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
       { name: 'Grande Burger Deluxe', description: '1/3 lb Hamburger, Lettuce, Tomato, Cheese, and Onion with a Side of French Fries', price: '10' },
       { name: 'Cheese Fries', description: 'Our Classic Cheese Fries', price: '5' },
       { name: 'Onion Rings', description: 'Crispy Onion Rings', price: '4' },
-      { name: "Pepe's Wings (12PC)", description: "Pepe's Wings w/Buffalo Sauce", price: '15' },
-      { name: "Pepe's Wings (20PC)", price: '20' },
+      { name: 'Pepe\'s Wings (12PC)', description: 'Pepe\'s Wings w/Buffalo Sauce', price: '15' },
+      { name: 'Pepe\'s Wings (20PC)', price: '20' },
     ],
   },
   {
@@ -241,8 +245,6 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
       { name: 'Mexican Tiramisu', price: '8' },
     ],
   },
-
-  // ─── DRINKS ─────────────────────────────────────
   {
     id: 'margaritas',
     title: 'MARGARITAS',
@@ -264,11 +266,11 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&h=400&fit=crop',
     items: [
       { name: 'Cantarito', description: 'Maestro Dovel Blanco, lime juice, lemon juice, grapefruit juice, squirt, rim', price: '13' },
-      { name: 'Dirty Horchata', description: "Horchata, Tito's, Kahlua, coffee, cinnamon", price: '13' },
+      { name: 'Dirty Horchata', description: 'Horchata, Tito\'s, Kahlua, coffee, cinnamon', price: '13' },
       { name: 'Don Mojito', description: 'Rum, mint, fresh cucumber juice, lime juice, simple syrup, mint, club soda', price: '13' },
       { name: 'Island Pina Coladas, Daiquiris', description: 'Tequila Sunrises / 45oz $27 / 60oz $36 / Pitcher $33', price: '11' },
       { name: 'Jalisco Old Fashion', description: 'Mezcal, tequila, agave, apple, orange bitters, soda', price: '13' },
-      { name: 'La Playa', description: "Tito's, triple sec, lime, cranberry", price: '13' },
+      { name: 'La Playa', description: 'Tito\'s, triple sec, lime, cranberry', price: '13' },
       { name: 'Mezcal Pineapple & Jalapeno', description: 'Mezcal, triple sec, lime juice, pineapple juice', price: '13' },
       { name: 'Mexican Mule', description: 'Mezcal, lime juice, ginger beer', price: '13' },
       { name: 'Michelada 27oz', description: 'Blanco. Lime Juice, Squirt, salted rim', price: '9' },
@@ -332,9 +334,7 @@ export const DINE_IN_PROMOS = [
 
 // Helper to group sections into food and drinks
 export const FOOD_SECTIONS = [
-  'appetizers', 'nachos', 'quesadillas', 'tacos', 'burritos',
-  'traditionals', 'combos', 'fajitas', 'mariscos', 'asador',
-  'american-fare', 'kids-menu', 'a-la-carte', 'side-orders', 'postres',
+  'appetizers', 'nachos', 'quesadillas', 'tacos', 'burritos', 'traditionals', 'combos', 'fajitas', 'mariscos', 'asador', 'american-fare', 'kids-menu', 'a-la-carte', 'side-orders', 'postres',
 ];
 
 export const DRINK_SECTIONS = [

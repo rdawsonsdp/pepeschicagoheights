@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { siteConfig } from '@/lib/site-config';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Header() {
     { href: '/dine-in', label: 'DINE-IN MENU' },
     { href: '/menus', label: 'CATERING MENU' },
     { href: '/products', label: 'ORDER NOW' },
+    { href: '/admin/menu-engineering', label: 'ADMIN' },
   ];
 
   return (
@@ -21,8 +23,8 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <Image
-              src="/images/pepes-logo.png"
-              alt="Pepe's Mexican Restaurant"
+              src={siteConfig.branding.logoPath}
+              alt={siteConfig.restaurant.name}
               width={130}
               height={130}
               className="h-12 sm:h-14 lg:h-16 w-auto"
@@ -42,10 +44,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="tel:+17087482400"
+              href={`tel:${siteConfig.contact.phoneRaw}`}
               className="font-oswald text-sm xl:text-base tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"
             >
-              (708) 748-2400
+              {siteConfig.contact.phone}
             </a>
           </nav>
 
@@ -95,10 +97,10 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="tel:+17087482400"
+              href={`tel:${siteConfig.contact.phoneRaw}`}
               className="block py-3 font-oswald tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"
             >
-              (708) 748-2400
+              {siteConfig.contact.phone}
             </a>
           </nav>
         )}

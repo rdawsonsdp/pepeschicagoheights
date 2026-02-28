@@ -11,6 +11,7 @@ import CateringProductCard from './CateringProductCard';
 import CateringCart from './CateringCart';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
+import { sortByClassification, getCardSize, shouldShowBadge, getBadgeText, getEffectiveDescription } from '@/lib/menu-engineering';
 
 interface ProductSelectionStepProps {
   activeFilters?: string[];
@@ -92,13 +93,8 @@ export default function ProductSelectionStep({
     return true;
   });
 
-  // Sort by pricing type to group similar items
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    const typeOrder = { 'tray': 0, 'pan': 1, 'per-person': 2, 'per-dozen': 3, 'per-each': 4, 'per-container': 5 };
-    const typeA = typeOrder[a.pricing.type] ?? 99;
-    const typeB = typeOrder[b.pricing.type] ?? 99;
-    return typeA - typeB;
-  });
+  // Sort by menu engineering classification
+  const sortedProducts = sortByClassification(filteredProducts);
 
   const handleCheckout = () => {
     router.push('/checkout');
@@ -201,15 +197,27 @@ export default function ProductSelectionStep({
               </Card>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6">
-                {sortedProducts.map((product, index) => (
-                  <div
-                    key={product.id}
-                    className="animate-scale-in"
-                    style={{ animationDelay: `${Math.min(index * 0.03, 0.3)}s` }}
-                  >
-                    <CateringProductCard product={product} />
-                  </div>
-                ))}
+                {sortedProducts.map((product, index) => {
+                  const cardSize = getCardSize(product);
+                  const showBadge_ = shouldShowBadge(product);
+                  const badgeText_ = getBadgeText(product);
+                  const description = getEffectiveDescription(product);
+                  return (
+                    <div
+                      key={product.id}
+                      className={`animate-scale-in ${cardSize === 'hero' ? 'col-span-2' : ''}`}
+                      style={{ animationDelay: `${Math.min(index * 0.03, 0.3)}s` }}
+                    >
+                      <CateringProductCard
+                        product={product}
+                        size={cardSize}
+                        showBadge={showBadge_}
+                        badgeText={badgeText_}
+                        descriptionOverride={description !== product.description ? description : undefined}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

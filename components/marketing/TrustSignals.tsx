@@ -1,37 +1,18 @@
 'use client';
 
-const PROCESS_STEPS = [
-  {
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    ),
-    step: '1',
-    title: 'Order Online',
-    description: 'Browse our catering menu and place your order in minutes — no calls or emails required.',
-  },
-  {
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-      </svg>
-    ),
-    step: '2',
-    title: 'We Confirm',
-    description: 'Our team reviews every order and confirms the details. We require at least 2 day notice for most orders.',
-  },
-  {
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-      </svg>
-    ),
-    step: '3',
-    title: 'Pay & Enjoy',
-    description: 'Pre-payment is required for most orders. Delivery is available for an additional fee.',
-  },
+import { siteConfig } from '@/lib/site-config';
+
+const STEP_ICONS = [
+  <svg key="1" className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+  </svg>,
+  <svg key="2" className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  </svg>,
+  <svg key="3" className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+  </svg>,
 ];
 
 export default function TrustSignals() {
@@ -45,9 +26,9 @@ export default function TrustSignals() {
           Three simple steps to a perfectly catered fiesta.
         </p>
         <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-8 sm:gap-6 lg:gap-12 max-w-4xl mx-auto">
-          {PROCESS_STEPS.map((step, index) => (
+          {siteConfig.content.processSteps.map((step, index) => (
             <div key={index} className="flex flex-col items-center text-center flex-1 max-w-[260px] relative">
-              {index < PROCESS_STEPS.length - 1 && (
+              {index < siteConfig.content.processSteps.length - 1 && (
                 <div className="hidden sm:block absolute top-8 left-[calc(50%+40px)] w-[calc(100%-40px)] lg:w-[calc(100%-20px)]">
                   <svg className="w-full h-4 text-pepe-green/40" viewBox="0 0 100 16" preserveAspectRatio="none">
                     <path d="M0 8h90M85 3l7 5-7 5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -55,10 +36,10 @@ export default function TrustSignals() {
                 </div>
               )}
               <div className="w-16 h-16 rounded-full bg-pepe-dark text-pepe-orange flex items-center justify-center mb-4 shadow-warm">
-                {step.icon}
+                {STEP_ICONS[index] || STEP_ICONS[0]}
               </div>
               <span className="text-xs font-bold text-pepe-green tracking-widest uppercase mb-1">
-                Step {step.step}
+                Step {index + 1}
               </span>
               <h3 className="text-lg font-bold text-pepe-dark mb-2">{step.title}</h3>
               <p className="text-sm text-pepe-charcoal/70 leading-relaxed font-crimson">{step.description}</p>

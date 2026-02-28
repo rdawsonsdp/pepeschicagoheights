@@ -30,7 +30,7 @@ module.exports = {
         // Semantic aliases for component usage
         'primary-brown': '#1A1A1A',
         'charcoal': '#333333',
-        'light-brown': '#888888',
+        'light-brown': '#333333',
         'accent-gold': '#F0960E',
         // Button state tokens
         'pepe-red-hover': '#00a6d6',

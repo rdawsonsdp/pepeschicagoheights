@@ -3,7 +3,7 @@ import { CateringPackage, EventType } from './types';
 export const CATERING_PACKAGES: CateringPackage[] = [
   {
     id: 'taco-party',
-    title: "Pepe's Taco Party",
+    title: 'Pepe\'s Taco Party',
     description: '$9.95 per person — 2 tacos per person. Includes choice of beef, chicken or pork. Chips & salsa, fried beans, Spanish rice, lettuce, tomatoes, Mexican cheese with choice of corn or flour tortillas.',
     pricePerPerson: 9.95,
     image: '/images/menu/placeholder.svg',
@@ -20,7 +20,7 @@ export const CATERING_PACKAGES: CateringPackage[] = [
   },
   {
     id: 'fajita-party',
-    title: "Pepe's Fajita Party",
+    title: 'Pepe\'s Fajita Party',
     description: '$13.99 per person — 2 fajitas per person. Includes choice of steak or chicken with sautéed Spanish onions, tomatoes & bell peppers. Chips & salsa, fried beans, Spanish rice, and choice of corn or flour tortillas.',
     pricePerPerson: 13.99,
     image: '/images/menu/placeholder.svg',

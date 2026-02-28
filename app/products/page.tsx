@@ -7,8 +7,11 @@ import { useCatering } from '@/context/CateringContext';
 import { CATERING_PRODUCTS } from '@/lib/products';
 import { CateringProduct } from '@/lib/types';
 import { getDisplayPrice, getPricingTypeLabel } from '@/lib/pricing';
+import { sortByClassification, getClassification, shouldShowBadge, getBadgeText, getEffectiveDescription, getCardSize } from '@/lib/menu-engineering';
 import Card from '@/components/ui/Card';
+import Badge from '@/components/ui/Badge';
 import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
+import HeroItemsSection from '@/components/catering/HeroItemsSection';
 
 type Category = 'all' | 'appetizers' | 'entrees' | 'sides';
 
@@ -22,32 +25,55 @@ const CATEGORIES: { id: Category; name: string; description: string }[] = [
 function ProductCard({ product }: { product: CateringProduct }) {
   const { dispatch, isItemInCart } = useCatering();
   const inCart = isItemInCart(product.id);
+  const classification = getClassification(product);
+  const cardSize = getCardSize(product);
+  const showBadge_ = shouldShowBadge(product);
+  const badgeText_ = getBadgeText(product);
+  const description = getEffectiveDescription(product);
+  const isCompact = cardSize === 'compact';
 
   const handleAddToCart = () => {
     dispatch({ type: 'ADD_ITEM', payload: { product } });
   };
 
   return (
-    <Card className="overflow-hidden" hover>
-      <div className="relative h-40 -mx-4 -mt-4 mb-4">
-        <Image
-          src={product.image}
-          alt={product.title}
-          fill
-          className="object-cover"
-        />
-        {inCart && (
-          <div className="absolute top-2 right-2 bg-pepe-red text-white text-xs font-bold px-2 py-1 rounded-full">
-            In Cart
-          </div>
-        )}
-      </div>
-      <h3 className="font-oswald text-pepe-dark text-lg mb-1 line-clamp-1">
+    <Card className={`overflow-hidden ${cardSize === 'hero' ? 'col-span-2' : ''}`} hover>
+      {!isCompact && (
+        <div className={`relative -mx-4 -mt-4 mb-4 ${cardSize === 'hero' ? 'h-48 sm:h-56' : 'h-40'}`}>
+          <Image
+            src={product.image}
+            alt={product.title}
+            fill
+            className="object-cover"
+          />
+          {inCart && (
+            <div className="absolute top-2 right-2 bg-pepe-red text-white text-xs font-bold px-2 py-1 rounded-full">
+              In Cart
+            </div>
+          )}
+          {showBadge_ && (
+            <div className="absolute bottom-2 left-2">
+              <Badge variant={classification === 'STAR' ? 'star' : 'puzzle'} className="text-xs">
+                {badgeText_ || (classification === 'STAR' ? 'Most Popular' : 'Hidden Gem')}
+              </Badge>
+            </div>
+          )}
+        </div>
+      )}
+      <h3 className={`font-oswald text-pepe-dark mb-1 ${
+        cardSize === 'hero' ? 'text-lg sm:text-xl line-clamp-2' : 'text-lg line-clamp-1'
+      }`}>
         {product.title}
       </h3>
-      <p className="text-sm text-pepe-charcoal/70 mb-3 line-clamp-2">
-        {product.description}
-      </p>
+      {!isCompact && (
+        <p className={`text-sm text-pepe-charcoal/70 mb-3 ${
+          cardSize === 'hero' ? 'line-clamp-4'
+            : cardSize === 'large' ? 'line-clamp-3'
+            : 'line-clamp-2'
+        }`}>
+          {description}
+        </p>
+      )}
       <div className="flex items-center justify-between mt-auto">
         <div>
           <p className="font-oswald text-pepe-red text-lg">
@@ -100,11 +126,14 @@ export default function ProductsPage() {
     return matchesCategory && matchesSearch && matchesDietary;
   });
 
+  // Sort by classification
+  const sortedProducts = sortByClassification(filteredProducts);
+
   // Group products by their primary category for "all" view
   const groupedProducts = {
-    appetizers: filteredProducts.filter((p) => p.categories.includes('appetizers')),
-    entrees: filteredProducts.filter((p) => p.categories.includes('entrees') && !p.categories.includes('appetizers')),
-    sides: filteredProducts.filter((p) => p.categories.includes('sides') && !p.categories.includes('appetizers') && !p.categories.includes('entrees')),
+    appetizers: sortByClassification(filteredProducts.filter((p) => p.categories.includes('appetizers'))),
+    entrees: sortByClassification(filteredProducts.filter((p) => p.categories.includes('entrees') && !p.categories.includes('appetizers'))),
+    sides: sortByClassification(filteredProducts.filter((p) => p.categories.includes('sides') && !p.categories.includes('appetizers') && !p.categories.includes('entrees'))),
   };
 
   return (
@@ -202,6 +231,9 @@ export default function ProductsPage() {
 
       {/* Products Grid */}
       <div className="container mx-auto px-4 py-8">
+        {/* Hero Section - Most Popular Items */}
+        <HeroItemsSection products={CATERING_PRODUCTS} mode="order" />
+
         {activeCategory === 'all' ? (
           // Grouped view for "All Products"
           <div className="space-y-12">
@@ -277,9 +309,9 @@ export default function ProductsPage() {
                 {filteredProducts.length} items
               </span>
             </div>
-            {filteredProducts.length > 0 ? (
+            {sortedProducts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
+                {sortedProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>

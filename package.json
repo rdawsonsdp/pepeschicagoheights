@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "menu:validate": "npx tsx scripts/validate-menu.ts"
+    "menu:validate": "npx tsx scripts/validate-menu.ts",
+    "import": "npx tsx scripts/import/index.ts",
+    "export-template": "npx tsx scripts/import/export-template.ts"
   },
   "dependencies": {
     "next": "14.2.18",
@@ -22,6 +24,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "xlsx": "^0.18.5"
   }
 }

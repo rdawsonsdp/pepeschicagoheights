@@ -2,24 +2,69 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { DINE_IN_MENU, DINE_IN_PROMOS, FOOD_SECTIONS, DRINK_SECTIONS, DineInMenuSection } from '@/lib/dine-in-menu';
+import { DINE_IN_MENU, DINE_IN_PROMOS, FOOD_SECTIONS, DRINK_SECTIONS, DineInMenuSection, DineInMenuItem } from '@/lib/dine-in-menu';
+import { siteConfig } from '@/lib/site-config';
+import type { MenuClassification } from '@/lib/types';
 
-function MenuItemRow({ name, description, price }: { name: string; description?: string; price?: string }) {
+const DINE_IN_CLASS_ORDER: Record<string, number> = { STAR: 0, PUZZLE: 1, PLOWHORSE: 2, DOG: 3 };
+
+function sortDineInItems(items: DineInMenuItem[]): DineInMenuItem[] {
+  return [...items].sort((a, b) => {
+    const classA = DINE_IN_CLASS_ORDER[a.classification ?? 'PLOWHORSE'] ?? 2;
+    const classB = DINE_IN_CLASS_ORDER[b.classification ?? 'PLOWHORSE'] ?? 2;
+    return classA - classB;
+  });
+}
+
+function MenuItemRow({ name, description, price, classification, visualWeight, image }: {
+  name: string;
+  description?: string;
+  price?: string;
+  classification?: MenuClassification;
+  visualWeight?: string;
+  image?: string;
+}) {
+  const isDog = classification === 'DOG';
+  const isStar = classification === 'STAR';
+  const isPuzzle = classification === 'PUZZLE';
+  const showImage = visualWeight === 'high' && image;
+
   return (
-    <div className="py-4 border-b border-pepe-menu-cream/20 last:border-b-0">
+    <div className={`py-4 border-b border-pepe-menu-cream/20 last:border-b-0 ${isDog ? 'opacity-80' : ''} ${isStar ? 'border-[3px] border-pepe-gold rounded-xl px-5 py-5 my-3 bg-gradient-to-r from-pepe-gold/20 via-pepe-orange/15 to-pepe-red/10 shadow-[0_0_20px_rgba(240,150,14,0.3)]' : ''}`}>
+      {showImage && (
+        <div className="relative w-full h-32 sm:h-40 rounded-lg overflow-hidden mb-3">
+          <Image src={image} alt={name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 700px" />
+        </div>
+      )}
       <div className="flex justify-between items-start gap-4">
-        <h4 className="font-oswald text-lg sm:text-xl font-bold text-pepe-menu-cream tracking-wide">
-          {name}
-        </h4>
+        <div className="flex items-center gap-2">
+          <h4 className={`font-oswald font-bold text-pepe-menu-cream tracking-wide ${
+            isDog ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
+          }`}>
+            {name}
+          </h4>
+          {isStar && (
+            <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-pepe-gold text-pepe-dark whitespace-nowrap shadow-md shadow-pepe-gold/40 tracking-wide uppercase">
+              Popular
+            </span>
+          )}
+          {isPuzzle && (
+            <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-pepe-teal text-white whitespace-nowrap shadow-md shadow-pepe-teal/40 tracking-wide uppercase">
+              Try This
+            </span>
+          )}
+        </div>
         {price && (
-          <span className="font-oswald text-lg sm:text-xl font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0">
+          <span className={`font-oswald font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0 ${
+            isDog ? 'text-base sm:text-lg' : 'text-lg sm:text-xl'
+          }`}>
             {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
               ? price
               : `${price}`}
           </span>
         )}
       </div>
-      {description && (
+      {description && !isDog && (
         <p className="text-pepe-menu-cream/70 text-sm sm:text-base mt-1 leading-relaxed">
           {description}
         </p>
@@ -56,10 +101,10 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
         </div>
       )}
 
-      {/* Menu Items */}
+      {/* Menu Items - sorted by classification */}
       <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
-        {section.items.map((item, idx) => (
-          <MenuItemRow key={idx} {...item} />
+        {sortDineInItems(section.items).map((item, idx) => (
+          <MenuItemRow key={idx} name={item.name} description={item.description} price={item.price} classification={item.classification} visualWeight={item.visualWeight} image={item.image} />
         ))}
       </div>
     </div>
@@ -114,7 +159,7 @@ export default function DineInMenuPage() {
               DINE-IN MENU
             </h1>
             <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto">
-              Authentic Mexican cuisine since 1967. All prices subject to sales tax and change without notice.
+              {siteConfig.content.dineInSubtitle}
             </p>
           </div>
 
@@ -213,10 +258,10 @@ export default function DineInMenuPage() {
           </a>
           <div className="mt-6">
             <a
-              href="tel:+17087482400"
+              href={`tel:${siteConfig.contact.phoneRaw}`}
               className="text-pepe-orange font-oswald text-lg hover:text-white transition-colors"
             >
-              Call (708) 748-2400
+              Call {siteConfig.contact.phone}
             </a>
           </div>
         </div>

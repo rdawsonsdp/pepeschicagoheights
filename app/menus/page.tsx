@@ -6,6 +6,9 @@ import Link from 'next/link';
 import { CATERING_PRODUCTS } from '@/lib/products';
 import { CateringProduct } from '@/lib/types';
 import { getDisplayPrice, getPricingTypeLabel } from '@/lib/pricing';
+import { sortByClassification, getClassification, shouldShowBadge, getBadgeText, getEffectiveDescription, getCardSize } from '@/lib/menu-engineering';
+import HeroItemsSection from '@/components/catering/HeroItemsSection';
+import Badge from '@/components/ui/Badge';
 
 // Menu sections organized by the catering menu structure
 const MENU_SECTIONS = [
@@ -66,27 +69,55 @@ function getProductsForSubsection(subsectionId: string): CateringProduct[] {
 
   const filter = mappings[subsectionId];
   if (!filter) return [];
-  return CATERING_PRODUCTS.filter(filter);
+  return sortByClassification(CATERING_PRODUCTS.filter(filter));
 }
 
 function MenuItemCard({ product }: { product: CateringProduct }) {
+  const classification = getClassification(product);
+  const cardSize = getCardSize(product);
+  const showBadge_ = shouldShowBadge(product);
+  const badgeText_ = getBadgeText(product);
+  const description = getEffectiveDescription(product);
+  const isCompact = cardSize === 'compact';
+
   return (
-    <div className="bg-pepe-warm-white rounded-xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-shadow border border-pepe-sand">
-      <div className="relative h-32 sm:h-40">
-        <Image
-          src={product.image}
-          alt={product.title}
-          fill
-          className="object-cover"
-        />
-      </div>
+    <div className={`bg-pepe-warm-white rounded-xl overflow-hidden shadow-warm hover:shadow-warm-lg transition-shadow border ${
+      classification === 'STAR' ? 'border-pepe-gold/40 border-2' : 'border-pepe-sand'
+    } ${cardSize === 'hero' ? 'col-span-2' : ''}`}>
+      {!isCompact && (
+        <div className={`relative ${cardSize === 'hero' ? 'h-48 sm:h-56' : 'h-32 sm:h-40'}`}>
+          <Image
+            src={product.image}
+            alt={product.title}
+            fill
+            className="object-cover"
+          />
+          {showBadge_ && (
+            <div className="absolute top-2 left-2">
+              <Badge variant={classification === 'STAR' ? 'star' : 'puzzle'} className="text-xs">
+                {badgeText_ || (classification === 'STAR' ? 'Most Popular' : 'Hidden Gem')}
+              </Badge>
+            </div>
+          )}
+        </div>
+      )}
       <div className="p-4">
-        <h4 className="font-oswald text-pepe-dark text-sm sm:text-base mb-1 line-clamp-1">
+        <h4 className={`font-oswald text-pepe-dark mb-1 ${
+          cardSize === 'hero' ? 'text-lg sm:text-xl line-clamp-2'
+            : cardSize === 'large' ? 'text-base sm:text-lg line-clamp-1'
+            : 'text-sm sm:text-base line-clamp-1'
+        }`}>
           {product.title}
         </h4>
-        <p className="text-xs text-muted mb-2 line-clamp-2 font-merriweather">
-          {product.description}
-        </p>
+        {!isCompact && (
+          <p className={`text-xs text-muted mb-2 font-merriweather ${
+            cardSize === 'hero' ? 'line-clamp-4'
+              : cardSize === 'large' ? 'line-clamp-3'
+              : 'line-clamp-2'
+          }`}>
+            {description}
+          </p>
+        )}
         <div className="flex items-center justify-between">
           <span className="font-oswald text-pepe-red">
             {getDisplayPrice(product)}
@@ -181,6 +212,9 @@ export default function MenusPage() {
 
       {/* Menu Sections */}
       <div className="container mx-auto px-4 py-8 sm:py-12">
+        {/* Hero Section - Most Popular Items */}
+        <HeroItemsSection products={CATERING_PRODUCTS} mode="browse" />
+
         {MENU_SECTIONS.map((section, sectionIndex) => (
           <section
             key={section.id}

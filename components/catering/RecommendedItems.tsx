@@ -5,6 +5,7 @@ import { getProductsByEventType } from '@/lib/products';
 import { getEventTypeName } from '@/lib/event-types';
 import { formatCurrency, calculateProductOrder } from '@/lib/pricing';
 import { CateringProduct } from '@/lib/types';
+import { getClassification } from '@/lib/menu-engineering';
 import Image from 'next/image';
 
 export default function RecommendedItems() {
@@ -15,13 +16,20 @@ export default function RecommendedItems() {
   const allProducts = getProductsByEventType(state.eventType);
 
   // Filter: popular items not already in cart, respecting budget if set
+  // Sort by classification: STARs first, then PUZZLEs, then popular tag
+  const classOrder: Record<string, number> = { STAR: 0, PUZZLE: 1, PLOWHORSE: 2, DOG: 3 };
   const recommended = allProducts
-    .filter(p => p.tags?.includes('popular') && !isItemInCart(p.id))
+    .filter(p => (p.tags?.includes('popular') || getClassification(p) === 'STAR' || getClassification(p) === 'PUZZLE') && !isItemInCart(p.id))
     .filter(p => {
       if (!state.budgetRange) return true;
       const calc = calculateProductOrder(p, state.headcount);
       const perPerson = calc.totalPrice / state.headcount;
       return perPerson <= state.budgetRange.max;
+    })
+    .sort((a, b) => {
+      const classA = classOrder[getClassification(a)] ?? 2;
+      const classB = classOrder[getClassification(b)] ?? 2;
+      return classA - classB;
     })
     .slice(0, 6);
 

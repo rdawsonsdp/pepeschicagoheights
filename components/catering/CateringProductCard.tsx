@@ -12,9 +12,19 @@ import { getPricingTypeLabel, calculateProductOrder, formatCurrency } from '@/li
 
 interface CateringProductCardProps {
   product: CateringProduct;
+  size?: 'hero' | 'large' | 'default' | 'compact';
+  showBadge?: boolean;
+  badgeText?: string | null;
+  descriptionOverride?: string;
 }
 
-export default function CateringProductCard({ product }: CateringProductCardProps) {
+export default function CateringProductCard({
+  product,
+  size = 'default',
+  showBadge = false,
+  badgeText,
+  descriptionOverride,
+}: CateringProductCardProps) {
   const { state, dispatch, isItemInCart, getItemQuantity } = useCatering();
   const inCart = isItemInCart(product.id);
   const itemQty = getItemQuantity(product.id);
@@ -111,58 +121,77 @@ export default function CateringProductCard({ product }: CateringProductCardProp
   );
 
   return (
-    <Card className="flex flex-col h-full hover-lift group relative overflow-hidden">
+    <Card className={`flex flex-col h-full hover-lift group relative overflow-hidden ${
+      size === 'hero' ? 'col-span-2' : ''
+    }`}>
       {/* Decorative gradient overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-pepe-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none" />
 
       <div className="relative z-10 flex flex-col h-full">
-        {/* Product Image */}
-        <div className="aspect-square bg-pepe-sand/30 rounded-xl mb-3 sm:mb-4 overflow-hidden relative">
-          {product.image ? (
-            <Image
-              src={product.image}
-              alt={product.title}
-              fill
-              className="object-cover img-zoom"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted bg-gradient-to-br from-pepe-burnt-orange/20 to-pepe-red/30">
-              <svg
-                className="w-12 h-12 sm:w-16 sm:h-16"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-          )}
+        {/* Product Image - hidden for compact */}
+        {size !== 'compact' && (
+          <div className={`bg-pepe-sand/30 rounded-xl mb-3 sm:mb-4 overflow-hidden relative ${
+            size === 'hero' ? 'aspect-[4/3] h-48 sm:h-56' : 'aspect-square'
+          }`}>
+            {product.image ? (
+              <Image
+                src={product.image}
+                alt={product.title}
+                fill
+                className="object-cover img-zoom"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-muted bg-gradient-to-br from-pepe-burnt-orange/20 to-pepe-red/30">
+                <svg
+                  className="w-12 h-12 sm:w-16 sm:h-16"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+            )}
 
-          {/* In Cart indicator */}
-          {inCart && (
-            <div className="absolute top-2 left-2">
-              <Badge variant="success">
-                In Cart{itemQty > 1 ? ` (${itemQty})` : ''}
+            {/* In Cart indicator */}
+            {inCart && (
+              <div className="absolute top-2 left-2">
+                <Badge variant="success">
+                  In Cart{itemQty > 1 ? ` (${itemQty})` : ''}
+                </Badge>
+              </div>
+            )}
+
+            {/* Menu engineering badge */}
+            {showBadge && badgeText && (
+              <div className="absolute bottom-2 left-2">
+                <Badge variant={product.menuEngineering?.classification === 'STAR' ? 'star' : 'puzzle'} className="text-xs">
+                  {badgeText}
+                </Badge>
+              </div>
+            )}
+
+            {/* Pricing type badge */}
+            <div className="absolute top-2 right-2">
+              <Badge variant="default" className="text-xs">
+                {getPricingTypeLabel(product)}
               </Badge>
             </div>
-          )}
-
-          {/* Pricing type badge */}
-          <div className="absolute top-2 right-2">
-            <Badge variant="default" className="text-xs">
-              {getPricingTypeLabel(product)}
-            </Badge>
           </div>
-        </div>
+        )}
 
         {/* Product Info */}
-        <h3 className="font-oswald font-semibold text-pepe-dark mb-1 text-sm sm:text-base line-clamp-2 tracking-wide">
+        <h3 className={`font-oswald font-semibold text-pepe-dark mb-1 tracking-wide ${
+          size === 'hero' ? 'text-lg sm:text-xl line-clamp-2'
+            : size === 'large' ? 'text-base sm:text-lg line-clamp-2'
+            : 'text-sm sm:text-base line-clamp-2'
+        }`}>
           {product.title}
         </h3>
 
@@ -187,8 +216,13 @@ export default function CateringProductCard({ product }: CateringProductCardProp
           </div>
         )}
 
-        <p className="text-xs sm:text-sm text-pepe-charcoal/70 mb-3 flex-grow line-clamp-2">
-          {product.description}
+        <p className={`text-xs sm:text-sm text-pepe-charcoal/70 mb-3 flex-grow ${
+          size === 'hero' ? 'line-clamp-4'
+            : size === 'large' ? 'line-clamp-3'
+            : size === 'compact' ? 'line-clamp-1'
+            : 'line-clamp-2'
+        }`}>
+          {descriptionOverride || product.description}
         </p>
 
         {/* Variant Selector - Single Mode (chips) */}

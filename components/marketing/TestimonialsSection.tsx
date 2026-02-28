@@ -1,33 +1,7 @@
 'use client';
 
 import Card from '@/components/ui/Card';
-
-const TESTIMONIALS = [
-  {
-    quote: 'Pepe\'s catered our company party and it was incredible. The fajitas were sizzling and everyone went back for seconds. Best Mexican catering in the area!',
-    author: 'Jennifer M.',
-    company: 'Marketing Director',
-    rating: 5,
-  },
-  {
-    quote: 'We ordered the Taco Party package for 80 people with just 3 days notice. Everything arrived on time and the food was amazing. The carnitas were unreal.',
-    author: 'David R.',
-    company: 'Office Manager',
-    rating: 5,
-  },
-  {
-    quote: 'We\'ve tried every caterer in Chicago Heights. Pepe\'s is our go-to now for every office event. Consistent quality, great prices, and authentic Mexican food.',
-    author: 'Sarah K.',
-    company: 'Event Coordinator',
-    rating: 5,
-  },
-  {
-    quote: 'The mini tacos and jalapeño poppers were devoured in minutes at our holiday party. Pepe\'s knows how to throw a fiesta. Will definitely order again!',
-    author: 'Marcus T.',
-    company: 'HR Director',
-    rating: 5,
-  },
-];
+import { siteConfig } from '@/lib/site-config';
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -59,8 +33,8 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {TESTIMONIALS.map((testimonial, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {siteConfig.content.testimonials.map((testimonial, index) => (
             <Card key={index} className="flex flex-col" hover={false}>
               <StarRating rating={testimonial.rating} />
               <p className="text-sm text-pepe-charcoal/80 mt-3 mb-4 flex-grow italic leading-relaxed font-crimson">

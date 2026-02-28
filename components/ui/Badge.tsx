@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface BadgeProps {
-  variant?: 'default' | 'appetizers' | 'entrees' | 'sides' | 'success' | 'warning';
+  variant?: 'default' | 'appetizers' | 'entrees' | 'sides' | 'success' | 'warning' | 'star' | 'puzzle';
   children: React.ReactNode;
   className?: string;
 }
@@ -14,11 +14,13 @@ export default function Badge({ variant = 'default', children, className = '' }:
     sides: 'bg-pepe-orange/15 text-pepe-charcoal border border-pepe-orange/40',
     success: 'bg-pepe-orange/10 text-pepe-dark border border-pepe-orange/30',
     warning: 'bg-pepe-sand/30 text-pepe-terracotta border border-pepe-orange/40',
+    star: 'bg-pepe-gold text-pepe-dark border border-pepe-gold shadow-md shadow-pepe-gold/40',
+    puzzle: 'bg-pepe-teal text-white border border-pepe-teal shadow-md shadow-pepe-teal/40',
   };
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-semibold ${variantStyles[variant]} ${className}`}
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-extrabold tracking-wide ${variantStyles[variant]} ${className}`}
     >
       {children}
     </span>

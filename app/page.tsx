@@ -15,6 +15,7 @@ import TrustSignals from '@/components/marketing/TrustSignals';
 import ClientLogos from '@/components/marketing/ClientLogos';
 import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
 import RecommendedItems from '@/components/catering/RecommendedItems';
+import { siteConfig } from '@/lib/site-config';
 
 export default function HomePage() {
   const { state, dispatch } = useCatering();
@@ -27,11 +28,7 @@ export default function HomePage() {
     });
   };
 
-  const eventImages: Record<string, string> = {
-    appetizers: '/images/appetizers.jpg',
-    entrees: '/images/entrees.jpg',
-    sides: '/images/sides.jpg',
-  };
+  const eventImages: Record<string, string> = siteConfig.branding.categoryImages;
 
   const handleToggleFilter = (tag: string) => {
     setActiveFilters(prev =>
@@ -46,7 +43,7 @@ export default function HomePage() {
       {/* Decorative Banner - Top */}
       <div className="w-full h-[60px] sm:h-[70px] relative overflow-hidden">
         <Image
-          src="/images/mexican-food-banner.svg"
+          src={siteConfig.branding.bannerImagePath}
           alt=""
           fill
           className="object-cover"
@@ -58,8 +55,8 @@ export default function HomePage() {
       <section className="relative">
         <div className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
           <Image
-            src="/images/hero-tacos.jpg"
-            alt="Authentic Mexican Tacos by Pepe's"
+            src={siteConfig.branding.heroImagePath}
+            alt={`Authentic ${siteConfig.restaurant.cuisineType} food by ${siteConfig.restaurant.name}`}
             fill
             className="object-cover"
             priority
@@ -69,13 +66,13 @@ export default function HomePage() {
 
         <div className="bg-gradient-to-b from-pepe-maroon to-[#6B2A10] py-8 sm:py-10 text-center">
           <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-pepe-red tracking-wider mb-1 drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-            PEPE&apos;S MEXICAN RESTAURANT
+            {siteConfig.content.heroTitle}
           </h1>
           <p className="font-oswald text-2xl sm:text-3xl md:text-4xl text-pepe-red tracking-wider drop-shadow-md" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
-            CHICAGO HEIGHTS
+            {siteConfig.content.heroSubtitle}
           </p>
           <p className="font-crimson text-base sm:text-lg md:text-xl text-pepe-sand tracking-wider mt-2 italic">
-            Chicago Heights, IL &bull; Since 1967
+            {siteConfig.content.heroSubline}
           </p>
         </div>
 
@@ -87,7 +84,7 @@ export default function HomePage() {
         </div>
         <div className="bg-pepe-dark py-3 text-center">
           <p className="font-crimson text-lg sm:text-xl md:text-2xl text-pepe-orange tracking-[0.2em] italic">
-            Take Out &amp; Catering
+            {siteConfig.content.serviceType}
           </p>
         </div>
       </section>
@@ -227,7 +224,7 @@ export default function HomePage() {
       {/* Decorative Banner - Bottom */}
       <div className="w-full h-[60px] sm:h-[70px] relative overflow-hidden">
         <Image
-          src="/images/mexican-food-banner.svg"
+          src={siteConfig.branding.bannerImagePath}
           alt=""
           fill
           className="object-cover"

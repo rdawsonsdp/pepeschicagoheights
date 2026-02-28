@@ -7,6 +7,7 @@ import { useCatering } from '@/context/CateringContext';
 import { formatCurrency } from '@/lib/pricing';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
+import { siteConfig } from '@/lib/site-config';
 
 interface FormData {
   // Contact Information
@@ -86,31 +87,7 @@ const PROCESS_STEPS = [
   },
 ];
 
-const DELIVERY_TIMES = [
-  '7:00 AM',
-  '7:30 AM',
-  '8:00 AM',
-  '8:30 AM',
-  '9:00 AM',
-  '9:30 AM',
-  '10:00 AM',
-  '10:30 AM',
-  '11:00 AM',
-  '11:30 AM',
-  '12:00 PM',
-  '12:30 PM',
-  '1:00 PM',
-  '1:30 PM',
-  '2:00 PM',
-  '2:30 PM',
-  '3:00 PM',
-  '3:30 PM',
-  '4:00 PM',
-  '4:30 PM',
-  '5:00 PM',
-  '5:30 PM',
-  '6:00 PM',
-];
+const DELIVERY_TIMES = siteConfig.delivery.deliveryTimes;
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -136,11 +113,10 @@ export default function CheckoutPage() {
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
 
-  // Calculate delivery fee
+  // Calculate delivery fee from config
   const getDeliveryFee = (headcount: number): number => {
-    if (headcount <= 25) return 75;
-    if (headcount <= 50) return 125;
-    return 200;
+    const tier = siteConfig.delivery.fees.find(f => headcount <= f.maxHeadcount);
+    return tier?.fee ?? siteConfig.delivery.fees[siteConfig.delivery.fees.length - 1].fee;
   };
 
   const deliveryFee = getDeliveryFee(state.headcount);
@@ -301,11 +277,11 @@ export default function CheckoutPage() {
     }
   };
 
-  // Get minimum date (tomorrow)
+  // Get minimum date (2 days out per siteConfig.delivery.minimumNotice)
   const getMinDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() + 2);
+    return minDate.toISOString().split('T')[0];
   };
 
   return (
@@ -335,7 +311,6 @@ export default function CheckoutPage() {
             {PROCESS_STEPS.map((step, index) => {
               const isCompleted = index === 0 || (index === 1 && currentStep >= 1);
               const isCurrent = (index === 1 && currentStep === 1) || (index === 2 && currentStep === 2);
-              const isFuture = index > (currentStep === 1 ? 1 : 2);
 
               return (
                 <div key={step.id} className="flex flex-col items-center relative">
@@ -856,8 +831,8 @@ export default function CheckoutPage() {
               {/* Support */}
               <div className="mt-4 pt-4 border-t border-pepe-sand">
                 <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-2">Need Help?</p>
-                <a href="tel:7087482400" className="text-sm text-pepe-red hover:text-pepe-dark transition-colors font-semibold">
-                  (708) 748-2400
+                <a href={`tel:${siteConfig.contact.phoneRaw}`} className="text-sm text-pepe-red hover:text-pepe-dark transition-colors font-semibold">
+                  {siteConfig.contact.phone}
                 </a>
                 <p className="text-xs text-muted/70 mt-1">Call, email, or text us anytime</p>
               </div>

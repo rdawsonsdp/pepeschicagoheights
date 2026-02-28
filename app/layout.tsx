@@ -3,6 +3,7 @@ import { Bevan, Lato, Crimson_Text, Merriweather, Roboto_Condensed } from 'next/
 import './globals.css';
 import Layout from '@/components/layout/Layout';
 import { CateringProvider } from '@/context/CateringContext';
+import { siteConfig } from '@/lib/site-config';
 
 const bevan = Bevan({
   variable: '--font-bevan',
@@ -35,13 +36,12 @@ const robotoCondensed = Roboto_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "Pepe's Mexican Restaurant | Full Service Catering",
-  description:
-    "Pepe's Mexican Restaurant offers authentic Mexican catering for parties, corporate events, and special occasions. Have a Fiesta with our full service catering menu!",
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: "Pepe's Mexican Restaurant",
+    title: siteConfig.restaurant.name,
   },
 };
 
@@ -50,7 +50,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#E88A00',
+  themeColor: siteConfig.colors.themeColor,
 };
 
 export default function RootLayout({

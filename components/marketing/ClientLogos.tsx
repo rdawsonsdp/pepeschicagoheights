@@ -1,15 +1,6 @@
 'use client';
 
-const USE_CASES = [
-  'Birthday Parties',
-  'Office Catering',
-  'Wedding Receptions',
-  'Holiday Fiestas',
-  'Graduation Parties',
-  'Team Lunches',
-  'Family Reunions',
-  'Corporate Events',
-];
+import { siteConfig } from '@/lib/site-config';
 
 export default function ClientLogos() {
   return (
@@ -19,7 +10,7 @@ export default function ClientLogos() {
           Trusted for
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          {USE_CASES.map((useCase, index) => (
+          {siteConfig.content.useCases.map((useCase, index) => (
             <span
               key={index}
               className="px-4 py-1.5 rounded-full bg-pepe-warm-white text-pepe-charcoal text-xs sm:text-sm font-semibold border border-pepe-sand shadow-sm"
