@@ -264,17 +264,17 @@ export default function LandingPage() {
             {DAILY_SPECIALS.map((special) => (
               <div
                 key={special.day}
-                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow"
+                className="bg-pepe-maroon/80 rounded-xl shadow-md overflow-hidden border border-pepe-gold/30 hover:shadow-lg hover:scale-[1.02] transition-all"
               >
-                <div className="bg-pepe-maroon px-4 py-2.5">
-                  <h4 className="font-oswald text-lg text-white tracking-wider text-center">
+                <div className="bg-pepe-gold px-4 py-2.5">
+                  <h4 className="font-oswald text-lg font-bold text-pepe-dark tracking-wider text-center">
                     {special.day.toUpperCase()}
                   </h4>
                 </div>
                 <ul className="px-4 py-4 space-y-2">
                   {special.items.map((item, i) => (
-                    <li key={i} className="font-crimson text-pepe-charcoal/80 leading-snug flex items-start gap-2" style={{ fontSize: '17px' }}>
-                      <span className="text-pepe-orange mt-0.5 shrink-0">&#9679;</span>
+                    <li key={i} className="font-oswald font-normal text-white leading-snug flex items-start gap-2" style={{ fontSize: '17px' }}>
+                      <span className="text-pepe-gold mt-0.5 shrink-0">&#9679;</span>
                       {item}
                     </li>
                   ))}
@@ -299,7 +299,7 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center mb-4">
             {TUESDAY_SPECIALS.map((item, i) => (
-              <span key={i} className="font-crimson text-sm sm:text-base text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/20">
+              <span key={i} className="font-oswald font-normal text-sm sm:text-base text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/20 tracking-wide">
                 {item}
               </span>
             ))}

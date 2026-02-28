@@ -1,16 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCatering } from '@/context/CateringContext';
-import { EVENT_TYPES } from '@/lib/event-types';
-import StepIndicator from '@/components/catering/StepIndicator';
 import HeadcountBudgetStep from '@/components/catering/HeadcountBudgetStep';
 import OrderTypeStep from '@/components/catering/OrderTypeStep';
 import ProductSelectionStep from '@/components/catering/ProductSelectionStep';
 import PackageSelectionStep from '@/components/catering/PackageSelectionStep';
-import ValueProposition from '@/components/marketing/ValueProposition';
 import TrustSignals from '@/components/marketing/TrustSignals';
 import ClientLogos from '@/components/marketing/ClientLogos';
 import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
@@ -21,14 +18,12 @@ export default function HomePage() {
   const { state, dispatch } = useCatering();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
-  const handleSelectEventType = (eventTypeId: string) => {
-    dispatch({
-      type: 'SET_EVENT_TYPE',
-      payload: eventTypeId as 'appetizers' | 'entrees' | 'sides',
-    });
-  };
-
-  const eventImages: Record<string, string> = siteConfig.branding.categoryImages;
+  // Auto-set event type to entrees so we skip the selection step
+  useEffect(() => {
+    if (!state.eventType) {
+      dispatch({ type: 'SET_EVENT_TYPE', payload: 'entrees' });
+    }
+  }, [state.eventType, dispatch]);
 
   const handleToggleFilter = (tag: string) => {
     setActiveFilters(prev =>
@@ -89,82 +84,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Value Proposition */}
-      <ValueProposition />
-
       {/* How It Works */}
       <TrustSignals />
 
       {/* Client Logos */}
       <ClientLogos />
 
-      {/* Step Indicator */}
-      <section id="catering" className="bg-pepe-cream pt-12 sm:pt-16">
-        <div className="container mx-auto px-4">
-          <StepIndicator currentStep={state.currentStep} />
-        </div>
-      </section>
-
-      {/* Step 1: Event Type Selection */}
-      <section className="bg-pepe-cream pb-12 sm:pb-16 texture-paper relative">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-10">
-            <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl text-pepe-dark tracking-wider mb-4">
-              WHAT ARE YOU CRAVING?
-            </h2>
-            <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto italic">
-              Select a category to start building your catering order
-            </p>
-          </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                {EVENT_TYPES.map((eventType, index) => {
-                  const isSelected = state.eventType === eventType.id;
-                  const isUnselected = state.eventType && state.eventType !== eventType.id;
-
-                  return (
-                    <div
-                      key={eventType.id}
-                      className="animate-scale-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div
-                        onClick={() => handleSelectEventType(eventType.id)}
-                        className={`
-                          relative overflow-hidden rounded-2xl cursor-pointer
-                          transition-all duration-300 shadow-warm
-                          h-[180px] sm:h-[240px] md:h-[320px]
-                          ${isSelected
-                            ? 'ring-4 ring-pepe-red scale-[1.02]'
-                            : 'hover:scale-105'
-                          }
-                          ${isUnselected ? 'opacity-70' : ''}
-                        `}
-                      >
-                        <Image
-                          src={eventImages[eventType.id] || '/images/appetizers.jpg'}
-                          alt={eventType.name}
-                          fill
-                          className="object-cover"
-                        />
-                        <div className={`absolute inset-0 ${isSelected ? 'bg-gradient-to-t from-black/70 via-black/30 to-transparent' : 'bg-gradient-to-t from-black/80 via-black/40 to-transparent'}`} />
-                        <div className="absolute inset-0 flex flex-col items-center justify-end p-6 text-center">
-                          <h3 className="font-oswald text-2xl sm:text-3xl text-white mb-2 tracking-wide drop-shadow-lg">
-                            {eventType.name.toUpperCase()}
-                          </h3>
-                          <p className="text-white/90 text-sm sm:text-base drop-shadow">
-                            {eventType.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-      {/* Step 2: Headcount & Budget */}
+      {/* Headcount & Budget */}
       {state.currentStep >= 2 && (
         <HeadcountBudgetStep />
       )}
