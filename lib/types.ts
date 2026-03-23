@@ -1,3 +1,22 @@
+// Legacy menu engineering types (deprecated, kept for compatibility)
+export type MenuClassification = 'STAR' | 'PLOWHORSE' | 'PUZZLE' | 'DOG';
+export type VisualWeight = 'high' | 'medium' | 'low';
+export type DescriptionStrategy = 'maintain' | 'enhance' | 'rewrite' | 'minimize';
+export interface MenuEngineeringData {
+  classification: MenuClassification;
+  foodCost: number | null;
+  salesRank: number | null;
+  placementPriority: number | null;
+  visualWeight: VisualWeight;
+  descriptionStrategy: DescriptionStrategy;
+  badgeText: string | null;
+  enhancedDescription: string | null;
+  salesVelocity7d: number | null;
+  salesVelocity30d: number | null;
+  trendDirection: 'up' | 'down' | 'stable' | null;
+  lastClassifiedAt: string | null;
+}
+
 // Event Types
 export type EventType = 'appetizers' | 'entrees' | 'sides';
 
@@ -99,6 +118,7 @@ export interface CateringProduct {
   slug?: string;
   inventory?: number;
   variants?: VariantConfig;
+  menuEngineering?: MenuEngineeringData;
 }
 
 // Calculated order item (what the customer actually gets)

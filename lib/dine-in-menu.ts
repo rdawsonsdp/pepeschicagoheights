@@ -1,7 +1,12 @@
+import type { MenuClassification, VisualWeight } from './types';
+
 export interface DineInMenuItem {
   name: string;
   description?: string;
-  price?: string; // string to support ranges like "$8 / 16oz $13"
+  price?: string;
+  classification?: MenuClassification;
+  visualWeight?: VisualWeight;
+  image?: string;
 }
 
 export interface DineInMenuSection {
