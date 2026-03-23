@@ -282,7 +282,7 @@ export default function LandingPage() {
                 </div>
                 <ul className="px-4 py-4 space-y-2">
                   {special.items.map((item, i) => (
-                    <li key={i} className="font-oswald font-normal text-white leading-snug flex items-start gap-2" style={{ fontSize: '17px' }}>
+                    <li key={i} className="font-lato font-normal text-white leading-snug flex items-start gap-2" style={{ fontSize: '17px' }}>
                       <span className="text-pepe-gold mt-0.5 shrink-0">&#9679;</span>
                       {item}
                     </li>
@@ -311,7 +311,7 @@ export default function LandingPage() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center mb-4">
             {TUESDAY_SPECIALS.map((item, i) => (
-              <span key={i} className="font-oswald font-normal text-sm sm:text-base text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/20 tracking-wide">
+              <span key={i} className="font-lato font-normal text-sm sm:text-base text-white/90 bg-white/10 px-4 py-2 rounded-full border border-white/20 tracking-wide">
                 {item}
               </span>
             ))}

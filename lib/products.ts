@@ -203,7 +203,7 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     id: 'chips-large',
     title: 'Chips - Large Bag',
     description: 'Fresh tortilla chips, large bag. Great for medium-sized parties.',
-    image: '/images/menu/chips-large.jpg',
+    image: '/images/menu/chips.jpg',
     categories: ['appetizers'],
     pricing: { type: 'per-each' as const, priceEach: 7.25 },
     tags: ['appetizer', 'chips', 'mexican'],

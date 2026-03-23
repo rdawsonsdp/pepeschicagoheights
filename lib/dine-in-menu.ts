@@ -1,12 +1,7 @@
-import type { MenuClassification, VisualWeight } from './types';
-
 export interface DineInMenuItem {
   name: string;
   description?: string;
   price?: string; // string to support ranges like "$8 / 16oz $13"
-  classification?: MenuClassification;
-  visualWeight?: VisualWeight;
-  image?: string;
 }
 
 export interface DineInMenuSection {
@@ -62,7 +57,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     subtitle: 'Your choice of flour tortilla or soft/crispy corn with lettuce, cheese, and tomato',
     image: '/images/menu/tacos-header.jpg',
     items: [
-      { name: 'Beef Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/beef-taco-filling.jpg' },
+      { name: 'Beef Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Chicken Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Pork Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Street Steak Corn Taco (1)', description: 'Topped with Pico de Gallo & Corn', price: '5' },
@@ -130,7 +125,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     items: [
       { name: 'Veggie Fajita', description: 'Sautéed onions, peppers, tomato with rice, beans, guacamole, pico de gallo, cheese, sour cream', price: '20' },
       { name: 'Individual Fajita', description: 'Steak, chicken, chorizo, carnitas, shrimp, or spinach with tortilla, pico de gallo, chihuahua cheese, sour cream, guacamole', price: '15' },
-      { name: 'Pepe\'s Fajita Combo', description: 'Steak / Chicken / Shrimp with sautéed vegetables, rice, beans, guacamole, pico de gallo, cheese, sour cream', price: '29.95', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/chicken-fajitas.jpg' },
+      { name: 'Pepe\'s Fajita Combo', description: 'Steak / Chicken / Shrimp with sautéed vegetables, rice, beans, guacamole, pico de gallo, cheese, sour cream', price: '29.95' },
       { name: 'Loaded Fajita Nachos', description: 'Fresh chips, pico de gallo, melted cheese, fried beans, guacamole, sour cream', price: '16' },
     ],
   },

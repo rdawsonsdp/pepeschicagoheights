@@ -193,8 +193,18 @@ export default function DineInMenuPage() {
 
       {/* Menu Content */}
       <div className="w-full">
-        {currentSections.map((section) => (
-          <MenuSection key={section.id} section={section} />
+        {currentSections.map((section, idx) => (
+          <div key={section.id}>
+            {idx > 0 && (
+              <>
+                <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
+                <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+                  <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
+                </div>
+              </>
+            )}
+            <MenuSection section={section} />
+          </div>
         ))}
       </div>
 

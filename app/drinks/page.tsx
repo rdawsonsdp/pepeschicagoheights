@@ -165,9 +165,9 @@ export default function DrinksMenuPage() {
       </div>
 
       {/* Menu Content */}
-      <div className="max-w-3xl mx-auto">
+      <div className="w-full">
         {/* Cocktails */}
-        <div className="mb-0">
+        <div>
           <SectionHeader
             title="COCKTAILS"
             subtitle="Handcrafted Mexican-inspired cocktails"
@@ -180,8 +180,14 @@ export default function DrinksMenuPage() {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
+        <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+          <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
+        </div>
+
         {/* Margaritas */}
-        <div className="mb-0">
+        <div>
           <SectionHeader
             title="MARGARITAS"
             subtitle="Monday & Wednesday — half-price margaritas all day!"
@@ -194,8 +200,14 @@ export default function DrinksMenuPage() {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
+        <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+          <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
+        </div>
+
         {/* Tequila & Spirits */}
-        <div className="mb-0">
+        <div>
           <SectionHeader title="TEQUILA & SPIRITS" />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             {TEQUILA_SPIRITS.map((item) => (
@@ -204,8 +216,14 @@ export default function DrinksMenuPage() {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
+        <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+          <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
+        </div>
+
         {/* Wine */}
-        <div className="mb-0">
+        <div>
           <SectionHeader title="WINE" />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             <div className="py-4 border-b border-pepe-menu-cream/20">
@@ -222,8 +240,14 @@ export default function DrinksMenuPage() {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
+        <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+          <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
+        </div>
+
         {/* Beer */}
-        <div className="mb-0">
+        <div>
           <SectionHeader title="BEER" image="/images/menu/beer-real.jpg" />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             <DrinkCard item={{ name: 'Draft Beer', description: '20oz or Pitcher', price: '20oz $4 · Pitcher $20' }} />
