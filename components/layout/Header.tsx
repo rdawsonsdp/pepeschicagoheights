@@ -7,14 +7,23 @@ import { siteConfig } from '@/lib/site-config';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [deliveryOpen, setDeliveryOpen] = useState(false);
 
   const navLinks = [
     { href: '/', label: 'HOME' },
-    { href: '/dine-in', label: 'DINE-IN MENU' },
+    { href: '/lunch', label: 'LUNCH' },
+    { href: '/appetizers', label: 'APPETIZERS' },
+    { href: '/dine-in', label: 'OUR MENU' },
     { href: '/drinks', label: 'DRINKS' },
     { href: '/desserts', label: 'DESSERTS' },
-    { href: '/catering', label: 'ORDER CATERING' },
+    { href: '/catering', label: 'CATERING' },
     { href: '/admin/menu-engineering', label: 'ADMIN' },
+  ];
+
+  const deliveryLinks = [
+    { href: 'https://www.ubereats.com/store/pepes-chicago-heights/J7SihHifR1qowWaXfVq5EA', label: 'Uber Eats' },
+    { href: 'https://www.doordash.com/store/pepe\'s-mexican-restaurant-chicago-heights-190401/', label: 'DoorDash' },
+    { href: 'https://www.grubhub.com/restaurant/pepes-mexican-restaurant-470-w-lincoln-hwy-chicago-heights/3399498', label: 'GrubHub' },
   ];
 
   return (
@@ -44,12 +53,34 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={`tel:${siteConfig.contact.phoneRaw}`}
-              className="font-oswald text-sm xl:text-base tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"
-            >
-              {siteConfig.contact.phone}
-            </a>
+            {/* Delivery Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setDeliveryOpen(!deliveryOpen)}
+                onBlur={() => setTimeout(() => setDeliveryOpen(false), 150)}
+                className="font-oswald text-sm xl:text-base tracking-wide text-white hover:text-pepe-dark transition-colors flex items-center gap-1"
+              >
+                DELIVERY
+                <svg className={`w-3 h-3 transition-transform ${deliveryOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {deliveryOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-pepe-dark rounded-lg shadow-xl py-2 min-w-[160px] z-50">
+                  {deliveryLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2 font-oswald text-sm text-white hover:bg-pepe-orange/20 transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Mobile menu toggle */}
@@ -97,6 +128,21 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            <div className="border-t border-white/20 mt-2 pt-2">
+              <p className="py-2 font-oswald tracking-wide text-white/60 text-sm">DELIVERY</p>
+              {deliveryLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block py-2 pl-4 font-oswald tracking-wide text-white hover:text-pepe-dark transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
             <a
               href={`tel:${siteConfig.contact.phoneRaw}`}
               className="block py-3 font-oswald tracking-wide text-pepe-dark font-bold hover:text-white transition-colors"

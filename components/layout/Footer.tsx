@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
 
@@ -5,7 +6,12 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-pepe-dark text-white py-12 border-t-4 border-pepe-orange">
+    <footer>
+      {/* Pattern Banner Border */}
+      <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
+        <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" aria-hidden="true" />
+      </div>
+      <div className="bg-pepe-dark text-white py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo & Brand */}
@@ -33,23 +39,28 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/lunch" className="text-white/50 hover:text-white transition-colors">
+                  Lunch Buffet
+                </Link>
+              </li>
+              <li>
+                <Link href="/appetizers" className="text-white/50 hover:text-white transition-colors">
+                  Appetizers
+                </Link>
+              </li>
+              <li>
                 <Link href="/dine-in" className="text-white/50 hover:text-white transition-colors">
-                  Dine-In Menu
+                  Our Menu
                 </Link>
               </li>
               <li>
-                <Link href="/menus" className="text-white/50 hover:text-white transition-colors">
-                  Catering Menu
+                <Link href="/drinks" className="text-white/50 hover:text-white transition-colors">
+                  Drinks
                 </Link>
               </li>
               <li>
-                <Link href="/catering" className="text-white/50 hover:text-white transition-colors">
-                  Order Catering
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="text-white/50 hover:text-white transition-colors">
-                  Browse All Items
+                <Link href="/desserts" className="text-white/50 hover:text-white transition-colors">
+                  Desserts
                 </Link>
               </li>
             </ul>
@@ -114,6 +125,7 @@ export default function Footer() {
             </a>
           </p>
         </div>
+      </div>
       </div>
     </footer>
   );

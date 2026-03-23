@@ -22,20 +22,22 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'appetizers',
     title: 'APPETIZERS',
     subtitle: 'Start your fiesta right',
-    image: 'https://images.unsplash.com/photo-1599974579688-8dbdd335c77f?w=800&h=400&fit=crop',
+    image: '/images/menu/steak-nachos.jpg',
     items: [
       { name: 'Botana Grande', description: 'Flautas (6) and Garnachas. Served with guacamole and sour cream', price: '15' },
       { name: 'Chile con Queso', description: 'Delicious tangy sauce & melted cheese w/ chips. Spicy jalapeno, corn or flour tortilla. Extra Cheese $2', price: '11' },
       { name: 'Guacamole', description: 'Half or Full order', price: 'Market Price' },
       { name: 'Queso Blanco', description: 'Add Ground Beef +$2.35', price: '7' },
       { name: 'Stuffed Nachos', description: 'Queso Blanco or melted Chihuahua and cheddar cheese. Comes with beans, guacamole and sour cream', price: '13' },
+      { name: 'Queso Blanco Burrito', description: 'Beef, chicken, pork, or steak topped with queso blanco and pico de gallo', price: '15' },
+      { name: 'Jalapeño Poppers', price: '9' },
     ],
   },
   {
     id: 'nachos',
     title: 'NACHOS',
     subtitle: 'Fresh chips, pico de gallo, melted cheese or cheese sauce, fried beans, guacamole & sour cream',
-    image: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=800&h=400&fit=crop',
+    image: '/images/menu/steak-nachos.jpg',
     items: [
       { name: 'Regular', price: '11' },
       { name: 'Beef, Chicken, Pork, or Steak', price: '14' },
@@ -46,11 +48,11 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'quesadillas',
     title: 'QUESADILLAS',
     subtitle: 'Large flour tortilla and pico de gallo filled with Chihuahua cheese, served with sour cream & guacamole',
-    image: 'https://images.unsplash.com/photo-1618040996337-56904b7850b9?w=800&h=400&fit=crop',
+    image: '/images/menu/quesadilla-real.jpg',
     items: [
       { name: 'Cheese', price: '11' },
       { name: 'Beef, Chicken, Pork, Steak or Grilled Chicken', price: '13' },
-      { name: 'Steak Fajita, Chicken Fajita, Shrimp, Carnitas', price: '26' },
+      { name: 'Steak Fajita, Chicken Fajita, Grilled Chicken, Carnitas, or Chorizo', price: '16' },
       { name: 'Add to Make it a Dinner with Rice/Beans', price: '+$3' },
     ],
   },
@@ -58,15 +60,17 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'tacos',
     title: 'TACOS',
     subtitle: 'Your choice of flour tortilla or soft/crispy corn with lettuce, cheese, and tomato',
-    image: 'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=800&h=400&fit=crop',
+    image: '/images/menu/tacos-header.jpg',
     items: [
       { name: 'Beef Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/beef-taco-filling.jpg' },
       { name: 'Chicken Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
       { name: 'Pork Taco', description: 'Stuffed taco w/ melted cheese in between tortilla + $.50 per taco. $.50 Extra Sour Cream (per taco) $.75 Extra Guacamole (per taco)', price: '4' },
-      { name: 'Shrimp, Carnitas, or Al Pastor (1)', price: '5' },
-      { name: 'Tilapia (2)', price: '11' },
       { name: 'Street Steak Corn Taco (1)', description: 'Topped with Pico de Gallo & Corn', price: '5' },
+      { name: 'Steak or Chicken Fajita (2)', price: '11' },
+      { name: 'Steak or Chorizo (1)', price: '4.50' },
       { name: 'Quesabirria Tacos (3)', description: 'Shredded beef topped with cheese, onion, cilantro and side of beef broth', price: '13.99' },
+      { name: 'Veggie or Guacamole (1)', price: '5' },
+      { name: 'Tilapia (2)', price: '11' },
       { name: 'Order (3) Tacos and Make it a Dinner w/ Rice/Beans', price: '+$3' },
     ],
   },
@@ -74,10 +78,10 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'burritos',
     title: 'BURRITOS',
     subtitle: 'Your choice of Regular, Suizo (melted cheese & ranchera sauce), or Frito (deep fried). Make it a dinner with rice & beans +$3',
-    image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&h=400&fit=crop',
+    image: '/images/menu/burrito-real.jpg',
     items: [
       { name: 'Beef, Chicken, Pork, Vegetable, All Bean, or Egg Don Pepe', price: '10' },
-      { name: 'All Meat (No Beans)', price: '+$2' },
+      { name: 'All Meat (No Beans)', price: '12' },
       { name: 'Steak, Chicken or Steak Fajita, Shrimp, Tilapia, Carnitas, Chile Relleno, or Chorizo and Egg', price: '14' },
       { name: 'Chicken or Steak Fajita, Shrimp, Tilapia, or Carnitas', description: 'Topped with queso blanco and pico de gallo', price: '17' },
       { name: 'Queso Blanco Burrito - Beef, Chicken, Pork, or Steak', description: 'Topped with queso blanco and pico de gallo', price: '15' },
@@ -87,7 +91,6 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'traditionals',
     title: 'TRADITIONALS',
     subtitle: 'Served with your choice of beef, chicken, or pork and a side of rice & beans, unless noted. Add Steak for $1.50 per item',
-    image: 'https://images.unsplash.com/photo-1534352956036-cd81e27dd615?w=800&h=400&fit=crop',
     items: [
       { name: 'Burrito Bowl', description: 'Choice of white or Spanish rice, pinto or black beans, homemade red or green sauce, steak or chicken, cheddar or Chihuahua cheese, guacamole, sour cream, lettuce and pico de gallo', price: '14' },
       { name: 'Chicken Breast Dinner', description: 'Comes with white rice and a vegetable medley', price: '16' },
@@ -108,48 +111,47 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'combos',
     title: 'COMBOS',
-    subtitle: 'Our signature combo platters bring together the best of Pepe\'s favorites on one plate. Mix and match your way through authentic flavors',
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=800&h=400&fit=crop',
+    subtitle: 'Served with your choice of beef, chicken, or pork and rice & beans. Fries substitute +$1.50. Steak add-on +$1.50 per item',
+    image: '/images/menu/combos-greenchili.jpg',
     items: [
-      { name: 'Sonora', description: 'Taco, Enchilada', price: '14' },
-      { name: 'Pinata', description: 'Tostada, Tamale', price: '15' },
-      { name: 'Azteca', description: 'Tostada, Flauta', price: '15' },
-      { name: 'Mayan', description: 'Enchilada Suiza, Tostada Suiza', price: '16' },
-      { name: 'Fiesta', description: 'Taco, Enchilada Suiza, Tostada, Tamale', price: '17' },
-      { name: 'Puebla', description: 'Chile Relleno, Taco, Tamale', price: '18' },
+      { name: 'Sonora', description: 'Taco, Enchilada with beef/chicken/pork, rice & beans', price: '14' },
+      { name: 'Pinata', description: 'Taco, Tostada, Tamale with beef/chicken/pork, rice & beans', price: '15' },
+      { name: 'Azteca', description: 'Taco, Tostada, Flauta with beef/chicken/pork, rice & beans', price: '15' },
+      { name: 'Mayan', description: 'Taco, Enchilada Suiza, Tostada Suiza with beef/chicken/pork, rice & beans', price: '16' },
+      { name: 'Fiesta', description: 'Taco, Enchilada Suiza, Tostada, Tamale with beef/chicken/pork, rice & beans', price: '17' },
+      { name: 'Puebla', description: 'Chile Relleno, Taco, Tamale with beef/chicken/pork, rice & beans', price: '18' },
     ],
   },
   {
     id: 'fajitas',
     title: 'FAJITAS',
     subtitle: 'Served with sauteed onions, peppers and tomato, rice, beans, guacamole, pico de gallo, shredded cheese and sour cream',
-    image: 'https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?w=800&h=400&fit=crop',
+    image: '/images/menu/fajitas-carne-asada.jpg',
     items: [
-      { name: 'Steak or Chicken', price: '26', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/chicken-fajitas.jpg' },
-      { name: 'Shrimp Fajitas', price: '28' },
-      { name: 'Veggie', price: '20' },
-      { name: 'Pepe\'s Fajita Combo', description: 'Steak / Chicken / Shrimp / Carnitas', price: '29.95' },
+      { name: 'Veggie Fajita', description: 'Sautéed onions, peppers, tomato with rice, beans, guacamole, pico de gallo, cheese, sour cream', price: '20' },
+      { name: 'Individual Fajita', description: 'Steak, chicken, chorizo, carnitas, shrimp, or spinach with tortilla, pico de gallo, chihuahua cheese, sour cream, guacamole', price: '15' },
+      { name: 'Pepe\'s Fajita Combo', description: 'Steak / Chicken / Shrimp with sautéed vegetables, rice, beans, guacamole, pico de gallo, cheese, sour cream', price: '29.95', classification: 'STAR' as const, visualWeight: 'high' as const, image: '/images/menu/chicken-fajitas.jpg' },
+      { name: 'Loaded Fajita Nachos', description: 'Fresh chips, pico de gallo, melted cheese, fried beans, guacamole, sour cream', price: '16' },
     ],
   },
   {
     id: 'mariscos',
     title: 'MARISCOS',
     subtitle: 'Seafood - Served with rice & salad and your choice of corn or flour tortilla',
-    image: 'https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=800&h=400&fit=crop',
+    image: '/images/menu/red-snapper.jpg',
     items: [
       { name: 'Camarones a la Diabla', description: 'Sauteed in spicy sauce', price: '21' },
       { name: 'Camarones a la Plancha', description: 'Served on a bed of lettuce and avocado slices', price: '21' },
       { name: 'Huachinango', description: 'Deep-fried red snapper', price: '26' },
       { name: 'Shrimp Ceviche', description: 'Shrimp, pico de gallo, lime, avocado slices', price: '15.99' },
       { name: 'Shrimp Cocktail', price: '16' },
-      { name: 'Tilapia', description: 'Served with a side of rice & salad', price: '21' },
+      { name: 'Tilapia (2)', price: '11' },
     ],
   },
   {
     id: 'asador',
     title: 'ASADOR',
     subtitle: 'From the Grill - Served with a side of rice & beans and your choice of soft corn or flour tortilla',
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&h=400&fit=crop',
     items: [
       { name: 'Carne Asada', description: 'Broiled skirt steak. Tender, juicy, and flavorful', price: '28' },
       { name: 'Carne Asada Especial', description: 'Broiled skirt steak and chile relleno', price: '31' },
@@ -162,20 +164,20 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'american-fare',
     title: 'AMERICAN FARE',
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=400&fit=crop',
+    image: '/images/menu/american-fare-burger.jpg',
     items: [
       { name: 'Grande Burger Deluxe', description: '1/3 lb Hamburger, Lettuce, Tomato, Cheese, and Onion with a Side of French Fries', price: '10' },
       { name: 'Cheese Fries', description: 'Our Classic Cheese Fries', price: '5' },
       { name: 'Onion Rings', description: 'Crispy Onion Rings', price: '4' },
       { name: 'Pepe\'s Wings (12PC)', description: 'Pepe\'s Wings w/Buffalo Sauce', price: '15' },
       { name: 'Pepe\'s Wings (20PC)', price: '20' },
+      { name: 'French Fries', price: '4' },
     ],
   },
   {
     id: 'kids-menu',
     title: 'KIDS MENU',
     subtitle: '10 and under. Includes French fries or Rice / Beans',
-    image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=800&h=400&fit=crop',
     items: [
       { name: 'Chicken Fingers (3)', price: '7.95' },
       { name: 'Hot Dog', price: '7.95' },
@@ -188,7 +190,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'a-la-carte',
     title: 'A LA CARTE',
     subtitle: 'Available in beef, chicken, or pork. Add Steak +$1.50 per item',
-    image: 'https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?w=800&h=400&fit=crop',
+    image: '/images/menu/enchiladas-poblanas.jpg',
     items: [
       { name: 'Chile Relleno', price: '9' },
       { name: 'Enchilada Poblana', price: '5' },
@@ -204,7 +206,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'side-orders',
     title: 'SIDE ORDERS',
-    image: 'https://images.unsplash.com/photo-1582234372722-50d7ccc30ebd?w=800&h=400&fit=crop',
+    image: '/images/menu/sides-real.jpg',
     items: [
       { name: 'Avocado', price: '4' },
       { name: 'Cheese', price: '2' },
@@ -237,7 +239,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
     id: 'postres',
     title: 'POSTRES',
     subtitle: 'Desserts',
-    image: 'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?w=800&h=400&fit=crop',
+    image: '/images/menu/desserts-real.jpg',
     items: [
       { name: 'Churros (2)', description: 'Served with Caramel', price: '9' },
       { name: 'Flan', price: '7' },
@@ -248,7 +250,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'margaritas',
     title: 'MARGARITAS',
-    image: 'https://images.unsplash.com/photo-1556855810-ac404aa91e85?w=800&h=400&fit=crop',
+    image: '/images/menu/strawberry-marg-real.jpg',
     items: [
       { name: 'Flavored Margaritas', description: 'Mezcal, Triple Sec, Lime juice. Available Frozen or On the Rocks. Fresa melt +$2. Strawberry, Mango, Passion Fruit, Cucumber/Chamoy, Banana, Guava, Peach, Wildberry, Pomegranate, Blackberry, Jalapeno, Mamma Melon, Blue Hawaiian, Blue Curacao', price: '$8 / 16oz $13 / Pitcher $26' },
       { name: 'Skinny Margarita', description: 'Maestro Dovel Blanco', price: '$9 / 16oz $14' },
@@ -263,7 +265,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'cocktails',
     title: 'COCKTAILS',
-    image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&h=400&fit=crop',
+    image: '/images/menu/tequila-real.jpg',
     items: [
       { name: 'Cantarito', description: 'Maestro Dovel Blanco, lime juice, lemon juice, grapefruit juice, squirt, rim', price: '13' },
       { name: 'Dirty Horchata', description: 'Horchata, Tito\'s, Kahlua, coffee, cinnamon', price: '13' },
@@ -284,7 +286,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'shots',
     title: 'SHOTS',
-    image: 'https://images.unsplash.com/photo-1516535794938-6063878f08cc?w=800&h=400&fit=crop',
+    image: '/images/menu/tequila-real.jpg',
     items: [
       { name: 'Jose Cuervo', price: '8' },
       { name: 'Jose Cuervo Silver', price: '8' },
@@ -302,7 +304,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'beer',
     title: 'BEER',
-    image: 'https://images.unsplash.com/photo-1535958636474-b021ee887b13?w=800&h=400&fit=crop',
+    image: '/images/menu/beer-real.jpg',
     items: [
       { name: 'Draft Beer', description: 'Ask server for selection', price: '20oz $4 / Pitcher $20' },
       { name: 'Beer Flight', description: '(5oz) 5 for', price: '18' },
@@ -313,7 +315,7 @@ export const DINE_IN_MENU: DineInMenuSection[] = [
   {
     id: 'wine-beverages',
     title: 'WINE & BEVERAGES',
-    image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&h=400&fit=crop',
+    image: '/images/menu/strawberry-marg-real.jpg',
     items: [
       { name: 'Wine', description: 'Sangria, Merlot, Chardonnay, Pinot Noir, White Zinfandel', price: '9' },
       { name: 'Seltzers', description: 'White Claw / Truly', price: '6.50' },

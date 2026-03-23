@@ -79,11 +79,11 @@ function DrinkCard({ item }: { item: DrinkItem }) {
   return (
     <div className="py-4 border-b border-pepe-menu-cream/20 last:border-b-0">
       <div className="flex justify-between items-start gap-4">
-        <h4 className="font-oswald font-bold text-pepe-menu-cream tracking-wide text-lg sm:text-xl">
+        <h4 className="font-lato font-bold text-pepe-menu-cream tracking-wide text-lg sm:text-xl">
           {item.name}
         </h4>
         {item.price && (
-          <span className="font-oswald font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0 text-lg sm:text-xl">
+          <span className="font-lato font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0 text-lg sm:text-xl">
             {item.price}
           </span>
         )}
@@ -171,7 +171,7 @@ export default function DrinksMenuPage() {
           <SectionHeader
             title="COCKTAILS"
             subtitle="Handcrafted Mexican-inspired cocktails"
-            image="/images/menu/tequila-slots.jpg"
+            image="/images/menu/tequila-real.jpg"
           />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             {COCKTAILS.map((item) => (
@@ -185,7 +185,7 @@ export default function DrinksMenuPage() {
           <SectionHeader
             title="MARGARITAS"
             subtitle="Monday & Wednesday — half-price margaritas all day!"
-            image="/images/menu/margarita.jpg"
+            image="/images/menu/strawberry-marg-real.jpg"
           />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             {MARGARITAS.map((item) => (
@@ -210,10 +210,10 @@ export default function DrinksMenuPage() {
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             <div className="py-4 border-b border-pepe-menu-cream/20">
               <div className="flex justify-between items-start gap-4">
-                <h4 className="font-oswald font-bold text-pepe-menu-cream tracking-wide text-lg sm:text-xl">
+                <h4 className="font-lato font-bold text-pepe-menu-cream tracking-wide text-lg sm:text-xl">
                   Glass of Wine
                 </h4>
-                <span className="font-oswald font-bold text-pepe-menu-cream whitespace-nowrap text-lg sm:text-xl">$9</span>
+                <span className="font-lato font-bold text-pepe-menu-cream whitespace-nowrap text-lg sm:text-xl">$9</span>
               </div>
               <p className="text-pepe-menu-cream/70 text-sm sm:text-base mt-1">
                 {WINE.join(' · ')}
@@ -224,7 +224,7 @@ export default function DrinksMenuPage() {
 
         {/* Beer */}
         <div className="mb-0">
-          <SectionHeader title="BEER" />
+          <SectionHeader title="BEER" image="/images/menu/beer-real.jpg" />
           <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-4 sm:py-6">
             <DrinkCard item={{ name: 'Draft Beer', description: '20oz or Pitcher', price: '20oz $4 · Pitcher $20' }} />
             <DrinkCard item={{ name: 'Import Bottles', description: IMPORT_BEER.join(', '), price: '$6' }} />
