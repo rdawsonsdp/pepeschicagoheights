@@ -119,6 +119,26 @@
   }
 }
 
+/* Menu typography classes (matching Webflow) */
+.menu-text {
+  font-family: var(--font-merriweather), 'Merriweather', serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.menu-header {
+  font-family: var(--font-crimson), 'Crimson Text', serif;
+  font-weight: 700;
+}
+
+.menu-dish-name {
+  font-family: var(--font-roboto-condensed), 'Roboto Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
 /* Animation utility classes */
 .animate-fade-up {
   animation: fadeUp 0.7s ease-out forwards;

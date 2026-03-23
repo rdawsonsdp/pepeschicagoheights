@@ -75,7 +75,7 @@ export default function DessertsPage() {
               )}
               <div className="flex justify-between items-start gap-4">
                 <div>
-                  <h3 className="font-lato font-bold text-pepe-menu-cream tracking-wide text-2xl sm:text-3xl">
+                  <h3 className="menu-dish-name text-pepe-menu-cream">
                     {item.name}
                   </h3>
                   {item.description && (

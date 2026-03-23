@@ -13,11 +13,11 @@ function MenuItemRow({ name, description, price }: {
   return (
     <div className="py-3 border-b border-pepe-menu-cream/20 last:border-b-0">
       <div className="flex justify-between items-start gap-4">
-        <h4 className="font-lato font-bold text-pepe-menu-cream tracking-wide text-lg sm:text-xl">
+        <h4 className="font-roboto-condensed font-bold text-pepe-menu-cream" style={{ fontSize: '20px', lineHeight: 1.5 }}>
           {name}
         </h4>
         {price && (
-          <span className="font-lato font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0 text-lg sm:text-xl">
+          <span className="font-roboto-condensed font-bold text-pepe-menu-cream whitespace-nowrap flex-shrink-0" style={{ fontSize: '20px', lineHeight: 1.5 }}>
             {price.startsWith('$') || price.startsWith('+') || price.includes('/') || price === 'Market Price'
               ? price
               : `${price}`}
@@ -25,7 +25,7 @@ function MenuItemRow({ name, description, price }: {
         )}
       </div>
       {description && (
-        <p className="text-pepe-menu-cream/70 text-sm sm:text-base mt-1 leading-relaxed">
+        <p className="font-merriweather font-light text-pepe-menu-cream/70 mt-1" style={{ fontSize: '17px', lineHeight: 1.5 }}>
           {description}
         </p>
       )}
@@ -38,11 +38,11 @@ function MenuSection({ section }: { section: DineInMenuSection }) {
     <div id={section.id} className="scroll-mt-28 mb-0">
       {/* Gradient Header */}
       <div className="bg-gradient-to-r from-pepe-maroon to-pepe-burnt-orange px-5 sm:px-8 py-6 sm:py-8">
-        <h3 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-menu-cream tracking-wider">
+        <h3 className="font-crimson text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-menu-cream tracking-wider">
           {section.title}
         </h3>
         {section.subtitle && (
-          <p className="text-pepe-menu-cream/80 text-sm sm:text-base mt-2 leading-relaxed max-w-2xl">
+          <p className="font-merriweather font-light text-pepe-menu-cream/80 mt-2 max-w-2xl" style={{ fontSize: '17px', lineHeight: 1.5 }}>
             {section.subtitle}
           </p>
         )}
