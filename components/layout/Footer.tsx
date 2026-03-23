@@ -63,6 +63,16 @@ export default function Footer() {
                   Desserts
                 </Link>
               </li>
+              <li>
+                <Link href="/catering" className="text-white/50 hover:text-white transition-colors">
+                  Catering
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-white/50 hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
             </ul>
           </div>
 

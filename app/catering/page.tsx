@@ -64,7 +64,7 @@ export default function CateringPage() {
           <h1 className="font-oswald text-4xl sm:text-5xl md:text-6xl text-[deepskyblue] tracking-tight leading-tight font-black mb-4">
             Let Us Help You Plan Your Next Event
           </h1>
-          <p className="font-crimson text-lg sm:text-xl text-white/80 italic mb-2">
+          <p className="menu-text text-white/80 italic mb-2">
             From intimate gatherings to large parties, we&apos;ll handle the food while you enjoy the moment.
           </p>
           <p className="font-oswald text-pepe-gold tracking-wider">
@@ -93,7 +93,7 @@ export default function CateringPage() {
                 <h3 className="font-oswald text-2xl text-white tracking-wider mb-3">
                   LET US PLAN
                 </h3>
-                <p className="font-crimson text-white/70 leading-relaxed">
+                <p className="menu-text text-white/70">
                   Tell us how many guests and your budget &mdash; we&apos;ll help you build the perfect spread.
                 </p>
                 <div className="mt-6 inline-flex items-center gap-2 bg-pepe-gold text-pepe-dark font-oswald font-bold px-6 py-2.5 rounded-full group-hover:bg-white transition-colors">
@@ -113,7 +113,7 @@ export default function CateringPage() {
                 <h3 className="font-oswald text-2xl text-white tracking-wider mb-3">
                   ORDER FROM MENU
                 </h3>
-                <p className="font-crimson text-white/70 leading-relaxed">
+                <p className="menu-text text-white/70">
                   Already know what you want? Browse our catering menu and build your own order.
                 </p>
                 <div className="mt-6 inline-flex items-center gap-2 bg-pepe-gold text-pepe-dark font-oswald font-bold px-6 py-2.5 rounded-full group-hover:bg-white transition-colors">
@@ -208,7 +208,7 @@ export default function CateringPage() {
           <h3 className="font-oswald text-2xl sm:text-3xl text-white mb-3 tracking-wide">
             NEED HELP WITH YOUR ORDER?
           </h3>
-          <p className="font-crimson text-white/80 mb-6 max-w-xl mx-auto italic">
+          <p className="menu-text text-white/80 mb-6 max-w-xl mx-auto italic">
             Give us a call and we&apos;ll help you plan the perfect menu for your event.
           </p>
           <a

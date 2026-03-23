@@ -153,11 +153,38 @@ export default function LandingPage() {
                 Our Menu
               </Link>
             </div>
-            <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed">
+            <p className="menu-text text-white/80">
               Discover classic Mexican cooking the way we have made it for 50 years. From
               slow-braised carnitas to rich mole poblano, our dinner menu celebrates authentic
               regional recipes crafted with care and served with pride.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── HOURS & LOCATION ─── */}
+      <section className="bg-[#8f260c] py-10 sm:py-14">
+        <div className="container mx-auto px-5 sm:px-8">
+          <h2 className="font-oswald text-4xl sm:text-5xl text-[deepskyblue] font-black mb-2">
+            Hours &amp; Location
+          </h2>
+          <p className="font-oswald text-xl sm:text-2xl text-pepe-gold mb-6">
+            New Summer Hours!
+          </p>
+          <div className="space-y-1">
+            {[
+              ['Monday', '10 am - 9pm'],
+              ['Tuesday', '10 am - 11pm'],
+              ['Wednesday', '10 am - 10pm'],
+              ['Thursday', '10 am - 11pm'],
+              ['Friday', '10 am - 11pm'],
+              ['Saturday', '10 am - 11pm'],
+              ['Sunday', '10 am - 9pm'],
+            ].map(([day, hours]) => (
+              <p key={day} className="menu-text text-white" style={{ fontSize: '20px' }}>
+                <span className="font-bold">{day}:</span> {hours}
+              </p>
+            ))}
           </div>
         </div>
       </section>
@@ -184,7 +211,7 @@ export default function LandingPage() {
                 Our Buffet
               </Link>
             </div>
-            <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed">
+            <p className="menu-text text-white/80">
               Experience the ultimate Mexican feast! Our all-you-can-eat buffet features traditional
               favorites and fresh ingredients daily. From chips and guac to enchiladas and churros
               &mdash; come hungry, leave happy!
@@ -215,7 +242,7 @@ export default function LandingPage() {
                 Drinks Menu
               </Link>
             </div>
-            <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed">
+            <p className="menu-text text-white/80">
               Happy Hour just got happier! Score amazing deals on your favorite drinks and apps
               every weekday from 3&ndash;6pm. Craft cocktails, cold beers, savory bites &mdash;
               all at prices that&apos;ll make you smile.
@@ -246,7 +273,7 @@ export default function LandingPage() {
             <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
               Get Lucky at Our Slots!
             </h3>
-            <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed">
+            <p className="menu-text text-white/80">
               Hit the jackpot on our state-of-the-art slot machines! With the latest games,
               progressive jackpots, and non-stop action, every spin brings you closer to your big win.
             </p>
@@ -334,7 +361,7 @@ export default function LandingPage() {
           <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-4">
             LET US CATER YOUR NEXT EVENT!
           </h3>
-          <p className="font-crimson text-base sm:text-lg text-white/80 leading-relaxed mb-8">
+          <p className="menu-text text-white/80 mb-8">
             Let us cater your next celebration! From intimate gatherings to large parties,
             we&apos;ll handle the food while you enjoy the moment.
           </p>
@@ -349,7 +376,7 @@ export default function LandingPage() {
               </svg>
             </Link>
             <Link
-              href="/menus"
+              href="/catering"
               className="inline-flex items-center justify-center gap-2 bg-white/10 text-white font-oswald font-bold px-8 py-3 rounded-full border-2 border-white/30 hover:bg-white/20 transition-all shadow-lg text-lg tracking-wide"
             >
               View Catering Menu
@@ -380,7 +407,7 @@ export default function LandingPage() {
             <h3 className="font-oswald text-3xl sm:text-4xl text-white tracking-wider mb-2">
               FIND US
             </h3>
-            <p className="font-crimson text-base sm:text-lg text-white/80">
+            <p className="menu-text text-white/80">
               470 W Lincoln Hwy, Chicago Heights, IL 60411
             </p>
           </div>
