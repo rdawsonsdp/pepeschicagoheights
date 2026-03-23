@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { siteConfig } from '@/lib/site-config';
 
@@ -9,6 +10,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [deliveryOpen, setDeliveryOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   // Close menu on outside click
   useEffect(() => {
@@ -65,7 +67,7 @@ export default function Header() {
                 alt={siteConfig.restaurant.name}
                 width={130}
                 height={130}
-                className="h-12 sm:h-14 lg:h-16 w-auto"
+                className="h-20 sm:h-24 lg:h-28 w-auto"
                 priority
               />
             </Link>
@@ -170,14 +172,16 @@ export default function Header() {
 
             <nav className="px-6 pb-8">
               {navLinks.map((link) => (
-                <Link
+                <button
                   key={link.label}
-                  href={link.href}
-                  className="block py-3 font-oswald tracking-wide text-white hover:text-pepe-dark transition-colors text-lg border-b border-white/10"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full text-left py-3 font-oswald tracking-wide text-white hover:text-pepe-dark transition-colors text-lg border-b border-white/10"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    router.push(link.href);
+                  }}
                 >
                   {link.label}
-                </Link>
+                </button>
               ))}
 
               <div className="mt-4 pt-2">

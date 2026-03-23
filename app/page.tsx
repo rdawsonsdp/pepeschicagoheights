@@ -51,25 +51,27 @@ export default function LandingPage() {
     <div className="min-h-screen bg-pepe-cream">
       {/* ─── HERO ─── */}
       <section>
-        {/* Two side-by-side hero images */}
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="relative aspect-video">
-            <Image
-              src="/images/hero-slots.jpg"
-              alt="Slot Machines at Pepe's"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-          <div className="relative aspect-video">
-            <Image
-              src="/images/hero-margarita.jpg"
-              alt="Superman Margarita"
-              fill
-              className="object-cover"
-              priority
-            />
+        {/* Two side-by-side hero images with logo overlay */}
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="relative aspect-video">
+              <Image
+                src="/images/hero-slots.jpg"
+                alt="Slot Machines at Pepe's"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+            <div className="relative aspect-video">
+              <Image
+                src="/images/hero-margarita.jpg"
+                alt="Superman Margarita"
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
         {/* Restaurant name on rust background */}
