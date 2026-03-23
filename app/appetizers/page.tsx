@@ -75,7 +75,7 @@ export default function AppetizersPage() {
       </div>
 
       {/* Appetizer Items */}
-      <div className="max-w-3xl mx-auto">
+      <div className="w-full">
         <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-6 sm:py-8">
           {APPETIZERS.map((item) => (
             <div key={item.name} className="py-5 border-b border-pepe-menu-cream/20 last:border-b-0">
@@ -90,12 +90,12 @@ export default function AppetizersPage() {
                     </span>
                   )}
                 </div>
-                <span className="font-lato font-bold text-pepe-menu-cream whitespace-nowrap text-xl sm:text-2xl">
+                <span className="font-roboto-condensed font-bold text-pepe-menu-cream whitespace-nowrap" style={{ fontSize: '20px', lineHeight: 1.5 }}>
                   {item.price}
                 </span>
               </div>
               {item.description && (
-                <p className="text-pepe-menu-cream/70 text-sm sm:text-base mt-1 leading-relaxed">
+                <p className="font-merriweather font-light text-pepe-menu-cream/70 mt-1" style={{ fontSize: '17px', lineHeight: 1.5 }}>
                   {item.description}
                 </p>
               )}

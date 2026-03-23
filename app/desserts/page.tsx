@@ -64,10 +64,10 @@ export default function DessertsPage() {
       </div>
 
       {/* Dessert Items */}
-      <div className="max-w-3xl mx-auto">
+      <div className="w-full">
         <div className="bg-pepe-burnt-orange px-5 sm:px-8 py-6 sm:py-8">
           {DESSERTS.map((item) => (
-            <div key={item.name} className="py-6 border-b border-pepe-menu-cream/20 last:border-b-0">
+            <div key={item.name} className="py-4 border-b border-pepe-menu-cream/20 last:border-b-0">
               {item.image && (
                 <div className="relative w-full h-48 sm:h-56 rounded-xl overflow-hidden mb-4">
                   <Image src={item.image} alt={item.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 700px" />
@@ -75,16 +75,16 @@ export default function DessertsPage() {
               )}
               <div className="flex justify-between items-start gap-4">
                 <div>
-                  <h3 className="menu-dish-name text-pepe-menu-cream">
+                  <h3 className="font-roboto-condensed font-bold text-pepe-menu-cream" style={{ fontSize: '20px', lineHeight: 1.5 }}>
                     {item.name}
                   </h3>
                   {item.description && (
-                    <p className="text-pepe-menu-cream/70 text-base sm:text-lg mt-1 leading-relaxed">
+                    <p className="font-merriweather font-light text-pepe-menu-cream/70 mt-1" style={{ fontSize: '17px', lineHeight: 1.5 }}>
                       {item.description}
                     </p>
                   )}
                 </div>
-                <span className="font-lato font-bold text-pepe-menu-cream whitespace-nowrap text-2xl sm:text-3xl">
+                <span className="font-roboto-condensed font-bold text-pepe-menu-cream whitespace-nowrap" style={{ fontSize: '20px', lineHeight: 1.5 }}>
                   {item.price}
                 </span>
               </div>
