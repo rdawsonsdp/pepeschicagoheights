@@ -81,7 +81,7 @@ export default function AppetizersPage() {
             <div key={item.name} className="py-5 border-b border-pepe-menu-cream/20 last:border-b-0">
               <div className="flex justify-between items-start gap-4">
                 <div className="flex items-center gap-2">
-                  <h3 className="menu-dish-name text-pepe-menu-cream">
+                  <h3 className="font-roboto-condensed font-bold text-pepe-menu-cream" style={{ fontSize: '20px', lineHeight: 1.5 }}>
                     {item.name}
                   </h3>
                   {'isNew' in item && item.isNew && (
