@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -9,24 +9,8 @@ import { siteConfig } from '@/lib/site-config';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [deliveryOpen, setDeliveryOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  // Close menu on outside click
-  useEffect(() => {
-    if (!mobileMenuOpen) return;
-    const handleClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClick);
-    document.addEventListener('touchstart', handleClick as unknown as EventListener);
-    return () => {
-      document.removeEventListener('mousedown', handleClick);
-      document.removeEventListener('touchstart', handleClick as unknown as EventListener);
-    };
-  }, [mobileMenuOpen]);
 
   // Prevent body scroll when menu open
   useEffect(() => {
@@ -57,7 +41,7 @@ export default function Header() {
 
   return (
     <>
-      <header ref={menuRef} className="bg-pepe-orange text-white sticky top-0 z-50 border-b-4 border-[#8f260c]">
+      <header className="bg-pepe-orange text-white sticky top-0 z-50 border-b-4 border-[#8f260c]">
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -149,14 +133,11 @@ export default function Header() {
 
       {/* Mobile menu - portal outside header to avoid z-index issues */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] lg:hidden" onClick={() => setMobileMenuOpen(false)}>
+        <div className="fixed inset-0 z-[100] lg:hidden">
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileMenuOpen(false)} />
           {/* Menu panel */}
-          <div
-            className="absolute top-0 right-0 w-[280px] h-full bg-pepe-orange shadow-2xl overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="absolute top-0 right-0 w-[280px] h-full bg-pepe-orange shadow-2xl overflow-y-auto">
             {/* Close button */}
             <div className="flex justify-end p-4">
               <button
