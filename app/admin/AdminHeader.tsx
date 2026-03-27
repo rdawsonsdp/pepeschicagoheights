@@ -7,7 +7,7 @@ export default function AdminHeader() {
         <span className="font-bold tracking-tight">Admin Panel</span>
         <span className="text-gray-500">|</span>
         <Link href="/admin/menu-engineering" className="text-gray-300 hover:text-white transition-colors">
-          Menu Engineering
+          Menu Management
         </Link>
       </div>
       <div className="flex items-center gap-3">

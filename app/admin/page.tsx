@@ -15,7 +15,7 @@ export default function AdminPage() {
             href="/admin/menu-engineering"
             className="block bg-white rounded-xl p-6 shadow-sm border border-gray-200 hover:border-pepe-orange hover:shadow-md transition-all"
           >
-            <h2 className="text-xl font-semibold text-gray-900 mb-1">Menu Engineering</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-1">Menu Management</h2>
             <p className="text-gray-500 text-sm">Edit menu items, pricing, and visibility</p>
           </Link>
 
