@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { formatCurrency } from '@/lib/pricing';
 import { siteConfig } from '@/lib/site-config';
+import { jsPDF } from 'jspdf';
 
 interface OrderDetails {
   orderNumber: string;
@@ -50,17 +51,7 @@ const TIMELINE_STEPS = [
       </svg>
     ),
     title: 'Order Received',
-    description: 'Your order has been confirmed',
-    status: 'complete' as const,
-  },
-  {
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-    title: 'Confirmation Email Sent',
-    description: 'Check your inbox for order details',
+    description: 'Your order has been submitted',
     status: 'complete' as const,
   },
   {
@@ -69,8 +60,18 @@ const TIMELINE_STEPS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
       </svg>
     ),
-    title: '24 Hours Before',
-    description: "We'll call to confirm final details",
+    title: 'We Call You',
+    description: 'We\'ll call to confirm your order and take payment',
+    status: 'upcoming' as const,
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    title: 'Order Confirmed',
+    description: 'Payment processed and order locked in',
     status: 'upcoming' as const,
   },
   {
@@ -79,18 +80,18 @@ const TIMELINE_STEPS = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
       </svg>
     ),
-    title: '30 Minutes Before',
+    title: 'Day of Event',
     description: 'Your driver will text when on the way',
     status: 'upcoming' as const,
   },
   {
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
       </svg>
     ),
     title: 'Delivery & Setup',
-    description: 'Setup and presentation by our team',
+    description: 'Fresh food delivered and set up for your event',
     status: 'upcoming' as const,
   },
 ];
@@ -131,6 +132,115 @@ export default function OrderConfirmationPage() {
     window.print();
   };
 
+  const handleDownloadPDF = () => {
+    if (!orderDetails) return;
+    const doc = new jsPDF();
+    const pw = doc.internal.pageSize.getWidth();
+    let y = 20;
+
+    // Header
+    doc.setFillColor(232, 138, 0);
+    doc.rect(0, 0, pw, 30, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text(siteConfig.restaurant.name, pw / 2, 18, { align: 'center' });
+    y = 45;
+
+    // Order number
+    doc.setTextColor(143, 38, 12);
+    doc.setFontSize(16);
+    doc.text(`Order #${orderDetails.orderNumber}`, 20, y);
+    y += 12;
+
+    // Items
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Item', 20, y);
+    doc.text('Price', pw - 20, y, { align: 'right' });
+    y += 2;
+    doc.setDrawColor(232, 138, 0);
+    doc.line(20, y, pw - 20, y);
+    y += 6;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    for (const item of orderDetails.items) {
+      doc.setFont('helvetica', 'bold');
+      doc.text(item.title, 20, y);
+      doc.text(formatCurrency(item.totalPrice), pw - 20, y, { align: 'right' });
+      y += 5;
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(120, 120, 120);
+      doc.text(item.displayText, 20, y);
+      doc.setTextColor(50, 50, 50);
+      y += 7;
+      if (y > 260) { doc.addPage(); y = 20; }
+    }
+
+    // Totals
+    y += 4;
+    doc.setDrawColor(232, 138, 0);
+    doc.setLineWidth(0.5);
+    doc.line(20, y, pw - 20, y);
+    y += 8;
+
+    doc.setFontSize(10);
+    const totals = [
+      ['Guests', String(orderDetails.headcount)],
+      ['Subtotal', formatCurrency(orderDetails.subtotal)],
+      ['Delivery', formatCurrency(orderDetails.deliveryFee)],
+      ['Per Person', formatCurrency(orderDetails.perPerson)],
+    ];
+    for (const [label, val] of totals) {
+      doc.text(label, 20, y);
+      doc.text(val, pw - 20, y, { align: 'right' });
+      y += 6;
+    }
+
+    y += 2;
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Order Total', 20, y);
+    doc.setTextColor(232, 138, 0);
+    doc.text(formatCurrency(orderDetails.orderTotal), pw - 20, y, { align: 'right' });
+    y += 14;
+
+    // Event details
+    doc.setTextColor(143, 38, 12);
+    doc.setFontSize(12);
+    doc.text('Event Details', 20, y);
+    y += 8;
+    doc.setTextColor(50, 50, 50);
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+
+    const details = [
+      ['Contact', `${orderDetails.contact.firstName} ${orderDetails.contact.lastName}`],
+      ['Phone', orderDetails.contact.phone],
+      ['Email', orderDetails.contact.email],
+      ['Address', `${orderDetails.delivery.address}, ${orderDetails.delivery.city}, ${orderDetails.delivery.state} ${orderDetails.delivery.zip}`],
+      ['Date', orderDetails.event.date],
+      ['Time', orderDetails.event.time],
+    ];
+    for (const [label, val] of details) {
+      doc.setFont('helvetica', 'bold');
+      doc.text(`${label}:`, 20, y);
+      doc.setFont('helvetica', 'normal');
+      doc.text(val, 55, y);
+      y += 6;
+    }
+
+    // Footer
+    y += 10;
+    doc.setFontSize(9);
+    doc.setTextColor(150, 150, 150);
+    doc.text(`${siteConfig.restaurant.name} | ${siteConfig.contact.addressFull} | ${siteConfig.contact.phone}`, pw / 2, y, { align: 'center' });
+
+    doc.save(`Pepes-Order-${orderDetails.orderNumber}.pdf`);
+  };
+
   return (
     <div className="min-h-screen bg-pepe-cream">
       {/* Success Hero */}
@@ -142,10 +252,13 @@ export default function OrderConfirmationPage() {
             </svg>
           </div>
           <h1 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-red tracking-wider mb-3">
-            ORDER CONFIRMED!
+            THANKS FOR YOUR ORDER!
           </h1>
-          <p className="text-pepe-red text-lg sm:text-xl font-oswald font-bold">
+          <p className="text-pepe-red text-lg sm:text-xl font-oswald font-bold mb-2">
             Order #{orderDetails.orderNumber}
+          </p>
+          <p className="text-white/70 text-sm sm:text-base max-w-md mx-auto">
+            We will call you to confirm your order and take payment.
           </p>
         </div>
       </div>
@@ -154,7 +267,7 @@ export default function OrderConfirmationPage() {
       <div className="bg-pepe-red py-3">
         <div className="container mx-auto px-4 text-center">
           <p className="font-oswald font-bold text-pepe-dark text-sm sm:text-base tracking-wide">
-            ON TIME, AS ORDERED — GUARANTEED
+            WE&apos;LL CALL TO CONFIRM &amp; TAKE PAYMENT
           </p>
         </div>
       </div>
@@ -317,12 +430,15 @@ export default function OrderConfirmationPage() {
           </Card>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/#catering">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+            <Link href="/catering">
               <Button className="w-full sm:w-auto px-8">
                 Start New Order
               </Button>
             </Link>
+            <Button variant="outline" onClick={handleDownloadPDF} className="w-full sm:w-auto px-8">
+              Download PDF
+            </Button>
             <Button variant="outline" onClick={handlePrint} className="w-full sm:w-auto px-8">
               Print Receipt
             </Button>

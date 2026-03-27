@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useCatering } from '@/context/CateringContext';
 import HeadcountBudgetStep from '@/components/catering/HeadcountBudgetStep';
 import ProductSelectionStep from '@/components/catering/ProductSelectionStep';
-import DietaryFilterBar from '@/components/catering/DietaryFilterBar';
 import RecommendedItems from '@/components/catering/RecommendedItems';
 import { siteConfig } from '@/lib/site-config';
 
@@ -14,7 +13,6 @@ type CateringMode = 'choose' | 'plan' | 'menu';
 
 export default function CateringPage() {
   const { state, dispatch } = useCatering();
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [mode, setMode] = useState<CateringMode>('choose');
 
   // Auto-set event type so we skip that step
@@ -23,14 +21,6 @@ export default function CateringPage() {
       dispatch({ type: 'SET_EVENT_TYPE', payload: 'entrees' });
     }
   }, [state.eventType, dispatch]);
-
-  const handleToggleFilter = (tag: string) => {
-    setActiveFilters(prev =>
-      prev.includes(tag)
-        ? prev.filter(f => f !== tag)
-        : [...prev, tag]
-    );
-  };
 
   const handleLetUsPlan = () => {
     setMode('plan');
@@ -52,7 +42,7 @@ export default function CateringPage() {
   };
 
   return (
-    <div className="min-h-screen bg-pepe-cream">
+    <div className="min-h-screen bg-[#ff900d]">
       {/* Pattern Banner */}
       <div className="relative w-full h-[60px] sm:h-[80px] overflow-hidden">
         <Image src="/images/pattern-banner.png" alt="" fill className="object-cover" sizes="100vw" />
@@ -78,7 +68,7 @@ export default function CateringPage() {
 
       {/* Mode Selection */}
       {mode === 'choose' && (
-        <section className="bg-pepe-burnt-orange py-12 sm:py-16">
+        <section className="bg-[#8f260c] py-12 sm:py-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="font-oswald text-2xl sm:text-3xl text-white tracking-wider text-center mb-8">
               HOW WOULD YOU LIKE TO ORDER?
@@ -132,7 +122,7 @@ export default function CateringPage() {
       {mode === 'plan' && (
         <>
           {/* Back button */}
-          <div className="bg-pepe-burnt-orange pt-4 px-4">
+          <div className="bg-[#8f260c] pt-4 px-4">
             <div className="container mx-auto max-w-4xl">
               <button
                 onClick={handleBackToChoose}
@@ -152,14 +142,6 @@ export default function CateringPage() {
           {/* Product Selection */}
           {state.currentStep >= 4 && (
             <ProductSelectionStep
-              activeFilters={activeFilters}
-              onToggleFilter={handleToggleFilter}
-              filterBar={
-                <DietaryFilterBar
-                  activeTags={activeFilters}
-                  onToggleTag={handleToggleFilter}
-                />
-              }
               recommendedSection={
                 <RecommendedItems />
               }
@@ -172,7 +154,7 @@ export default function CateringPage() {
       {mode === 'menu' && (
         <>
           {/* Back button */}
-          <div className="bg-pepe-burnt-orange pt-4 px-4">
+          <div className="bg-[#8f260c] pt-4 px-4">
             <div className="container mx-auto max-w-4xl">
               <button
                 onClick={handleBackToChoose}
@@ -187,14 +169,6 @@ export default function CateringPage() {
           </div>
 
           <ProductSelectionStep
-            activeFilters={activeFilters}
-            onToggleFilter={handleToggleFilter}
-            filterBar={
-              <DietaryFilterBar
-                activeTags={activeFilters}
-                onToggleTag={handleToggleFilter}
-              />
-            }
             recommendedSection={
               <RecommendedItems />
             }

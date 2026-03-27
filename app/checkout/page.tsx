@@ -66,12 +66,12 @@ const PROCESS_STEPS = [
     ),
   },
   {
-    id: 'payment',
-    label: 'Payment',
-    description: 'Secure checkout',
+    id: 'call',
+    label: 'We Call',
+    description: 'Confirm & pay',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
       </svg>
     ),
   },
@@ -81,7 +81,7 @@ const PROCESS_STEPS = [
     description: 'We deliver!',
     icon: (
       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
       </svg>
     ),
   },
@@ -91,7 +91,7 @@ const DELIVERY_TIMES = siteConfig.delivery.deliveryTimes;
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { state, dispatch, calculatedItems, totalCost } = useCatering();
+  const { state, dispatch, calculatedItems, totalCost, hydrated } = useCatering();
   const [currentStep, setCurrentStep] = useState(1); // 1 = details, 2 = confirmation
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -120,7 +120,17 @@ export default function CheckoutPage() {
   };
 
   const deliveryFee = getDeliveryFee(state.headcount);
-  const orderTotal = totalCost + deliveryFee;
+  const tax = (totalCost + deliveryFee) * 0.10;
+  const orderTotal = totalCost + deliveryFee + tax;
+
+  // Wait for hydration before checking cart
+  if (!hydrated) {
+    return (
+      <div className="min-h-screen bg-pepe-cream flex items-center justify-center">
+        <p className="text-pepe-charcoal/50 font-oswald tracking-wide">Loading order...</p>
+      </div>
+    );
+  }
 
   // Redirect if cart is empty
   if (calculatedItems.length === 0) {
@@ -228,21 +238,15 @@ export default function CheckoutPage() {
 
       sessionStorage.setItem('last-order-details', JSON.stringify(orderDetails));
 
-      // Call the API endpoint
+      // Call the API endpoint (includes email sending)
+      const deliveryAddr = `${formData.address}${formData.address2 ? ', ' + formData.address2 : ''}, ${formData.city}, ${formData.state} ${formData.zip}`;
       const response = await fetch('/api/create-catering-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: calculatedItems.map(item => ({
-            productId: item.product.id,
-            title: item.product.title,
+          lineItems: calculatedItems.map(item => ({
+            variantId: item.product.variantId || item.product.id,
             quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            totalPrice: item.totalPrice,
-            selectedSize: item.selectedSize,
-            displayText: item.displayText,
-            selectedVariant: item.selectedVariant,
-            variantSplit: item.variantSplit,
           })),
           headcount: state.headcount,
           eventType: state.eventType,
@@ -252,13 +256,23 @@ export default function CheckoutPage() {
             phone: formData.phone,
             company: formData.company,
             eventDate: formData.eventDate,
-            eventTime: formData.deliveryTime,
-            deliveryAddress: `${formData.address}${formData.address2 ? ', ' + formData.address2 : ''}, ${formData.city}, ${formData.state} ${formData.zip}`,
             notes: formData.specialInstructions,
           },
-          setupRequired: formData.setupRequired,
-          deliveryFee,
-          orderTotal,
+          orderDetails: {
+            orderNumber,
+            items: calculatedItems.map(item => ({
+              title: item.product.title,
+              displayText: item.displayText,
+              totalPrice: item.totalPrice,
+            })),
+            subtotal: totalCost,
+            deliveryFee,
+            orderTotal,
+            perPerson: orderTotal / state.headcount,
+            deliveryAddress: deliveryAddr,
+            eventTime: formData.deliveryTime,
+            specialInstructions: formData.specialInstructions,
+          },
         }),
       });
 
@@ -746,7 +760,7 @@ export default function CheckoutPage() {
                         Submitting...
                       </span>
                     ) : (
-                      'Submit Order'
+                      'Submit Order Request'
                     )}
                   </Button>
                 </div>

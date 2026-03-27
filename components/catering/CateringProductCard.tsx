@@ -55,20 +55,40 @@ export default function CateringProductCard({
     || (isSplitMode && splitComplete)
     || (!isSplitMode && selectedVariant !== null);
 
-  // Calculate what the customer will get based on current headcount
+  // Pan/tray size selection
+  const hasSizes = product.pricing.type === 'pan' || product.pricing.type === 'tray';
+  const sizes = hasSizes ? (product.pricing as any).sizes as Array<{ size: string; price: number; servesMin: number; servesMax: number }> : [];
+
+  // Auto-recommend size based on headcount
   const orderCalc = calculateProductOrder(product, state.headcount);
-  const displayTotal = orderCalc.totalPrice * (itemQty || 1);
+  const recommendedSize = orderCalc.selectedSize || (sizes.length > 0 ? sizes[0].size : null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedQty, setSelectedQty] = useState<number>(1);
+
+  // Use selected or recommended
+  const activeSize = selectedSize || recommendedSize;
+  const activeSizeData = sizes.find(s => s.size === activeSize);
+  const displayPrice = activeSizeData ? activeSizeData.price * selectedQty : orderCalc.totalPrice;
+  const displayTotal = displayPrice * (itemQty || 1);
+  const displayServes = activeSizeData
+    ? `${activeSize === 'half' ? 'Half' : activeSize === 'full' ? 'Full' : activeSize.charAt(0).toUpperCase() + activeSize.slice(1)} Pan (serves ${activeSizeData.servesMin * selectedQty}-${activeSizeData.servesMax * selectedQty})`
+    : orderCalc.displayText;
 
   const handleAdd = () => {
     if (!canAdd) return;
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: {
-        product,
-        selectedVariant: selectedVariant ?? undefined,
-        variantSplit: isSplitMode ? { ...splitValues } : undefined,
-      },
-    });
+    // For pan/tray items with size selection, adjust product to use selected size/qty
+    const qty = hasSizes ? selectedQty : 1;
+    for (let i = 0; i < qty; i++) {
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: {
+          product,
+          selectedVariant: selectedVariant ?? undefined,
+          variantSplit: isSplitMode ? { ...splitValues } : undefined,
+          selectedSize: activeSize ?? undefined,
+        },
+      });
+    }
   };
 
   const handleRemove = () => {
@@ -121,132 +141,90 @@ export default function CateringProductCard({
   );
 
   return (
-    <Card className={`flex flex-col h-full hover-lift group relative overflow-hidden ${
+    <Card className={`group relative overflow-hidden ${
       size === 'hero' ? 'col-span-2' : ''
-    }`}>
-      {/* Decorative gradient overlay on hover */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/5 via-transparent to-pepe-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none" />
+    } ${inCart ? 'ring-2 ring-[#E88A00] bg-[#E88A00]/5' : ''}`}>
 
-      <div className="relative z-10 flex flex-col h-full">
-        {/* Product Image - hidden for compact */}
-        {size !== 'compact' && (
-          <div className={`bg-pepe-sand/30 rounded-xl mb-3 sm:mb-4 overflow-hidden relative ${
-            size === 'hero' ? 'aspect-[4/3] h-48 sm:h-56' : 'aspect-square'
-          }`}>
-            {product.image ? (
-              <Image
-                src={product.image}
-                alt={product.title}
-                fill
-                className="object-cover img-zoom"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-muted bg-gradient-to-br from-pepe-burnt-orange/20 to-pepe-red/30">
-                <svg
-                  className="w-12 h-12 sm:w-16 sm:h-16"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-            )}
+      <div className="flex flex-col h-full">
+        {/* Top row: Image + Info side by side on mobile */}
+        <div className={`flex gap-3 ${size === 'compact' ? '' : 'mb-3'}`}>
+          {/* Product Image */}
+          {size !== 'compact' && (
+            <div className="w-24 h-24 sm:w-full sm:h-auto sm:aspect-square bg-gray-100 rounded-lg overflow-hidden relative flex-shrink-0">
+              {product.image ? (
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 96px, (max-width: 1024px) 33vw, 25vw"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-gray-300 bg-gray-50">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              )}
 
-            {/* In Cart indicator */}
-            {inCart && (
-              <div className="absolute top-2 left-2">
-                <Badge variant="success">
-                  In Cart{itemQty > 1 ? ` (${itemQty})` : ''}
-                </Badge>
-              </div>
-            )}
+              {/* In Cart badge */}
+              {inCart && (
+                <div className="absolute top-1 left-1">
+                  <span className="bg-[#E88A00] text-white text-[8px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                    In Cart{itemQty > 1 ? ` (${itemQty})` : ''}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
 
-            {/* Menu engineering badge */}
-            {showBadge && badgeText && (
-              <div className="absolute bottom-2 left-2">
-                <Badge variant={product.menuEngineering?.classification === 'STAR' ? 'star' : 'puzzle'} className="text-xs">
-                  {badgeText}
-                </Badge>
-              </div>
-            )}
+          {/* Product Info - beside image on mobile, below on desktop */}
+          <div className="flex-1 min-w-0">
+            <h3 className={`font-oswald font-semibold text-pepe-dark mb-0.5 tracking-wide ${
+              size === 'hero' ? 'text-lg sm:text-xl line-clamp-2'
+                : 'text-sm sm:text-base line-clamp-2'
+            }`}>
+              {product.title}
+            </h3>
 
-            {/* Pricing type badge */}
-            <div className="absolute top-2 right-2">
-              <Badge variant="default" className="text-xs">
-                {getPricingTypeLabel(product)}
-              </Badge>
+            <p className={`text-xs text-gray-500 mb-1 ${
+              size === 'compact' ? 'line-clamp-1' : 'line-clamp-2'
+            }`}>
+              {descriptionOverride || product.description}
+            </p>
+
+            {/* Price preview inline on mobile */}
+            <div className="text-sm font-oswald font-bold text-[#E88A00]">
+              {formatCurrency(displayTotal)}
+              <span className="text-[10px] text-gray-400 font-normal ml-1">{displayServes}</span>
             </div>
           </div>
-        )}
+        </div>
 
-        {/* Product Info */}
-        <h3 className={`font-oswald font-semibold text-pepe-dark mb-1 tracking-wide ${
-          size === 'hero' ? 'text-lg sm:text-xl line-clamp-2'
-            : size === 'large' ? 'text-base sm:text-lg line-clamp-2'
-            : 'text-sm sm:text-base line-clamp-2'
-        }`}>
-          {product.title}
-        </h3>
 
-        {/* Dietary Badges */}
-        {product.tags && product.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-2">
-            {product.tags.includes('vegan') && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-pepe-green/10 text-pepe-green font-semibold">Vegan</span>
-            )}
-            {product.tags.includes('vegetarian') && !product.tags.includes('vegan') && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-pepe-teal/10 text-pepe-teal font-semibold">Vegetarian</span>
-            )}
-            {product.tags.includes('gluten-free') && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-pepe-orange/10 text-pepe-burnt-orange font-semibold">GF</span>
-            )}
-            {product.tags.includes('dairy-free') && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-pepe-teal/10 text-pepe-teal font-semibold">DF</span>
-            )}
-            {product.tags.includes('halal') && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-pepe-terracotta/10 text-pepe-terracotta font-semibold">Halal</span>
-            )}
-          </div>
-        )}
-
-        <p className={`text-xs sm:text-sm text-pepe-charcoal/70 mb-3 flex-grow ${
-          size === 'hero' ? 'line-clamp-4'
-            : size === 'large' ? 'line-clamp-3'
-            : size === 'compact' ? 'line-clamp-1'
-            : 'line-clamp-2'
-        }`}>
-          {descriptionOverride || product.description}
-        </p>
-
-        {/* Variant Selector - Single Mode (chips) */}
-        {hasVariants && !isSplitMode && !inCart && (
+        {/* Variant Selector - Single Mode (visible chips) */}
+        {hasVariants && !isSplitMode && (
           <div className="mb-3">
-            <p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1.5">
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">
               {product.variants!.label}
             </p>
             <div className="flex flex-wrap gap-1.5">
-              {product.variants!.options.map(option => (
-                <button
-                  key={option.id}
-                  onClick={() => setSelectedVariant(
-                    selectedVariant === option.id ? null : option.id
-                  )}
-                  className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-colors border ${
-                    selectedVariant === option.id
-                      ? 'bg-pepe-dark text-white border-pepe-dark'
-                      : 'bg-pepe-warm-white text-pepe-charcoal border-pepe-sand hover:border-pepe-red hover:text-pepe-red'
-                  }`}
-                >
-                  {option.label}
-                </button>
-              ))}
+              {product.variants!.options.map(option => {
+                const isSelected = selectedVariant === option.id;
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => setSelectedVariant(isSelected ? null : option.id)}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
+                      isSelected
+                        ? 'bg-[#E88A00] text-white border-[#E88A00]'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#E88A00] hover:text-[#E88A00]'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
@@ -337,59 +315,130 @@ export default function CateringProductCard({
           </div>
         )}
 
-        {/* Calculated Total Price */}
-        <div className="mb-3">
-          <div className="text-lg sm:text-xl font-oswald font-bold text-pepe-dark">
-            {formatCurrency(displayTotal)}
-          </div>
-          <div className="text-xs text-pepe-green mt-1">
-            {itemQty > 1 ? `${itemQty} \u00d7 ` : ''}{orderCalc.displayText}
-          </div>
-        </div>
-
-        {/* Add/Remove Button or Quantity Stepper */}
-        <div className="mt-auto">
-          {inCart ? (
-            <div className="space-y-2">
-              {/* Quantity Stepper */}
-              <div className="flex items-center justify-between bg-pepe-warm-white rounded-xl border border-pepe-sand">
+        {/* Size Selector for pan/tray items */}
+        {hasSizes && sizes.length > 0 && !inCart && (
+          <div className="mb-3">
+            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">
+              Size
+            </p>
+            <div className="flex gap-1.5 mb-2">
+              {sizes.map(s => {
+                const label = s.size === 'half' ? 'Half Pan' : s.size === 'full' ? 'Full Pan' : s.size.charAt(0).toUpperCase() + s.size.slice(1);
+                const isActive = activeSize === s.size;
+                return (
+                  <button
+                    key={s.size}
+                    onClick={() => { setSelectedSize(s.size); setSelectedQty(1); }}
+                    className={`flex-1 px-2 py-2 rounded-lg text-xs font-bold transition-all border text-center ${
+                      isActive
+                        ? 'bg-[#E88A00] text-white border-[#E88A00]'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#E88A00]'
+                    }`}
+                  >
+                    <span className="block">{label}</span>
+                    <span className="block text-[10px] font-normal opacity-75 mt-0.5">
+                      {formatCurrency(s.price)} &middot; {s.servesMin}-{s.servesMax}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {/* Quantity selector */}
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Qty</span>
+              <div className="flex items-center bg-white rounded-lg border border-gray-200">
                 <button
-                  onClick={() => handleUpdateQuantity(itemQty - 1)}
-                  className="w-10 h-10 flex items-center justify-center text-pepe-dark hover:bg-pepe-sand/50 rounded-l-xl transition-colors font-bold text-lg"
-                  aria-label="Decrease quantity"
-                >
-                  {itemQty === 1 ? (
-                    <svg className="w-4 h-4 text-error-red" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  ) : '\u2212'}
-                </button>
-                <span className="font-oswald font-bold text-pepe-dark text-lg min-w-[2rem] text-center">
-                  {itemQty}
-                </span>
+                  onClick={() => setSelectedQty(Math.max(1, selectedQty - 1))}
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-50 rounded-l-lg text-sm font-bold"
+                >−</button>
+                <span className="w-8 text-center font-oswald font-bold text-sm">{selectedQty}</span>
                 <button
-                  onClick={() => handleUpdateQuantity(Math.min(itemQty + 1, 4))}
-                  disabled={itemQty >= 4}
-                  className="w-10 h-10 flex items-center justify-center text-pepe-dark hover:bg-pepe-sand/50 rounded-r-xl transition-colors font-bold text-lg disabled:opacity-30 disabled:cursor-not-allowed"
-                  aria-label="Increase quantity"
-                >
-                  +
-                </button>
+                  onClick={() => setSelectedQty(selectedQty + 1)}
+                  className="w-7 h-7 flex items-center justify-center hover:bg-gray-50 rounded-r-lg text-sm font-bold"
+                >+</button>
               </div>
             </div>
-          ) : (
-            <Button
+          </div>
+        )}
+
+
+        {/* In-cart variants summary */}
+        {inCart && hasVariants && !isSplitMode && (
+          <div className="mb-2 space-y-1">
+            {state.selectedItems
+              .filter(item => item.product.id === product.id)
+              .map((item, i) => {
+                const varLabel = item.selectedVariant
+                  ? product.variants?.options.find(o => o.id === item.selectedVariant)?.label
+                  : null;
+                return (
+                  <div key={i} className="flex items-center justify-between text-xs bg-[#E88A00]/10 rounded-lg px-2 py-1.5">
+                    <span className="font-semibold text-pepe-dark">
+                      {item.quantity > 1 ? `${item.quantity}× ` : ''}{varLabel || product.title}
+                    </span>
+                    <button
+                      onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: getCartKey(item) })}
+                      className="text-red-400 hover:text-red-600 ml-2"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                );
+              })}
+          </div>
+        )}
+
+        {/* In-cart stepper for non-variant products */}
+        {inCart && !hasVariants && (
+          <div className="mb-2 space-y-2">
+            <div className="flex items-center bg-white rounded-lg border border-gray-200">
+              <button
+                onClick={() => handleUpdateQuantity(itemQty - 1)}
+                className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 rounded-l-lg transition-colors"
+                aria-label="Decrease quantity"
+              >
+                {itemQty === 1 ? (
+                  <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                ) : <span className="font-bold text-lg">{'\u2212'}</span>}
+              </button>
+              <span className="flex-1 font-oswald font-bold text-center text-lg">{itemQty}</span>
+              <button
+                onClick={() => handleUpdateQuantity(Math.min(itemQty + 1, 4))}
+                disabled={itemQty >= 4}
+                className="w-9 h-9 flex items-center justify-center hover:bg-gray-50 rounded-r-lg transition-colors font-bold text-lg disabled:opacity-30"
+                aria-label="Increase quantity"
+              >+</button>
+            </div>
+            <button
+              onClick={handleRemove}
+              className="w-full py-2 rounded-lg font-oswald font-bold text-sm tracking-wide bg-[#1A1A1A] text-white hover:bg-red-600 transition-colors"
+            >REMOVE</button>
+          </div>
+        )}
+
+        {/* Add to Order button - always visible for variant products, or when not in cart */}
+        <div className="mt-auto">
+          {(!inCart || (hasVariants && !isSplitMode)) && (
+            <button
               onClick={handleAdd}
-              className="w-full"
               disabled={!canAdd}
+              className={`w-full py-2.5 sm:py-3 rounded-lg font-oswald font-bold text-sm tracking-wide transition-all ${
+                !canAdd
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-[#E88A00] text-white shadow-[0_4px_0_0_#b86e00] hover:shadow-[0_2px_0_0_#b86e00] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px]'
+              }`}
             >
               {hasVariants && !canAdd
-                ? isSplitMode
-                  ? `Select ${product.variants!.label}s (${splitRemaining} left)`
-                  : `Select ${product.variants!.label}`
-                : 'Add to Order'
+                ? `SELECT ${product.variants!.label.toUpperCase()}`
+                : inCart && hasVariants
+                  ? `ADD ANOTHER ${product.variants!.label.toUpperCase()}`
+                  : 'ADD TO ORDER'
               }
-            </Button>
+            </button>
           )}
         </div>
       </div>

@@ -104,11 +104,11 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
     }
 
     case 'ADD_ITEM': {
-      const { product, selectedVariant, variantSplit } = action.payload;
+      const { product, selectedVariant, variantSplit, selectedSize } = action.payload;
       const newKey = getAddCartKey(product, selectedVariant, variantSplit);
 
       const existingIndex = state.selectedItems.findIndex(
-        (item) => getCartKey(item) === newKey
+        (item) => getCartKey(item) === newKey && item.selectedSize === selectedSize
       );
 
       if (existingIndex >= 0) {
@@ -124,7 +124,7 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
         ...state,
         selectedItems: [
           ...state.selectedItems,
-          { product, quantity: 1, selectedVariant, variantSplit },
+          { product, quantity: 1, selectedVariant, variantSplit, selectedSize },
         ],
       };
     }
@@ -218,6 +218,7 @@ function cateringReducer(state: CateringState, action: CateringAction): Catering
 interface CateringContextType {
   state: CateringState;
   dispatch: React.Dispatch<CateringAction>;
+  hydrated: boolean;
   // Computed values
   totalCost: number;
   perPersonCost: number;
@@ -291,6 +292,7 @@ export function CateringProvider({ children }: { children: ReactNode }) {
       value={{
         state,
         dispatch,
+        hydrated,
         totalCost,
         perPersonCost,
         totalServings,

@@ -73,7 +73,8 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
   };
 
   const deliveryFee = getDeliveryFee(state.headcount);
-  const orderTotal = totalCost + (calculatedItems.length > 0 ? deliveryFee : 0);
+  const tax = calculatedItems.length > 0 ? (totalCost + deliveryFee) * 0.10 : 0;
+  const orderTotal = totalCost + (calculatedItems.length > 0 ? deliveryFee : 0) + tax;
   const totalPerPerson = calculatedItems.length > 0 ? orderTotal / state.headcount : 0;
 
   // Budget status
@@ -276,7 +277,7 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
             </button>
 
             {/* Totals */}
-            <div className="border-t-2 border-pepe-red pt-4 space-y-3">
+            <div className="border-t-2 border-[#E88A00] pt-4 space-y-2.5">
               <div className="flex justify-between text-sm">
                 <span className="text-pepe-charcoal/70">Guests</span>
                 <span className="font-semibold text-pepe-dark">
@@ -301,15 +302,21 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
                   {formatCurrency(deliveryFee)}
                 </span>
               </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-pepe-charcoal/70">Tax (10%)</span>
+                <span className="font-semibold text-pepe-dark">
+                  {formatCurrency(tax)}
+                </span>
+              </div>
               <div className="flex justify-between text-sm pt-2 border-t border-pepe-sand">
-                <span className="text-pepe-charcoal/70 font-medium">Order Total</span>
-                <span className="font-bold text-pepe-dark">
+                <span className="text-pepe-charcoal/70">Order Total</span>
+                <span className="font-semibold text-pepe-dark">
                   {formatCurrency(orderTotal)}
                 </span>
               </div>
               <div className="flex justify-between text-lg font-oswald font-bold pt-2 border-t border-pepe-sand">
-                <span className="text-pepe-dark">Per Person</span>
-                <span className="text-pepe-red">
+                <span className="text-[#E88A00]">Per Person</span>
+                <span className="text-[#E88A00]">
                   {formatCurrency(totalPerPerson)}
                 </span>
               </div>

@@ -23,11 +23,11 @@ export default function HeadcountBudgetStep() {
   };
 
   const handleContinue = () => {
-    dispatch({ type: 'SET_STEP', payload: 3 });
+    dispatch({ type: 'SET_STEP', payload: 4 as 1 | 2 | 3 | 4 });
   };
 
   const handleSkipBudget = () => {
-    dispatch({ type: 'SET_STEP', payload: 3 });
+    dispatch({ type: 'SET_STEP', payload: 4 as 1 | 2 | 3 | 4 });
   };
 
   const handleBack = () => {
@@ -35,15 +35,15 @@ export default function HeadcountBudgetStep() {
   };
 
   return (
-    <div ref={sectionRef} className="bg-pepe-cream py-12 sm:py-16 scroll-mt-4 texture-paper relative">
+    <div ref={sectionRef} className="bg-pepe-cream py-8 sm:py-16 scroll-mt-4 texture-paper relative">
       <div className="container mx-auto px-4 relative z-10">
         {/* Headcount Section */}
-        <div className="text-center mb-12">
-          <h2 className="font-oswald text-3xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="font-oswald text-2xl sm:text-4xl md:text-5xl font-bold text-pepe-dark tracking-wider mb-2 sm:mb-4">
             HOW MANY GUESTS?
           </h2>
-          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto mb-8 italic">
-            This helps us recommend the right portions and pricing for your event
+          <p className="font-crimson text-pepe-charcoal/70 text-sm sm:text-lg max-w-2xl mx-auto mb-4 sm:mb-8 italic">
+            This helps us recommend the right portions and pricing
           </p>
 
           {/* Large Headcount Input */}
@@ -98,45 +98,47 @@ export default function HeadcountBudgetStep() {
 
         {/* Budget Section */}
         <div className="text-center mb-8">
-          <h3 className="font-oswald text-2xl sm:text-3xl font-bold text-pepe-dark tracking-wider mb-3">
-            WHAT&apos;S YOUR PER-PERSON BUDGET?
+          <h3 className="font-oswald text-xl sm:text-3xl font-bold text-pepe-dark tracking-wider mb-2">
+            PER-PERSON BUDGET
           </h3>
-          <p className="font-crimson text-pepe-charcoal/70 text-base sm:text-lg max-w-2xl mx-auto mb-8 italic">
-            Optional — helps us highlight the best options for your budget
+          <p className="font-crimson text-pepe-charcoal/70 text-sm sm:text-base max-w-2xl mx-auto mb-4 italic">
+            Optional — helps us highlight the best options
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            {BUDGET_RANGES.map((budget) => (
-              <BudgetCard
-                key={budget.id}
-                budget={budget}
-                isSelected={state.budgetRange?.id === budget.id}
-                hasSelection={!!state.budgetRange}
-                onSelect={() => handleSelectBudget(budget)}
-              />
-            ))}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 max-w-md mx-auto">
+            {BUDGET_RANGES.map((budget) => {
+              const isSelected = state.budgetRange?.id === budget.id;
+              return (
+                <button
+                  key={budget.id}
+                  onClick={() => handleSelectBudget(budget)}
+                  className={`px-3 py-3 sm:py-4 rounded-xl font-oswald font-bold text-sm sm:text-base tracking-wide transition-all border-2 ${
+                    isSelected
+                      ? 'bg-pepe-dark text-white border-pepe-dark scale-[1.02] shadow-warm'
+                      : 'bg-pepe-warm-white text-pepe-dark border-pepe-sand hover:border-pepe-orange hover:bg-pepe-orange/5'
+                  }`}
+                >
+                  {budget.label}
+                  <span className="block text-[10px] sm:text-xs font-normal opacity-60 mt-0.5">per person</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex flex-col items-center gap-4 mt-10">
+        <div className="flex flex-col items-center gap-3 mt-6 sm:mt-10">
           <button
             onClick={handleContinue}
-            className="bg-pepe-red text-white font-oswald font-bold px-10 py-4 rounded-full hover:bg-pepe-red-hover transition-colors text-lg tracking-wide shadow-warm"
+            className="bg-pepe-red text-white font-oswald font-bold px-8 sm:px-10 py-3 sm:py-4 rounded-full hover:bg-pepe-red-hover transition-colors text-base sm:text-lg tracking-wide shadow-warm"
           >
-            CONTINUE
+            LET&apos;S ORDER!
           </button>
           <button
             onClick={handleSkipBudget}
-            className="bg-pepe-warm-white text-pepe-charcoal font-oswald font-bold px-10 py-4 rounded-full hover:bg-pepe-orange hover:text-white transition-colors text-lg tracking-wide border-2 border-pepe-sand"
+            className="font-oswald text-pepe-charcoal/60 hover:text-pepe-dark transition-colors tracking-wide text-sm"
           >
-            SKIP BUDGET SELECTION
-          </button>
-          <button
-            onClick={handleBack}
-            className="font-oswald text-muted hover:text-pepe-dark transition-colors tracking-wide mt-2"
-          >
-            ← BACK TO EVENT TYPE
+            Skip budget
           </button>
         </div>
       </div>

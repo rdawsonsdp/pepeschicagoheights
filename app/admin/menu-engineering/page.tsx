@@ -323,6 +323,15 @@ export default function MenuManagement() {
   const [expandedDineInSection, setExpandedDineInSection] = useState<string | null>(null);
   const [expandedDineInItem, setExpandedDineInItem] = useState<string | null>(null);
 
+  // Drag-and-drop state for catering items
+  const [cateringOrder, setCateringOrder] = useState<string[]>(() => CATERING_PRODUCTS.map(p => p.id));
+  const [dragId, setDragId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+
+  // Drag-and-drop state for dine-in items
+  const [dineInDragInfo, setDineInDragInfo] = useState<{ sectionId: string; itemIdx: number } | null>(null);
+  const [dineInDragOverIdx, setDineInDragOverIdx] = useState<number | null>(null);
+
   // Add item state
   const [showAddForm, setShowAddForm] = useState(false);
   const [addForm, setAddForm] = useState<AddItemForm>(emptyAddForm);
@@ -332,7 +341,9 @@ export default function MenuManagement() {
   // ── Catering state ──
 
   const filteredProducts = useMemo(() => {
-    let products = CATERING_PRODUCTS;
+    // Sort products by custom order
+    const orderMap = new Map(cateringOrder.map((id, i) => [id, i]));
+    let products = [...CATERING_PRODUCTS].sort((a, b) => (orderMap.get(a.id) ?? 999) - (orderMap.get(b.id) ?? 999));
     if (filterCategory !== 'all') products = products.filter(p => p.categories.includes(filterCategory));
     if (filterClass !== 'all') products = products.filter(p => (cateringEdits[p.id]?.menuEngineering.classification ?? 'PLOWHORSE') === filterClass);
     if (search.trim()) {
@@ -340,7 +351,7 @@ export default function MenuManagement() {
       products = products.filter(p => cateringEdits[p.id]?.title.toLowerCase().includes(q) || p.id.toLowerCase().includes(q));
     }
     return products;
-  }, [filterCategory, filterClass, search, cateringEdits]);
+  }, [filterCategory, filterClass, search, cateringEdits, cateringOrder]);
 
   const counts = useMemo(() => {
     const c: Record<MenuClassification, number> = { STAR: 0, PUZZLE: 0, PLOWHORSE: 0, DOG: 0 };
@@ -380,15 +391,75 @@ export default function MenuManagement() {
 
   // ── Save ──
 
+  // ── Catering drag handlers ──
+  function handleDragStart(id: string) {
+    setDragId(id);
+  }
+  function handleDragOver(e: React.DragEvent, id: string) {
+    e.preventDefault();
+    if (id !== dragId) setDragOverId(id);
+  }
+  function handleDrop(targetId: string) {
+    if (!dragId || dragId === targetId) { setDragId(null); setDragOverId(null); return; }
+    setCateringOrder(prev => {
+      const newOrder = [...prev];
+      const fromIdx = newOrder.indexOf(dragId);
+      const toIdx = newOrder.indexOf(targetId);
+      if (fromIdx === -1 || toIdx === -1) return prev;
+      newOrder.splice(fromIdx, 1);
+      newOrder.splice(toIdx, 0, dragId);
+      return newOrder;
+    });
+    setDragId(null);
+    setDragOverId(null);
+  }
+  function handleDragEnd() {
+    setDragId(null);
+    setDragOverId(null);
+  }
+
+  // ── Dine-in drag handlers ──
+  function handleDineInDragStart(sectionId: string, itemIdx: number) {
+    setDineInDragInfo({ sectionId, itemIdx });
+  }
+  function handleDineInDragOver(e: React.DragEvent, idx: number) {
+    e.preventDefault();
+    setDineInDragOverIdx(idx);
+  }
+  function handleDineInDrop(sectionId: string, targetIdx: number) {
+    if (!dineInDragInfo || dineInDragInfo.sectionId !== sectionId) { setDineInDragInfo(null); setDineInDragOverIdx(null); return; }
+    const fromIdx = dineInDragInfo.itemIdx;
+    if (fromIdx === targetIdx) { setDineInDragInfo(null); setDineInDragOverIdx(null); return; }
+    setDineInEdits(prev => prev.map(s => {
+      if (s.id !== sectionId) return s;
+      const items = [...s.items];
+      const [moved] = items.splice(fromIdx, 1);
+      items.splice(targetIdx, 0, moved);
+      return { ...s, items };
+    }));
+    setDineInDragInfo(null);
+    setDineInDragOverIdx(null);
+  }
+  function handleDineInDragEnd() {
+    setDineInDragInfo(null);
+    setDineInDragOverIdx(null);
+  }
+
   async function saveAll() {
     setSaveState('saving');
     try {
       if (tab === 'catering') {
+        // Save edits
         const res = await fetch('/api/admin/update-menu-engineering', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(cateringEdits),
         });
         const data = await res.json();
+        // Save order
+        await fetch('/api/admin/reorder-products', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ order: cateringOrder }),
+        });
         setSaveState(data.success ? 'saved' : 'error');
       } else {
         // Convert edits back to API format
@@ -555,16 +626,6 @@ export default function MenuManagement() {
                         filterCategory === cat ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'
                       }`}>
                       {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex gap-0.5 bg-gray-100 rounded-lg p-0.5">
-                  {(['all', ...CLASSIFICATIONS] as const).map(cls => (
-                    <button key={cls} onClick={() => setFilterClass(cls)}
-                      className={`px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
-                        filterClass === cls ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-800'
-                      }`}>
-                      {cls === 'all' ? 'All Types' : `${ICON[cls]} ${cls}`}
                     </button>
                   ))}
                 </div>
@@ -764,9 +825,24 @@ export default function MenuManagement() {
             const style = CLS[eng.classification];
 
             return (
-              <div key={product.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
-                <div className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50/80 transition-colors border-l-4 ${style.border}`}
+              <div key={product.id}
+                className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all ${dragOverId === product.id ? 'ring-2 ring-blue-400 ring-offset-2' : ''} ${dragId === product.id ? 'opacity-50' : ''}`}
+                draggable
+                onDragStart={() => handleDragStart(product.id)}
+                onDragOver={(e) => handleDragOver(e, product.id)}
+                onDrop={() => handleDrop(product.id)}
+                onDragEnd={handleDragEnd}
+              >
+                <div className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50/80 transition-colors"
                   onClick={() => setExpandedId(isExpanded ? null : product.id)}>
+                  {/* Drag handle */}
+                  <div className="cursor-grab active:cursor-grabbing text-gray-300 hover:text-gray-500 shrink-0" title="Drag to reorder">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/>
+                      <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+                      <circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/>
+                    </svg>
+                  </div>
                   <div className="w-11 h-11 rounded-lg overflow-hidden bg-gray-100 shrink-0 relative">
                     <Image src={e.image} alt={e.title} fill className="object-cover" sizes="44px" />
                   </div>
@@ -779,7 +855,6 @@ export default function MenuManagement() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    <ClassPill classification={eng.classification} />
                     <svg className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -821,49 +896,6 @@ export default function MenuManagement() {
                           <PricingEditor pricing={e.pricing} onChange={p => updateCatering(product.id, { pricing: p })} />
                         </div>
 
-                        {/* Menu Engineering */}
-                        <div className={`rounded-lg border-2 p-4 space-y-4 ${style.border} ${style.bg}`}>
-                          <h4 className="text-xs font-bold text-gray-700 uppercase tracking-wider">Menu Engineering</h4>
-                          <div>
-                            <SectionLabel>Classification</SectionLabel>
-                            <div className="flex flex-wrap gap-2">
-                              {CLASSIFICATIONS.map(cls => {
-                                const cs = CLS[cls]; const active = eng.classification === cls;
-                                return (
-                                  <button key={cls} onClick={() => updateEngineering(product.id, { classification: cls })}
-                                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold border-2 transition-all ${
-                                      active ? `${cs.bg} ${cs.text} ${cs.border} shadow-sm` : 'bg-white text-gray-400 border-gray-200 hover:border-gray-300'
-                                    }`}>
-                                    <span className={`w-3 h-3 rounded-full ${active ? cs.accent : 'bg-gray-200'}`} />
-                                    {ICON[cls]} {cls}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                            <p className="text-[10px] text-gray-400 mt-1">{style.hint}</p>
-                          </div>
-                          <div>
-                            <SectionLabel>Visual Weight</SectionLabel>
-                            <div className="flex gap-2">
-                              {VISUAL_WEIGHTS.map(w => (
-                                <button key={w} onClick={() => updateEngineering(product.id, { visualWeight: w })}
-                                  className={`px-4 py-2 rounded-lg text-sm font-medium border-2 transition-all ${
-                                    eng.visualWeight === w ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                                  }`}>{w.charAt(0).toUpperCase() + w.slice(1)}</button>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <SectionLabel>Badge Text</SectionLabel>
-                            <input type="text" value={eng.badgeText ?? ''}
-                              onChange={ev => updateEngineering(product.id, { badgeText: ev.target.value || null })}
-                              placeholder="e.g. Crowd Favorite, Chef's Pick"
-                              className="px-3 py-2 border-2 border-gray-200 rounded-lg text-sm w-full max-w-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-white" />
-                            {!showBadge && eng.badgeText && (
-                              <p className="text-[10px] text-amber-600 mt-1">Badge only shows for STAR and PUZZLE</p>
-                            )}
-                          </div>
-                        </div>
                       </div>
 
                       {/* Preview */}
@@ -915,15 +947,6 @@ export default function MenuManagement() {
                     <p className="text-[11px] text-gray-400">{section.items.length} items{section.subtitle ? ` \u00b7 ${section.subtitle.slice(0, 60)}...` : ''}</p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
-                    {section.items.some(i => i.classification) && (
-                      <div className="flex gap-1">
-                        {CLASSIFICATIONS.filter(cls => section.items.some(i => i.classification === cls)).map(cls => (
-                          <span key={cls} className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${CLS[cls].bg} ${CLS[cls].text}`}>
-                            {ICON[cls]}{section.items.filter(i => i.classification === cls).length}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                     <svg className={`w-4 h-4 text-gray-400 transition-transform ${isSectionOpen ? 'rotate-180' : ''}`}
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -940,10 +963,25 @@ export default function MenuManagement() {
                       const itemStyle = item.classification ? CLS[item.classification as MenuClassification] : null;
 
                       return (
-                        <div key={idx} className={`border-b border-gray-100 last:border-b-0 ${isItemOpen ? 'bg-gray-50' : ''}`}>
+                        <div key={idx}
+                          className={`border-b border-gray-100 last:border-b-0 ${isItemOpen ? 'bg-gray-50' : ''} ${dineInDragOverIdx === idx && dineInDragInfo?.sectionId === section.id ? 'border-t-2 border-t-blue-400' : ''} ${dineInDragInfo?.sectionId === section.id && dineInDragInfo?.itemIdx === idx ? 'opacity-50' : ''}`}
+                          draggable
+                          onDragStart={() => handleDineInDragStart(section.id, idx)}
+                          onDragOver={(e) => handleDineInDragOver(e, idx)}
+                          onDrop={() => handleDineInDrop(section.id, idx)}
+                          onDragEnd={handleDineInDragEnd}
+                        >
                           {/* Item row */}
-                          <div className={`flex items-center gap-3 px-6 py-2.5 cursor-pointer hover:bg-gray-50 transition-colors ${itemStyle ? `border-l-4 ${itemStyle.border}` : 'border-l-4 border-transparent'}`}
+                          <div className="flex items-center gap-3 px-6 py-2.5 cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent"
                             onClick={() => setExpandedDineInItem(isItemOpen ? null : itemKey)}>
+                            {/* Drag handle */}
+                            <div className="cursor-grab active:cursor-grabbing text-gray-300 hover:text-gray-500 shrink-0">
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/>
+                                <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+                                <circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/>
+                              </svg>
+                            </div>
                             {item.image && (
                               <div className="w-8 h-8 rounded overflow-hidden bg-gray-100 shrink-0 relative">
                                 <Image src={item.image} alt="" fill className="object-cover" sizes="32px" />
@@ -955,7 +993,6 @@ export default function MenuManagement() {
                             </div>
                             <div className="flex items-center gap-2 shrink-0">
                               {item.price && <span className="text-sm font-semibold text-gray-700">${item.price}</span>}
-                              {item.classification && <ClassPill classification={item.classification as MenuClassification} />}
                               <svg className={`w-3.5 h-3.5 text-gray-300 transition-transform ${isItemOpen ? 'rotate-180' : ''}`}
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -991,18 +1028,6 @@ export default function MenuManagement() {
                                 <ImageUploader currentImage={item.image}
                                   onImageChange={path => updateDineInItem(section.id, idx, { image: path })} />
                               </div>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div>
-                                  <SectionLabel>Classification</SectionLabel>
-                                  <ClassificationPicker value={item.classification} compact
-                                    onChange={v => updateDineInItem(section.id, idx, { classification: v })} />
-                                </div>
-                                <div>
-                                  <SectionLabel>Visual Weight</SectionLabel>
-                                  <WeightPicker value={item.visualWeight}
-                                    onChange={v => updateDineInItem(section.id, idx, { visualWeight: v })} />
-                                </div>
-                              </div>
                             </div>
                           )}
                         </div>
@@ -1017,28 +1042,6 @@ export default function MenuManagement() {
         </div>
       )}
 
-      {/* ─── Bottom Bar ─── */}
-      {tab === 'catering' && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 shadow-[0_-2px_8px_rgba(0,0,0,0.06)]">
-          <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between">
-            <div className="flex gap-3">
-              {CLASSIFICATIONS.map(cls => {
-                const s = CLS[cls];
-                return (
-                  <button key={cls} onClick={() => setFilterClass(filterClass === cls ? 'all' : cls)}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
-                      filterClass === cls ? `${s.bg} ${s.text} ${s.border} ring-1 ring-current` : `${s.bg} ${s.text} ${s.border} hover:opacity-80`
-                    }`}>
-                    {ICON[cls]} <span className="font-bold text-sm">{counts[cls]}</span>
-                    <span className="hidden sm:inline">{cls}</span>
-                  </button>
-                );
-              })}
-            </div>
-            <span className="text-xs text-gray-400">{Object.values(counts).reduce((a, b) => a + b, 0)} items</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

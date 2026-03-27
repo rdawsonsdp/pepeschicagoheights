@@ -14,7 +14,7 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'rounded-full font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 touch-manipulation inline-flex items-center justify-center';
+  const baseStyles = 'rounded-lg font-oswald font-bold tracking-wide transition-all duration-200 focus:outline-none touch-manipulation inline-flex items-center justify-center';
 
   const sizeStyles = {
     sm: 'px-3 py-2 text-sm min-h-[36px]',
@@ -25,13 +25,13 @@ export default function Button({
   const variantStyles = {
     primary: disabled
       ? 'bg-pepe-sand text-muted cursor-not-allowed'
-      : 'bg-pepe-red text-white hover:bg-pepe-red-hover active:bg-pepe-red-active focus:ring-pepe-red shadow-warm hover:shadow-warm-lg',
+      : 'bg-[#E88A00] text-white shadow-[0_4px_0_0_#b86e00] hover:shadow-[0_2px_0_0_#b86e00] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px]',
     secondary: disabled
       ? 'bg-pepe-sand text-muted cursor-not-allowed'
-      : 'bg-pepe-dark text-white hover:bg-pepe-charcoal active:bg-pepe-dark-active focus:ring-pepe-dark shadow-warm hover:shadow-warm-lg',
+      : 'bg-pepe-dark text-white hover:bg-pepe-charcoal active:bg-pepe-dark-active shadow-[0_4px_0_0_#111] hover:shadow-[0_2px_0_0_#111] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px]',
     outline: disabled
       ? 'border-2 border-pepe-sand text-muted cursor-not-allowed'
-      : 'border-2 border-pepe-red text-pepe-red hover:bg-pepe-red hover:text-white focus:ring-pepe-red',
+      : 'border-2 border-pepe-dark text-pepe-dark hover:bg-pepe-dark hover:text-white',
   };
 
   return (

@@ -144,6 +144,7 @@ export interface SelectedCateringItem {
   quantity: number;
   selectedVariant?: string;                 // For single mode: option ID
   variantSplit?: Record<string, number>;    // For split mode: { beef: 10, chicken: 15 }
+  selectedSize?: string;                    // For pan/tray: 'half' | 'full' | 'small' | 'medium' | 'large'
 }
 
 // Buyer/Contact information
