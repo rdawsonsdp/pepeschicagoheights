@@ -8,8 +8,8 @@ import { siteConfig } from '@/lib/site-config';
 import { useCatering } from '@/context/CateringContext';
 
 export default function Header() {
-  const { state } = useCatering();
-  const cartCount = state.selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+  const { state, hydrated } = useCatering();
+  const cartCount = hydrated ? state.selectedItems.reduce((sum, item) => sum + item.quantity, 0) : 0;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menusOpen, setMenusOpen] = useState(false);
   const [deliveryOpen, setDeliveryOpen] = useState(false);
@@ -177,9 +177,9 @@ export default function Header() {
                 )}
               </svg>
             </button>
-            </div>
-          </div>
-        </div>
+            </div>{/* end cart+hamburger wrapper */}
+          </div>{/* end flex justify-between */}
+        </div>{/* end container */}
       </header>
 
       {/* Mobile menu - portal outside header to avoid z-index issues */}
