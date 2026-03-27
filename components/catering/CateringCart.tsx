@@ -279,12 +279,6 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
             {/* Totals */}
             <div className="border-t-2 border-[#E88A00] pt-4 space-y-2.5">
               <div className="flex justify-between text-sm">
-                <span className="text-pepe-charcoal/70">Guests</span>
-                <span className="font-semibold text-pepe-dark">
-                  {state.headcount}
-                </span>
-              </div>
-              <div className="flex justify-between text-sm">
                 <span className="text-pepe-charcoal/70">Subtotal</span>
                 <span className="font-semibold text-pepe-dark">
                   {formatCurrency(totalCost)}
@@ -309,15 +303,15 @@ export default function CateringCart({ onCheckout }: CateringCartProps) {
                 </span>
               </div>
               <div className="flex justify-between text-sm pt-2 border-t border-pepe-sand">
-                <span className="text-pepe-charcoal/70">Order Total</span>
+                <span className="text-pepe-charcoal/70">Per Person ({state.headcount} guests)</span>
                 <span className="font-semibold text-pepe-dark">
-                  {formatCurrency(orderTotal)}
+                  {formatCurrency(totalPerPerson)}
                 </span>
               </div>
               <div className="flex justify-between text-lg font-oswald font-bold pt-2 border-t border-pepe-sand">
-                <span className="text-[#E88A00]">Per Person</span>
+                <span className="text-[#E88A00]">Order Total</span>
                 <span className="text-[#E88A00]">
-                  {formatCurrency(totalPerPerson)}
+                  {formatCurrency(orderTotal)}
                 </span>
               </div>
             </div>
