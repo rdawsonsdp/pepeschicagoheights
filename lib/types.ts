@@ -201,7 +201,7 @@ export type CateringAction =
   | { type: 'SET_CUSTOM_BUDGET'; payload: number }
   | { type: 'SET_ORDER_TYPE'; payload: OrderType }
   | { type: 'SET_HEADCOUNT'; payload: number }
-  | { type: 'ADD_ITEM'; payload: { product: CateringProduct; selectedVariant?: string; variantSplit?: Record<string, number> } }
+  | { type: 'ADD_ITEM'; payload: { product: CateringProduct; selectedVariant?: string; variantSplit?: Record<string, number>; selectedSize?: string } }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'UPDATE_ITEM_QUANTITY'; payload: { cartKey: string; quantity: number } }
   | { type: 'CLEAR_ITEMS' }

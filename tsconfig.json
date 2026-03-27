@@ -22,5 +22,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "pepes-website", "extracted_webflow", "restaurant-websites-skill", "reflow-3953ff-*"]
 }

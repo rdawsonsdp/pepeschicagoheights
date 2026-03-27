@@ -99,9 +99,9 @@ export async function POST(request: Request) {
       }
     }
     // Then add any remaining items not in the order array
-    for (const [, block] of blockMap) {
+    blockMap.forEach((block) => {
       orderedBlocks.push(block);
-    }
+    });
 
     // Rebuild the array
     const newArrayContent = '[\n' + orderedBlocks.map(b => '  ' + b.trimStart()).join(',\n') + ',\n]';

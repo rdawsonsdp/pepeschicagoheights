@@ -71,7 +71,7 @@ export default function CateringProductCard({
   const displayPrice = activeSizeData ? activeSizeData.price * selectedQty : orderCalc.totalPrice;
   const displayTotal = displayPrice * (itemQty || 1);
   const displayServes = activeSizeData
-    ? `${activeSize === 'half' ? 'Half' : activeSize === 'full' ? 'Full' : activeSize.charAt(0).toUpperCase() + activeSize.slice(1)} Pan (serves ${activeSizeData.servesMin * selectedQty}-${activeSizeData.servesMax * selectedQty})`
+    ? `${activeSize === 'half' ? 'Half' : activeSize === 'full' ? 'Full' : (activeSize ?? '').charAt(0).toUpperCase() + (activeSize ?? '').slice(1)} Pan (serves ${activeSizeData.servesMin * selectedQty}-${activeSizeData.servesMax * selectedQty})`
     : orderCalc.displayText;
 
   const handleAdd = () => {
