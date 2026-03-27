@@ -5,8 +5,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { siteConfig } from '@/lib/site-config';
+import { useCatering } from '@/context/CateringContext';
 
 export default function Header() {
+  const { state } = useCatering();
+  const cartCount = state.selectedItems.reduce((sum, item) => sum + item.quantity, 0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [menusOpen, setMenusOpen] = useState(false);
   const [deliveryOpen, setDeliveryOpen] = useState(false);
@@ -129,13 +132,28 @@ export default function Header() {
               </a>
             </nav>
 
-            {/* Mobile menu toggle */}
-            <button
-              className="lg:hidden p-2 hover:bg-white/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-              aria-expanded={mobileMenuOpen}
-            >
+            {/* Cart icon + Mobile menu toggle */}
+            <div className="flex items-center gap-1">
+              <Link
+                href="/catering"
+                className="relative p-2 hover:bg-white/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                aria-label="View cart"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 bg-[#8f260c] text-white text-[10px] font-bold min-w-[18px] h-[18px] flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+              <button
+                className="lg:hidden p-2 hover:bg-white/10 rounded transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+                aria-expanded={mobileMenuOpen}
+              >
               <svg
                 className="w-6 h-6"
                 fill="none"
@@ -159,6 +177,7 @@ export default function Header() {
                 )}
               </svg>
             </button>
+            </div>
           </div>
         </div>
       </header>
