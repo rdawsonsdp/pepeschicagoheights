@@ -93,8 +93,8 @@ export default function ProductSelectionStep({
     return () => observer.disconnect();
   }, []);
 
-  // Get ALL products (not filtered by event type) so all sections show
-  const products = getProductsByEventType(null);
+  // Get ALL products (not filtered by event type) so all sections show, exclude hidden
+  const products = getProductsByEventType(null).filter(p => !p.hidden);
 
   const filteredProducts = useMemo(() => {
     let result = products;

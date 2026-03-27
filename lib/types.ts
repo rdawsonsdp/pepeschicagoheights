@@ -118,6 +118,7 @@ export interface CateringProduct {
   slug?: string;
   inventory?: number;
   variants?: VariantConfig;
+  hidden?: boolean;
   menuEngineering?: MenuEngineeringData;
 }
 

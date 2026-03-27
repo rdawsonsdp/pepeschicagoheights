@@ -8,6 +8,7 @@ interface ProductUpdate {
   description: string;
   image: string;
   pricing: ProductPricing;
+  hidden: boolean;
   menuEngineering: MenuEngineeringData;
 }
 
@@ -140,6 +141,37 @@ export async function POST(request: Request) {
 
       // 3. Replace image
       content = replaceStringField(content, 'image', data.image, idIndex, blockEnd);
+
+      // 3b. Update hidden field
+      {
+        const reIdIndex = content.indexOf(`id: '${id}'`);
+        const reBlockEnd = findBlockEnd(content, reIdIndex);
+        const hiddenIdx = content.indexOf('hidden:', reIdIndex);
+        if (data.hidden) {
+          if (hiddenIdx === -1 || hiddenIdx >= reBlockEnd) {
+            // Insert hidden: true after image line
+            const imageIdx = content.indexOf("image: '", reIdIndex);
+            if (imageIdx !== -1 && imageIdx < reBlockEnd) {
+              let endOfImageLine = content.indexOf('\n', imageIdx);
+              if (endOfImageLine !== -1) {
+                content = content.slice(0, endOfImageLine + 1) + '    hidden: true,\n' + content.slice(endOfImageLine + 1);
+              }
+            }
+          } else {
+            // Replace existing hidden value
+            content = content.slice(0, hiddenIdx) + 'hidden: true' + content.slice(hiddenIdx + 'hidden: false'.length);
+          }
+        } else {
+          // Remove hidden line if it exists
+          if (hiddenIdx !== -1 && hiddenIdx < reBlockEnd) {
+            const lineStart = content.lastIndexOf('\n', hiddenIdx);
+            const lineEnd = content.indexOf('\n', hiddenIdx);
+            if (lineStart !== -1 && lineEnd !== -1) {
+              content = content.slice(0, lineStart) + content.slice(lineEnd);
+            }
+          }
+        }
+      }
 
       // 4. Replace pricing — find `pricing: ` then the value (could be function call or object)
       const pricingPrefix = 'pricing: ';

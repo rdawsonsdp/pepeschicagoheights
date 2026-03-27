@@ -40,6 +40,7 @@ interface CateringEdits {
   description: string;
   image: string;
   pricing: ProductPricing;
+  hidden: boolean;
   menuEngineering: MenuEngineeringData;
 }
 
@@ -77,6 +78,7 @@ function buildCateringEdits(): Record<string, CateringEdits> {
     map[p.id] = {
       title: p.title, description: p.description, image: p.image,
       pricing: JSON.parse(JSON.stringify(p.pricing)),
+      hidden: p.hidden ?? false,
       menuEngineering: { ...(p.menuEngineering ?? defaultEngineering()) },
     };
   }
@@ -826,7 +828,7 @@ export default function MenuManagement() {
 
             return (
               <div key={product.id}
-                className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all ${dragOverId === product.id ? 'ring-2 ring-blue-400 ring-offset-2' : ''} ${dragId === product.id ? 'opacity-50' : ''}`}
+                className={`bg-white rounded-xl shadow-sm overflow-hidden transition-all ${dragOverId === product.id ? 'ring-2 ring-blue-400 ring-offset-2' : ''} ${dragId === product.id ? 'opacity-50' : ''} ${e.hidden ? 'opacity-50' : ''}`}
                 draggable
                 onDragStart={() => handleDragStart(product.id)}
                 onDragOver={(e) => handleDragOver(e, product.id)}
@@ -855,6 +857,30 @@ export default function MenuManagement() {
                     </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
+                    {/* Visibility toggle */}
+                    <button
+                      onClick={(ev) => {
+                        ev.stopPropagation();
+                        updateCatering(product.id, { hidden: !e.hidden });
+                      }}
+                      title={e.hidden ? 'Hidden from public pages — click to show' : 'Visible on public pages — click to hide'}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+                        e.hidden
+                          ? 'bg-gray-300 text-white'
+                          : 'bg-green-500 text-white'
+                      }`}
+                    >
+                      {e.hidden ? (
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                        </svg>
+                      ) : (
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      )}
+                    </button>
                     <svg className={`w-4 h-4 text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
