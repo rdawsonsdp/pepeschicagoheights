@@ -537,6 +537,7 @@ export default function MenuManagement() {
             description: payload.description,
             image: payload.image,
             pricing: newPricing,
+            hidden: false,
             menuEngineering: defaultEngineering(),
           },
         }));
