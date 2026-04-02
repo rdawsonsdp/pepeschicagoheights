@@ -256,6 +256,61 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ─── KARAOKE FRIDAY ─── */}
+      <section className="relative py-10 sm:py-16 bg-gradient-to-b from-[#1a0533] to-[#2d0a4e] overflow-hidden">
+        {/* Animated background dots */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-4 left-[10%] w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
+          <div className="absolute top-12 left-[30%] w-3 h-3 bg-yellow-300 rounded-full animate-pulse [animation-delay:0.3s]" />
+          <div className="absolute top-8 right-[20%] w-2 h-2 bg-cyan-400 rounded-full animate-pulse [animation-delay:0.6s]" />
+          <div className="absolute bottom-10 left-[15%] w-2 h-2 bg-green-400 rounded-full animate-pulse [animation-delay:0.9s]" />
+          <div className="absolute bottom-6 right-[25%] w-3 h-3 bg-pink-300 rounded-full animate-pulse [animation-delay:0.2s]" />
+          <div className="absolute top-1/2 left-[5%] w-2 h-2 bg-orange-400 rounded-full animate-pulse [animation-delay:0.5s]" />
+          <div className="absolute top-1/3 right-[10%] w-2 h-2 bg-yellow-400 rounded-full animate-pulse [animation-delay:0.8s]" />
+        </div>
+
+        <div className="container mx-auto px-4 text-center relative z-10 max-w-3xl">
+          {/* Microphone icon */}
+          <div className="text-5xl sm:text-7xl mb-3 sm:mb-4 animate-bounce [animation-duration:2s]">
+            🎤
+          </div>
+
+          <h3 className="font-oswald text-2xl sm:text-4xl md:text-5xl font-black tracking-wider mb-2 sm:mb-3">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-yellow-300 to-cyan-400">
+              KARAOKE NIGHT
+            </span>
+          </h3>
+
+          <p className="font-oswald text-lg sm:text-2xl text-white tracking-wider mb-1">
+            Every Friday Night
+          </p>
+          <p className="font-oswald text-xl sm:text-3xl text-pepe-gold font-bold tracking-wider">
+            8 PM – 12 AM
+          </p>
+
+          <div className="inline-block bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-cyan-500/20 border border-white/20 rounded-2xl px-6 sm:px-10 py-4 sm:py-6 mt-4 sm:mt-6 backdrop-blur-sm">
+            <p className="font-oswald text-xl sm:text-3xl text-pepe-gold font-bold tracking-wide mb-2">
+              Grab the Mic!
+            </p>
+            <p className="font-lato text-white/90 text-sm sm:text-lg leading-relaxed max-w-lg mx-auto">
+              Sing your heart out every Friday at Pepe&apos;s! Great food, cold drinks, and your
+              favorite songs — whether you&apos;re a superstar or just here for the fun.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-4 text-2xl sm:text-3xl">
+              <span>🎶</span>
+              <span>🍹</span>
+              <span>🌮</span>
+              <span>🎉</span>
+              <span>🔥</span>
+            </div>
+          </div>
+
+          <p className="font-lato text-white/50 text-xs sm:text-sm mt-4 sm:mt-6 tracking-wide">
+            DJ &amp; Karaoke — No cover charge!
+          </p>
+        </div>
+      </section>
+
       {/* ─── CATERING CTA ─── */}
       <section className="py-8 sm:py-20 bg-gradient-to-b from-[#8f260c] to-[#a0350f]">
         <div className="container mx-auto px-4 text-center max-w-3xl">
