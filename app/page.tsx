@@ -5,12 +5,6 @@ import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
 import ImageCarousel from '@/components/ui/ImageCarousel';
 
-const LUNCH_CAROUSEL = [
-  { src: '/images/menu/carousel-lunch-1.jpg', alt: 'Lunch buffet spread' },
-  { src: '/images/menu/carousel-lunch-2.jpg', alt: 'Mexican food buffet' },
-  { src: '/images/menu/carousel-lunch-3.jpg', alt: 'All-you-can-eat buffet' },
-];
-
 const DINNER_CAROUSEL = [
   { src: '/images/menu/carousel-dinner-1.jpg', alt: 'Red Snapper' },
   { src: '/images/menu/carousel-dinner-2.jpg', alt: 'Authentic Mexican dinner' },
@@ -123,14 +117,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ─── LUNCH BUFFET ─── */}
+      {/* ─── TIKTOK VIDEO / LUNCH BUFFET ─── */}
       <section>
-        <ImageCarousel images={LUNCH_CAROUSEL} height="h-[200px] sm:h-[350px] md:h-[500px]" />
         <div className="bg-gradient-to-b from-[#8f260c] to-[#7a2009] py-6 sm:py-14">
           <div className="container mx-auto px-4 text-center max-w-3xl">
-            <h3 className="font-oswald text-xl sm:text-3xl md:text-4xl text-white tracking-wider mb-3 sm:mb-4">
+            <h3 className="font-oswald text-xl sm:text-3xl md:text-4xl text-white tracking-wider mb-4 sm:mb-6">
               The best lunch deal in town! Endless tacos, enchiladas, and more.
             </h3>
+            <div className="flex justify-center mb-4 sm:mb-6">
+              <div className="w-full max-w-[360px] mx-auto">
+                <video
+                  src="/images/menu/pepes-tiktok.mp4"
+                  className="w-full rounded-xl shadow-2xl border-2 border-pepe-gold/30"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              </div>
+            </div>
             <div className="flex justify-center mb-3 sm:mb-4">
               <Link
                 href="/lunch"
