@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { EventType } from '@/lib/types';
-import { getProductsByEventType } from '@/lib/products';
+import { getCateringProductsByEventType } from '@/lib/menu-data';
 
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const eventType = searchParams.get('eventType') as EventType | null;
 
-    // Get products from local data, filtered by event type if specified
-    const products = getProductsByEventType(eventType);
+    const products = await getCateringProductsByEventType(eventType);
 
     return NextResponse.json({ products });
   } catch (error) {

@@ -24,6 +24,7 @@ export const CATERING_PRODUCTS: CateringProduct[] = [
     title: 'Vegetable Fajitas',
     description: 'Grilled vegetable fajitas with sautéed peppers and onions. Half pan includes 30 tortillas plus 16oz sour cream, pico de gallo, and guacamole. Full pan includes 60 tortillas plus 32oz each. Choice of corn or flour tortillas.',
     image: '/images/menu/vegetable-fajitas.jpg',
+    hidden: true,
     categories: ['entrees'],
     pricing: panPricing(85, 125, 10, 15, 20, 30),
     tags: ['entree', 'vegetarian', 'fajita', 'mexican'],

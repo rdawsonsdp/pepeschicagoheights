@@ -146,11 +146,11 @@ export default function CateringProductCard({
     } ${inCart ? 'ring-2 ring-[#E88A00] bg-[#E88A00]/5' : ''}`}>
 
       <div className="flex flex-col h-full">
-        {/* Top row: Image + Info side by side on mobile */}
+        {/* Top row: Image + Info side by side */}
         <div className={`flex gap-3 ${size === 'compact' ? '' : 'mb-3'}`}>
           {/* Product Image */}
           {size !== 'compact' && (
-            <div className="w-24 h-24 sm:w-full sm:h-auto sm:aspect-square bg-gray-100 rounded-lg overflow-hidden relative flex-shrink-0">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-100 rounded-lg overflow-hidden relative flex-shrink-0">
               {product.image ? (
                 <Image
                   src={product.image}

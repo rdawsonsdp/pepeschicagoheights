@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { supabase } from '@/lib/supabase';
 
 interface NewProduct {
   id: string;
@@ -18,45 +17,6 @@ interface NewProduct {
   priceEach?: number;
 }
 
-function escapeStr(v: string): string {
-  return v.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-}
-
-function buildProductBlock(p: NewProduct): string {
-  const cats = p.categories.map(c => `'${c}'`).join(', ');
-
-  let pricingStr: string;
-  if (p.pricingType === 'pan') {
-    pricingStr = `panPricing(${p.halfPrice ?? 0}, ${p.fullPrice ?? 0}, ${p.halfServesMin ?? 10}, ${p.halfServesMax ?? 15}, ${p.fullServesMin ?? 20}, ${p.fullServesMax ?? 30})`;
-  } else {
-    pricingStr = `{ type: 'per-each' as const, priceEach: ${p.priceEach ?? 0} }`;
-  }
-
-  return `  {
-    id: '${escapeStr(p.id)}',
-    title: '${escapeStr(p.title)}',
-    description: '${escapeStr(p.description)}',
-    image: '${escapeStr(p.image)}',
-    categories: [${cats}],
-    pricing: ${pricingStr},
-    tags: [],
-    menuEngineering: {
-      classification: 'PLOWHORSE',
-      foodCost: null,
-      salesRank: null,
-      placementPriority: null,
-      visualWeight: 'medium',
-      descriptionStrategy: 'maintain',
-      badgeText: null,
-      enhancedDescription: null,
-      salesVelocity7d: null,
-      salesVelocity30d: null,
-      trendDirection: null,
-      lastClassifiedAt: null,
-    },
-  }`;
-}
-
 export async function POST(request: Request) {
   try {
     const { requireAdminSession } = await import('@/lib/admin-auth');
@@ -64,30 +24,62 @@ export async function POST(request: Request) {
     if (!auth.authorized) return auth.response;
 
     const product: NewProduct = await request.json();
-    const filePath = path.join(process.cwd(), 'lib', 'products.ts');
-    let content = fs.readFileSync(filePath, 'utf-8');
 
     // Check for duplicate ID
-    if (content.includes(`id: '${product.id}'`)) {
+    const { data: existing } = await supabase
+      .from('catering_products')
+      .select('id')
+      .eq('id', product.id)
+      .single();
+
+    if (existing) {
       return NextResponse.json(
         { success: false, error: `Product with ID '${product.id}' already exists` },
         { status: 400 },
       );
     }
 
-    // Find the closing `];` of the CATERING_PRODUCTS array
-    const arrayEnd = content.lastIndexOf('];');
-    if (arrayEnd === -1) {
-      return NextResponse.json(
-        { success: false, error: 'Could not find CATERING_PRODUCTS array end' },
-        { status: 500 },
-      );
+    // Get the max sort_order to append at end
+    const { data: maxRow } = await supabase
+      .from('catering_products')
+      .select('sort_order')
+      .order('sort_order', { ascending: false })
+      .limit(1)
+      .single();
+
+    const nextOrder = (maxRow?.sort_order ?? 0) + 1;
+
+    // Build pricing JSONB
+    const pricing = product.pricingType === 'pan'
+      ? {
+          type: 'pan',
+          sizes: [
+            { size: 'half', price: product.halfPrice ?? 0, servesMin: product.halfServesMin ?? 10, servesMax: product.halfServesMax ?? 15 },
+            { size: 'full', price: product.fullPrice ?? 0, servesMin: product.fullServesMin ?? 20, servesMax: product.fullServesMax ?? 30 },
+          ],
+        }
+      : { type: 'per-each', priceEach: product.priceEach ?? 0 };
+
+    const { error } = await supabase
+      .from('catering_products')
+      .insert({
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        image: product.image || '/images/menu/placeholder.jpg',
+        categories: product.categories,
+        tags: [],
+        sort_order: nextOrder,
+        pricing,
+        classification: 'PLOWHORSE',
+        visual_weight: 'medium',
+        description_strategy: 'maintain',
+      });
+
+    if (error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    const block = buildProductBlock(product);
-    content = content.slice(0, arrayEnd) + block + ',\n' + content.slice(arrayEnd);
-
-    fs.writeFileSync(filePath, content, 'utf-8');
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Failed to add product:', error);

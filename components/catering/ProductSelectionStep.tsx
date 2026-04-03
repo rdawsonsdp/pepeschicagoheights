@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useCatering } from '@/context/CateringContext';
 import { getEventTypeName } from '@/lib/event-types';
 import { formatCurrency } from '@/lib/pricing';
-import { getProductsByEventType } from '@/lib/products';
+import { CateringProduct } from '@/lib/types';
 import { getBudgetStatus } from '@/lib/budgets';
 import CateringProductCard from './CateringProductCard';
 import CateringCart from './CateringCart';
@@ -21,6 +21,7 @@ const MENU_SECTIONS = [
 ];
 
 interface ProductSelectionStepProps {
+  allProducts: CateringProduct[];
   activeFilters?: string[];
   onToggleFilter?: (tag: string) => void;
   filterBar?: React.ReactNode;
@@ -28,6 +29,7 @@ interface ProductSelectionStepProps {
 }
 
 export default function ProductSelectionStep({
+  allProducts,
   activeFilters = [],
   onToggleFilter,
   filterBar,
@@ -94,7 +96,7 @@ export default function ProductSelectionStep({
   }, []);
 
   // Get ALL products (not filtered by event type) so all sections show, exclude hidden
-  const products = getProductsByEventType(null).filter(p => !p.hidden);
+  const products = allProducts.filter(p => !p.hidden);
 
   const filteredProducts = useMemo(() => {
     let result = products;
