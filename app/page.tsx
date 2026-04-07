@@ -34,6 +34,29 @@ const DAILY_SPECIALS = [
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-pepe-cream">
+      {/* ─── QR CODE BANNER ─── */}
+      <section className="bg-gradient-to-r from-pepe-orange to-pepe-burnt-orange py-4 sm:py-6 text-center border-b-2 border-pepe-gold">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="bg-white p-2 rounded-lg shadow-lg">
+              <img 
+                src="https://imagedelivery.net/OHVtjf602XdHccCnziCADA/db2adf9e-fd2d-4a91-b82b-26fd9fa94900/public" 
+                alt="QR Code for Online Ordering" 
+                className="w-16 h-16 sm:w-20 sm:h-20"
+              />
+            </div>
+            <div>
+              <h2 className="font-oswald text-xl sm:text-2xl md:text-3xl text-white font-bold tracking-wider">
+                SCAN TO ORDER
+              </h2>
+              <p className="font-lato text-white/90 text-sm sm:text-base mt-1">
+                Quick & Easy Online Ordering
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── HERO ─── */}
       <section>
         {/* Hero images: stacked on mobile, side-by-side on desktop */}
