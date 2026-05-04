@@ -64,6 +64,33 @@ export default function CateringPageClient({ products }: { products: CateringPro
         </div>
       </section>
 
+      {/* Order Steps */}
+      <section className="bg-[#8f260c] pb-10 sm:pb-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="bg-white/10 border-2 border-pepe-gold/50 rounded-2xl px-6 py-6 sm:px-10 sm:py-8">
+            <h2 className="font-oswald text-xl sm:text-2xl text-pepe-gold tracking-wider text-center mb-5 sm:mb-6">
+              ORDER STEPS
+            </h2>
+            <ol className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              {[
+                { n: 1, label: 'Order' },
+                { n: 2, label: 'We confirm' },
+                { n: 3, label: 'We call for payment' },
+              ].map((step) => (
+                <li key={step.n} className="flex items-center gap-3 sm:flex-col sm:text-center">
+                  <span className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-pepe-gold text-pepe-dark font-oswald font-black text-xl sm:text-2xl flex items-center justify-center">
+                    {step.n}
+                  </span>
+                  <span className="font-oswald text-white text-lg sm:text-xl tracking-wide">
+                    {step.label}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
       {/* Bevel */}
       <div className="h-[30px] bg-gradient-to-b from-[#ff900d] via-[#de7d07] to-[#962e0c]" />
 
