@@ -327,6 +327,79 @@ export default function LandingPage() {
             Let us cater your next celebration! From intimate gatherings to large parties,
             we&apos;ll handle the food while you enjoy the moment.
           </p>
+
+          {/* 3 Easy Steps Graphic */}
+          <div className="bg-gradient-to-br from-[#7a2009] to-[#a0350f] border-2 border-pepe-gold/60 rounded-2xl px-4 py-6 sm:px-10 sm:py-8 shadow-2xl mb-6 sm:mb-10">
+            <h4 className="font-oswald text-lg sm:text-2xl text-pepe-gold tracking-[0.2em] text-center mb-5 sm:mb-8">
+              3 EASY STEPS TO ORDER
+            </h4>
+            <svg
+              viewBox="0 0 900 240"
+              role="img"
+              aria-label="Three easy steps to order catering: 1. Order. 2. We confirm. 3. We call for payment."
+              className="w-full h-auto max-w-3xl mx-auto"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="homeGoldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#f5cf5b" />
+                  <stop offset="100%" stopColor="#d9a528" />
+                </linearGradient>
+                <filter id="homeSoftShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#000" floodOpacity="0.35" />
+                </filter>
+              </defs>
+
+              <line x1="150" y1="100" x2="750" y2="100" stroke="url(#homeGoldGrad)" strokeWidth="4" strokeDasharray="8 8" strokeLinecap="round" />
+
+              {/* Step 1 — Order (clipboard) */}
+              <g transform="translate(150 100)" filter="url(#homeSoftShadow)">
+                <circle r="60" fill="url(#homeGoldGrad)" stroke="#fff" strokeWidth="3" />
+                <g transform="translate(-22 -26)" stroke="#7a2009" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="6" width="36" height="44" rx="4" fill="#fff8e1" />
+                  <rect x="14" y="0" width="16" height="10" rx="2" fill="#7a2009" />
+                  <line x1="12" y1="22" x2="32" y2="22" />
+                  <line x1="12" y1="30" x2="32" y2="30" />
+                  <line x1="12" y1="38" x2="26" y2="38" />
+                </g>
+              </g>
+              <text x="150" y="195" textAnchor="middle" fill="#f5cf5b" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="20" letterSpacing="2">STEP 1</text>
+              <text x="150" y="222" textAnchor="middle" fill="#fff" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="26">Order</text>
+
+              {/* Step 2 — We Confirm (check) */}
+              <g transform="translate(450 100)" filter="url(#homeSoftShadow)">
+                <circle r="60" fill="url(#homeGoldGrad)" stroke="#fff" strokeWidth="3" />
+                <path d="M -22 0 L -6 18 L 24 -16" stroke="#7a2009" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              </g>
+              <text x="450" y="195" textAnchor="middle" fill="#f5cf5b" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="20" letterSpacing="2">STEP 2</text>
+              <text x="450" y="222" textAnchor="middle" fill="#fff" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="26">We Confirm</text>
+
+              {/* Step 3 — We Call for Payment (phone) */}
+              <g transform="translate(750 100)" filter="url(#homeSoftShadow)">
+                <circle r="60" fill="url(#homeGoldGrad)" stroke="#fff" strokeWidth="3" />
+                <path
+                  d="M -22 -18
+                     a 6 6 0 0 1 6 -6 h 8 a 4 4 0 0 1 4 3 l 2 9 a 4 4 0 0 1 -1.2 4 l -5 4
+                     a 28 28 0 0 0 14 14 l 4 -5 a 4 4 0 0 1 4 -1.2 l 9 2 a 4 4 0 0 1 3 4 v 8
+                     a 6 6 0 0 1 -6 6 C -6 23 -22 7 -22 -18 z"
+                  fill="#7a2009"
+                />
+              </g>
+              <text x="750" y="195" textAnchor="middle" fill="#f5cf5b" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="20" letterSpacing="2">STEP 3</text>
+              <text x="750" y="222" textAnchor="middle" fill="#fff" fontFamily="Oswald, sans-serif" fontWeight="700" fontSize="26">We Call for Payment</text>
+
+              {/* Step number badges */}
+              <g fontFamily="Oswald, sans-serif" fontWeight="900" fontSize="22" fill="#7a2009">
+                <circle cx="195" cy="55" r="18" fill="#fff" stroke="#7a2009" strokeWidth="2.5" />
+                <text x="195" y="63" textAnchor="middle">1</text>
+                <circle cx="495" cy="55" r="18" fill="#fff" stroke="#7a2009" strokeWidth="2.5" />
+                <text x="495" y="63" textAnchor="middle">2</text>
+                <circle cx="795" cy="55" r="18" fill="#fff" stroke="#7a2009" strokeWidth="2.5" />
+                <text x="795" y="63" textAnchor="middle">3</text>
+              </g>
+            </svg>
+          </div>
+
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/catering"
