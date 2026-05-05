@@ -398,6 +398,17 @@ export default function LandingPage() {
                 <text x="795" y="63" textAnchor="middle">3</text>
               </g>
             </svg>
+
+            {/* 48-Hour Notice */}
+            <div className="mt-6 sm:mt-8 flex items-center justify-center gap-3 bg-pepe-gold text-pepe-dark rounded-full px-5 py-3 sm:px-7 sm:py-3.5 max-w-md mx-auto shadow-lg">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" strokeLinecap="round" strokeLinejoin="round" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
+              </svg>
+              <span className="font-oswald font-bold tracking-wider text-sm sm:text-base">
+                48 HOURS NOTICE REQUIRED
+              </span>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
