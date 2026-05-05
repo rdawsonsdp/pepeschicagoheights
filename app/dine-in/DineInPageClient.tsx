@@ -159,7 +159,7 @@ export default function DineInPageClient({ menu, foodSections, drinkSections, pr
               className={`px-6 py-2 rounded-full font-oswald text-sm sm:text-base tracking-wider transition-all ${
                 activeTab === 'food'
                   ? 'bg-pepe-burnt-orange text-white'
-                  : 'bg-transparent text-muted/70 hover:text-white border border-pepe-charcoal/50'
+                  : 'bg-pepe-sand text-pepe-dark hover:bg-white'
               }`}
             >
               FOOD
@@ -172,7 +172,7 @@ export default function DineInPageClient({ menu, foodSections, drinkSections, pr
               className={`px-6 py-2 rounded-full font-oswald text-sm sm:text-base tracking-wider transition-all ${
                 activeTab === 'drinks'
                   ? 'bg-pepe-burnt-orange text-white'
-                  : 'bg-transparent text-muted/70 hover:text-white border border-pepe-charcoal/50'
+                  : 'bg-pepe-sand text-pepe-dark hover:bg-white'
               }`}
             >
               DRINKS
@@ -188,7 +188,7 @@ export default function DineInPageClient({ menu, foodSections, drinkSections, pr
                 className={`px-3 py-1.5 rounded-full font-oswald text-xs sm:text-sm whitespace-nowrap transition-all ${
                   activeSection === section.id
                     ? 'bg-pepe-orange text-white'
-                    : 'bg-pepe-charcoal text-muted/70 hover:text-white hover:bg-pepe-charcoal/80'
+                    : 'bg-pepe-sand text-pepe-dark hover:bg-white'
                 }`}
               >
                 {section.title}
