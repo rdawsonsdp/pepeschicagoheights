@@ -296,7 +296,7 @@ interface AddItemForm {
 
 function emptyAddForm(): AddItemForm {
   return {
-    group: 'catering',
+    group: 'dine-in',
     title: '', description: '', image: '', category: 'entrees',
     pricingType: 'pan',
     halfPrice: '', fullPrice: '',
@@ -318,7 +318,7 @@ interface MenuManagementProps {
 }
 
 export default function MenuManagement({ initialProducts, initialDineInMenu }: MenuManagementProps) {
-  const [tab, setTab] = useState<MenuTab>('catering');
+  const [tab, setTab] = useState<MenuTab>('dine-in');
   const [cateringEdits, setCateringEdits] = useState<Record<string, CateringEdits>>(() => buildCateringEdits(initialProducts));
   const [dineInEdits, setDineInEdits] = useState<DineInSectionEdits[]>(() => buildDineInEdits(initialDineInMenu));
   const [filterCategory, setFilterCategory] = useState<EventType | 'all'>('all');
@@ -612,7 +612,7 @@ export default function MenuManagement({ initialProducts, initialDineInMenu }: M
 
           {/* Menu type tabs */}
           <div className="flex gap-1 mb-3">
-            {([['catering', 'Catering Menu'], ['dine-in', 'Dine-In Menu']] as const).map(([key, label]) => (
+            {([['dine-in', 'Dine-In Menu'], ['catering', 'Catering Menu']] as const).map(([key, label]) => (
               <button key={key} onClick={() => { setTab(key); setSearch(''); setExpandedId(null); setExpandedDineInSection(null); setExpandedDineInItem(null); }}
                 className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
                   tab === key ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-800 hover:bg-gray-200'
@@ -656,7 +656,7 @@ export default function MenuManagement({ initialProducts, initialDineInMenu }: M
               <div>
                 <SectionLabel>Assign to Menu</SectionLabel>
                 <div className="flex gap-2">
-                  {([['catering', 'Catering Menu'], ['dine-in', 'Dine-In Menu']] as const).map(([key, label]) => (
+                  {([['dine-in', 'Dine-In Menu'], ['catering', 'Catering Menu']] as const).map(([key, label]) => (
                     <button key={key}
                       onClick={() => setAddForm(prev => ({ ...prev, group: key }))}
                       className={`px-4 py-2 rounded-lg text-sm font-semibold border-2 transition-all ${
