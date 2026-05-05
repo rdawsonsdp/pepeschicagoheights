@@ -25,12 +25,12 @@ export default function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
-  const menuLinks = [
+  const menuLinks: Array<{ href: string; label: string; subtle?: boolean }> = [
     { href: '/dine-in', label: 'Our Menu' },
     { href: '/lunch', label: 'Lunch' },
     { href: '/drinks', label: 'Drinks' },
     { href: '/catering', label: 'Catering' },
-    { href: '/admin', label: 'Admin' },
+    { href: '/admin', label: 'Admin', subtle: true },
   ];
 
   const deliveryLinks = [
@@ -83,7 +83,9 @@ export default function Header() {
                       <Link
                         key={link.label}
                         href={link.href}
-                        className="block px-4 py-2 font-oswald text-sm text-white hover:bg-pepe-orange/20 transition-colors"
+                        className={`block px-4 py-2 font-oswald text-sm hover:bg-pepe-orange/20 transition-colors ${
+                          link.subtle ? 'text-white/30 hover:text-white/80' : 'text-white'
+                        }`}
                       >
                         {link.label}
                       </Link>
@@ -218,7 +220,9 @@ export default function Header() {
                 {menuLinks.map((link) => (
                   <button
                     key={link.label}
-                    className="block w-full text-left py-2 pl-4 font-oswald tracking-wide text-white hover:text-pepe-dark transition-colors"
+                    className={`block w-full text-left py-2 pl-4 font-oswald tracking-wide hover:text-pepe-dark transition-colors ${
+                      link.subtle ? 'text-white/30 hover:text-white/80' : 'text-white'
+                    }`}
                     onClick={() => {
                       setMobileMenuOpen(false);
                       router.push(link.href);

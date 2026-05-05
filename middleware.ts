@@ -1,13 +1,21 @@
 import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-// Auth middleware disabled for now – admin is open access during development.
-// To re-enable, replace this with the withAuth middleware from next-auth.
+const ADMIN_COOKIE = 'pepes-admin';
 
-export function middleware() {
+export function middleware(req: NextRequest) {
+  const cookie = req.cookies.get(ADMIN_COOKIE)?.value;
+  const expected = process.env.ADMIN_AUTH_TOKEN;
+
+  if (!cookie || !expected || cookie !== expected) {
+    const loginUrl = new URL('/admin/login', req.url);
+    loginUrl.searchParams.set('from', req.nextUrl.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
   return NextResponse.next();
 }
 
-// Only match admin routes so the rest of the app is unaffected.
 export const config = {
-  matcher: ['/admin/((?!login).*)', '/api/admin/:path*'],
+  matcher: ['/admin/((?!login).*)', '/api/admin/((?!auth).*)'],
 };
