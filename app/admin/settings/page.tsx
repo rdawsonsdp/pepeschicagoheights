@@ -9,6 +9,7 @@ interface EmailSettings {
   company_phone: string;
   company_email: string;
   company_address: string;
+  notification_emails: string;
 }
 
 interface BusinessRule {
@@ -259,6 +260,23 @@ export default function SettingsPage() {
                   />
                 </div>
               </div>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 border border-gray-200">
+              <h3 className="font-semibold text-[#1A1A1A] mb-3">Order Notification Recipients</h3>
+              <p className="text-sm text-gray-500 mb-3">
+                Comma-separated list of email addresses that receive a notification when a new catering order is placed.
+              </p>
+              <textarea
+                value={emailSettings.notification_emails || ''}
+                onChange={e => updateEmail('notification_emails', e.target.value)}
+                placeholder="orders@example.com, manager@example.com"
+                rows={2}
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E88A00]/50 font-mono text-sm"
+              />
+              <p className="text-xs text-gray-400 mt-2">
+                Leave blank to fall back to the <code className="bg-gray-100 px-1 py-0.5 rounded">RESTAURANT_EMAIL</code> environment variable.
+              </p>
             </div>
 
             <div className="flex items-center gap-3">

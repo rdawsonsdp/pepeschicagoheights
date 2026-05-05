@@ -1,7 +1,16 @@
 import { Resend } from 'resend';
 import { siteConfig } from './site-config';
+import { getEmailSettings } from './email-settings';
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+function parseEmailList(raw: string | undefined | null): string[] {
+  if (!raw) return [];
+  return raw
+    .split(',')
+    .map(s => s.trim())
+    .filter(s => s.length > 0 && s.includes('@'));
+}
 
 interface OrderEmailData {
   orderNumber: string;
@@ -116,11 +125,16 @@ export async function sendOrderEmails(data: OrderEmailData): Promise<{ success: 
     });
 
     // Send restaurant notification email
-    const restaurantEmail = siteConfig.contact.email || process.env.RESTAURANT_EMAIL;
-    if (restaurantEmail) {
+    const settings = await getEmailSettings();
+    const recipients = parseEmailList(settings.notification_emails);
+    if (recipients.length === 0) {
+      const fallback = siteConfig.contact.email || process.env.RESTAURANT_EMAIL;
+      if (fallback) recipients.push(fallback);
+    }
+    if (recipients.length > 0) {
       await resend.emails.send({
         from: `${siteConfig.restaurant.name} Orders <orders@${process.env.RESEND_DOMAIN || 'resend.dev'}>`,
-        to: restaurantEmail,
+        to: recipients,
         subject: `🔔 New Catering Order #${data.orderNumber} - ${data.customerName}`,
         html: buildOrderEmailHtml(data, true),
       });
